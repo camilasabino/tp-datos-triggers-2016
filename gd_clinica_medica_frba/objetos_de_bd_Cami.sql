@@ -2,6 +2,33 @@
 *				           OBJETOS DE BASE DE DATOS                                  *
 **************************************************************************************/
 
+IF OBJECT_ID ('LOS_TRIGGERS.Calendario') IS NOT NULL DROP TABLE LOS_TRIGGERS.Calendario
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [LOS_TRIGGERS].[Calendario](
+	[dia_del_año] [date] NOT NULL,
+ CONSTRAINT [PK_Calendar_Date] PRIMARY KEY CLUSTERED 
+(
+	[dia_del_año] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+DECLARE @primer_dia datetime
+DECLARE @ultimo_dia datetime
+SET @primer_dia = DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0)
+SET @ultimo_dia = DATEADD(d, 365, @primer_dia)
+
+WHILE @primer_dia <= @ultimo_dia
+      BEGIN
+             INSERT INTO [LOS_TRIGGERS].[Calendario] (dia_del_año)
+				 SELECT @primer_dia SET @primer_dia = DATEADD(dd, 1, @primer_dia)
+      END
+
 --- << ABM de Rol >> ---
 /*
 IF OBJECT_ID ('LOS_TRIGGERS.AltaRol') is not null DROP PROCEDURE LOS_TRIGGERS.AltaRol
@@ -181,7 +208,7 @@ GO
 --- << Registrar la Agenda de un Profesional >> ---
 -- 1) Determinar Profesional
 -- 2) Determinar Especialidad
--- 3) Determinar día
+-- 3) Determinar día de atención
 -- 4) Determinar rango horario (con turnos c/30 min)
 -- 5) Verificar que no acumule más de 48hs p/semana
 -- 6) Determinar fechas de disponibilidad
@@ -191,10 +218,7 @@ IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP PROCEDU
 GO
 CREATE PROC LOS_TRIGGERS.DiasDeAtencionDeLaClinica AS
 BEGIN
-	select 'Lunes' as dias_de_atencion UNION select 'Martes' as dias_de_atencion
-	UNION select 'Miércoles' as dias_de_atencion UNION select 'Jueves' as dias_de_atencion
-	UNION select 'Viernes' as dias_de_atencion UNION select 'Sábado' as dias_de_atencion
-	--TODO: ver el order by
+	select dia_nombre_dia from LOS_TRIGGERS.Dia_Atencion where dia_clinica is not null
 END;
 GO
 
@@ -202,25 +226,41 @@ IF OBJECT_ID ('LOS_TRIGGERS.RangoHorarioDeLaClinica') is not null DROP PROCEDURE
 GO
 CREATE PROC LOS_TRIGGERS.RangoHorarioDeLaClinica (@dia varchar(255)) AS
 BEGIN
-	IF (@dia = 'Sábado')
-		select clin_inicio_sabado, clin_fin_sabado from LOS_TRIGGERS.Clinica where clin_nombre='Clinica Medica FRBA'
-	ELSE
-		select clin_inicio_dia_semana, clin_fin_dia_semana from LOS_TRIGGERS.Clinica where clin_nombre='Clinica Medica FRBA'
+		select dia_hora_inicio, dia_hora_fin from LOS_TRIGGERS.Dia_Atencion where dia_clinica is not null AND dia_nombre_dia=@dia
 END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.RegistrarDiaAtencionProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarDiaAtencionProfesional
 GO
-CREATE PROC LOS_TRIGGERS.RegistrarDiaAtencionProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.RegistrarDiaAtencionProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255), @inicio varchar(255), @fin varchar(255)) AS
 BEGIN
+	declare @horas_acumuladas as int
+	set @horas_acumuladas = (select prof_cant_horas_laborales from LOS_TRIGGERS.Profesional where prof_id=@profesional) + DATEDIFF(hour, @fin, @inicio)
 	
+	IF (@horas_acumuladas <= 48)
+		BEGIN
+			insert into LOS_TRIGGERS.Dia_Atencion(dia_nombre_dia, dia_hora_fin, dia_hora_inicio, dia_especialidad_profesional)
+				select @dia, @inicio, @fin, (select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+
+			update LOS_TRIGGERS.Profesional
+				set prof_cant_horas_laborales = CONVERT(numeric(2,0), @horas_acumuladas)
+		END
+	--ELSE
+		-- NO PERMITIDO
 END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.RegistrarAgendaProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarAgendaProfesional
 GO
-CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @desde date, @hasta date) AS
 BEGIN
-	
+	IF (@desde >= GETDATE() AND @desde < @hasta AND @hasta <= CONVERT(date, DATEADD(yy, DATEDIFF(yy,0,getdate()) + 1, -1)))
+		BEGIN
+			update LOS_TRIGGERS.Especialidad_Profesional
+				set disponible_desde_fecha = @desde, disponible_hasta_fecha = @hasta
+				where profesional=@profesional AND especialidad=@especialidad
+		END
+	--ELSE
+		-- NO ESTÁ EN EL RANGO DE ESTE AÑO O ES INVÁLIDO
 END;
 GO
