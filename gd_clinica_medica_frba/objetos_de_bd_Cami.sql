@@ -112,6 +112,7 @@ CREATE PROC LOS_TRIGGERS.ComboProfesionales AS
 	BEGIN
 		select user_profesional, user_apellido+', '+user_nombre
 		from LOS_TRIGGERS.Usuario where user_profesional is not null
+		order by user_apellido, user_nombre
 	END;
 GO
 
@@ -178,12 +179,48 @@ END;
 GO
 
 --- << Registrar la Agenda de un Profesional >> ---
-/*
-IF OBJECT_ID ('LOS_TRIGGERS.RegistrarAgendaProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarAgendaProfesional
+-- 1) Determinar Profesional
+-- 2) Determinar Especialidad
+-- 3) Determinar día
+-- 4) Determinar rango horario (con turnos c/30 min)
+-- 5) Verificar que no acumule más de 48hs p/semana
+-- 6) Determinar fechas de disponibilidad
+-- ** Una vez cargada, la agenda es inalterable **
+
+IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.DiasDeAtencionDeLaClinica
 GO
-CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional ( ) AS
+CREATE PROC LOS_TRIGGERS.DiasDeAtencionDeLaClinica AS
+BEGIN
+	select 'Lunes' as dias_de_atencion UNION select 'Martes' as dias_de_atencion
+	UNION select 'Miércoles' as dias_de_atencion UNION select 'Jueves' as dias_de_atencion
+	UNION select 'Viernes' as dias_de_atencion UNION select 'Sábado' as dias_de_atencion
+	--TODO: ver el order by
+END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.RangoHorarioDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.RangoHorarioDeLaClinica
+GO
+CREATE PROC LOS_TRIGGERS.RangoHorarioDeLaClinica (@dia varchar(255)) AS
+BEGIN
+	IF (@dia = 'Sábado')
+		select clin_inicio_sabado, clin_fin_sabado from LOS_TRIGGERS.Clinica where clin_nombre='Clinica Medica FRBA'
+	ELSE
+		select clin_inicio_dia_semana, clin_fin_dia_semana from LOS_TRIGGERS.Clinica where clin_nombre='Clinica Medica FRBA'
+END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.RegistrarDiaAtencionProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarDiaAtencionProfesional
+GO
+CREATE PROC LOS_TRIGGERS.RegistrarDiaAtencionProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
 BEGIN
 	
 END;
 GO
-*/
+
+IF OBJECT_ID ('LOS_TRIGGERS.RegistrarAgendaProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarAgendaProfesional
+GO
+CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
+BEGIN
+	
+END;
+GO
