@@ -4,13 +4,10 @@
 
 IF OBJECT_ID ('LOS_TRIGGERS.Calendario') IS NOT NULL DROP TABLE LOS_TRIGGERS.Calendario
 CREATE TABLE [LOS_TRIGGERS].[Calendario](
-	[dia_del_año] [date] NOT NULL,
- CONSTRAINT [PK_Calendar_Date] PRIMARY KEY CLUSTERED ([dia_del_año] ASC)
- WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]) ON [PRIMARY]
-GO
+	[dia_del_año] [date] NOT NULL primary key
+	);
 
-DECLARE @primer_dia datetime
-DECLARE @ultimo_dia datetime
+DECLARE @primer_dia datetime, @ultimo_dia datetime
 SET @primer_dia = DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0)
 SET @ultimo_dia = DATEADD(d, 365, @primer_dia)
 
@@ -22,11 +19,31 @@ WHILE @primer_dia <= @ultimo_dia
 
 --- << ABM de Rol >> ---
 
+IF OBJECT_ID ('LOS_TRIGGERS.ComboRoles') is not null DROP PROCEDURE LOS_TRIGGERS.ComboRoles
+GO
+CREATE PROC LOS_TRIGGERS.ComboRoles AS
+	BEGIN
+		select nombre_rol as rol from LOS_TRIGGERS.Afiliado where nombre_rol is not null
+		UNION select nombre_rol from LOS_TRIGGERS.Administrador where nombre_rol is not null
+		UNION select nombre_rol from LOS_TRIGGERS.Profesional where nombre_rol is not null
+		order by nombre_rol
+	END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.ComboRolesDeUnUsuario') is not null DROP PROCEDURE LOS_TRIGGERS.ComboRolesDeUnUsuario
+GO
+CREATE PROC LOS_TRIGGERS.ComboRolesDeUnUsuario(@usuario numeric(18,0)) AS
+	BEGIN
+		select nombre_rol as rol from LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Usuario where user_id=@usuario AND afil_numero=user_afiliado AND afil_habilitacion=1
+		UNION select nombre_rol from LOS_TRIGGERS.Administrador, LOS_TRIGGERS.Usuario where user_id=@usuario AND admi_id=user_administrador AND admi_habilitacion=1
+		UNION select nombre_rol from LOS_TRIGGERS.Profesional, LOS_TRIGGERS.Usuario where user_id=@usuario AND prof_id=user_profesional AND prof_habilitacion=1
+	END;
+GO
+
 IF OBJECT_ID ('LOS_TRIGGERS.ModificarRol') is not null DROP PROCEDURE LOS_TRIGGERS.ModificarRol
 GO
 CREATE PROC LOS_TRIGGERS.ModificarRol (@rol varchar(255), @nuevo_nombre varchar(255)) AS
 	BEGIN
-		--select TABLE_NAME From INFORMATION_SCHEMA.COLUMNS Where column_name = 'nombre_rol'
 		update LOS_TRIGGERS.Administrador set nombre_rol = @nuevo_nombre where nombre_rol=@rol
 		update LOS_TRIGGERS.Afiliado set nombre_rol = @nuevo_nombre where nombre_rol=@rol
 		update LOS_TRIGGERS.Profesional set nombre_rol = @nuevo_nombre where nombre_rol=@rol
@@ -39,9 +56,10 @@ GO
 CREATE PROC LOS_TRIGGERS.AltaRolAdministrador AS
 	BEGIN
 		IF OBJECT_ID ('LOS_TRIGGERS.Administrador') IS NOT NULL DROP TABLE LOS_TRIGGERS.Administrador
-		CREATE TABLE LOS_TRIGGERS.Administrador (
+		CREATE TABLE [LOS_TRIGGERS].[Administrador](
 			[admi_id] [numeric](18, 0) IDENTITY(1,1) NOT NULL primary key,
-			[admi_habilitacion] [bit] NULL
+			[admi_habilitacion] [bit] NULL,
+			[nombre_rol] [varchar](255) NULL
 		);
 	
 	END;
@@ -52,10 +70,11 @@ GO
 CREATE PROC LOS_TRIGGERS.AltaRolAfiliado AS
 	BEGIN
 	IF OBJECT_ID ('LOS_TRIGGERS.Afiliado') IS NOT NULL DROP TABLE LOS_TRIGGERS.Afiliado
-	CREATE TABLE LOS_TRIGGERS.Afiliado (
+	CREATE TABLE [LOS_TRIGGERS].[Afiliado](
 		[afil_numero] [numeric](18, 0) IDENTITY(1,1) NOT NULL primary key,
 		[afil_estado_civil] [varchar](255) NULL,
 		[afil_habilitacion] [bit] NULL,
+		[nombre_rol] [varchar](255) NULL,
 		[afil_titular_grupo_familiar] [numeric](18, 0) NULL foreign key references LOS_TRIGGERS.Afiliado,
 		[afil_plan_medico] [numeric](18, 0) NULL foreign key references LOS_TRIGGERS.Plan_Medico,
 		[afil_cant_consultas_realizadas] [numeric](18, 0) NULL
@@ -69,11 +88,12 @@ GO
 CREATE PROC LOS_TRIGGERS.AltaRolProfesional AS
 	BEGIN
 	IF OBJECT_ID ('LOS_TRIGGERS.Profesional ') IS NOT NULL DROP TABLE LOS_TRIGGERS.Profesional 
-	CREATE TABLE LOS_TRIGGERS.Profesional  (
+	CREATE TABLE [LOS_TRIGGERS].[Profesional](
 		[prof_id] [numeric](18, 0) IDENTITY(1,1) NOT NULL primary key,
 		[prof_matricula] [numeric](18, 0) NULL,
 		[prof_horas_laborales] [numeric](2, 0) NULL,
-		[prof_habilitacion] [bit] NULL,
+		[nombre_rol] [varchar](255) NULL,
+		[prof_habilitacion] [bit] NULL
 	);
 	
 	END;
@@ -132,11 +152,11 @@ BEGIN
 		declare @func_id as numeric(18,0)
 		set @func_id = (select func_id from LOS_TRIGGERS.Funcionalidad where func_nombre=@funcionalidad)
 
-		IF (@rol='Afiliado')
+		IF (@rol='Afiliado' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Afiliado where funcionalidad=@func_id AND rol=afil_numero))
 			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, afil_numero from LOS_TRIGGERS.Afiliado
-		ELSE IF (@rol='Administrador')
+		ELSE IF (@rol='Administrador' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Administrador where funcionalidad=@func_id AND rol=admi_id))
 			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, admi_id from LOS_TRIGGERS.Administrador
-		ELSE IF (@rol='Profesional')
+		ELSE IF (@rol='Profesional' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Profesional where funcionalidad=@func_id AND rol=prof_id))
 			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, prof_id from LOS_TRIGGERS.Profesional
 END;
 GO
@@ -156,9 +176,8 @@ BEGIN
 			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND rol IN (select prof_id from LOS_TRIGGERS.Profesional)
 END;
 GO
-
+/*
 -- << Carga de Funcionalidades a los Roles >>
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Login y Seguridad'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Rol'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Afiliado'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Profesional'
@@ -169,17 +188,15 @@ EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionali
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Compra de Bono'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Listado Estadístico'
 
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Login y Seguridad'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Agenda de Profesional'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Consulta Médica'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Diagnóstico Médico'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Cancelación de Turno'
 
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Login y Seguridad'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Compra de Bono'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Pedido de Turno'
 EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Cancelación de Turno'
-
+*/
 --- << Pedido de un Turno >> ---
 IF OBJECT_ID ('LOS_TRIGGERS.ComboProfesionales') is not null DROP PROCEDURE LOS_TRIGGERS.ComboProfesionales
 GO
@@ -213,7 +230,7 @@ CREATE PROC LOS_TRIGGERS.ComboHorariosDeUnProfesionalEnUnaEspecialidad (@profesi
 	END;
 GO
 
-IF OBJECT_ID ('LOS_TRIGGERS.RegistrarTurno') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarTurno
+IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurno') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurno
 GO
 CREATE PROC LOS_TRIGGERS.CancelarTurno (@afiliado numeric(18,00), @profesional numeric(18,00), @especialidad numeric(18,0), @fecha datetime) AS
 BEGIN
@@ -318,7 +335,7 @@ BEGIN
 END;
 GO
 
--- << Listado Estadístico >>
+-- << Listado Estadístico >> (a y c)
 IF OBJECT_ID ('LOS_TRIGGERS.EspecialidadeConMasCancelaciones') is not null DROP PROCEDURE LOS_TRIGGERS.EspecialidadeConMasCancelaciones
 GO
 CREATE PROC LOS_TRIGGERS.EspecialidadeConMasCancelaciones (@anio datetime, @semestre integer) AS
@@ -327,7 +344,7 @@ CREATE PROC LOS_TRIGGERS.EspecialidadeConMasCancelaciones (@anio datetime, @seme
 		IF (@semestre = 1) set @mes = 1
 		ELSE IF (@semestre = 2) set @mes = 7
 
-		select TOP 5 espe_codigo, espe_descripcion, COUNT(canc_id) as cantidad_cancelaciones
+		select TOP 5 espe_codigo, espe_descripcion, ISNULL(COUNT(canc_id), 0) as cantidad_cancelaciones
 		from LOS_TRIGGERS.Cancelacion_Turno, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad
 		where espe_prof_id=canc_especialidad_profesional AND espe_codigo=especialidad
 			AND year(canc_fecha_y_hora)=@anio AND (month(canc_fecha_y_hora) BETWEEN @mes AND @mes+5)
@@ -343,11 +360,11 @@ CREATE PROC LOS_TRIGGERS.ProfesionalesConMenosHorasTrabajadas (@anio datetime, @
 		IF (@semestre = 1) set @mes = 1
 		ELSE IF (@semestre = 2) set @mes = 7
 
-		select TOP 5 profesional, user_apellido+', '+user_nombre as nombre_y_apellido, (COUNT(turn_numero)*30)/60 as cantidad_horas_trabajadas
+		select TOP 5 profesional, user_apellido+', '+user_nombre as nombre_y_apellido, ISNULL((COUNT(turn_numero)*30)/60, 0) as cantidad_horas_trabajadas
 		from  LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Plan_Medico
 		where turn_fecha_y_hora_asistencia is not null AND espe_prof_id=turn_especialidad_profesional AND especialidad=@especialidad
 			AND user_profesional=profesional AND afil_numero=turn_afiliado AND afil_plan_medico=@plan
 			AND year(turn_fecha)=@anio AND (month(turn_fecha) BETWEEN @mes AND @mes+5)
-		group by profesional, user_apellido+', '+user_nombre order by 3 DESC
+		group by profesional, user_apellido+', '+user_nombre order by 3 ASC
 	END;
 GO
