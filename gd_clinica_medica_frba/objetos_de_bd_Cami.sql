@@ -61,7 +61,6 @@ CREATE PROC LOS_TRIGGERS.AltaRolAdministrador AS
 			[admi_habilitacion] [bit] NULL,
 			[nombre_rol] [varchar](255) NULL
 		);
-	
 	END;
 GO
 
@@ -79,7 +78,6 @@ CREATE PROC LOS_TRIGGERS.AltaRolAfiliado AS
 		[afil_plan_medico] [numeric](18, 0) NULL foreign key references LOS_TRIGGERS.Plan_Medico,
 		[afil_cant_consultas_realizadas] [numeric](18, 0) NULL
 	);
-	
 	END;
 GO
 
@@ -95,35 +93,34 @@ CREATE PROC LOS_TRIGGERS.AltaRolProfesional AS
 		[nombre_rol] [varchar](255) NULL,
 		[prof_habilitacion] [bit] NULL
 	);
-	
 	END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.AltaRol') is not null DROP PROCEDURE LOS_TRIGGERS.AltaRol
 GO
-CREATE PROC LOS_TRIGGERS.AltaRol (@nombre_rol varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.AltaRol (@rol varchar(255)) AS
 	BEGIN
-		IF (@nombre_rol='Afiliado') EXEC LOS_TRIGGERS.AltaRolAfiliado
-		ELSE IF (@nombre_rol='Administrador') EXEC LOS_TRIGGERS.AltaRolAdministrador
-		ELSE IF (@nombre_rol='Profesional') EXEC LOS_TRIGGERS.AltaRolProfesional
+		IF (@rol='Afiliado') EXEC LOS_TRIGGERS.AltaRolAfiliado
+		ELSE IF (@rol='Administrador') EXEC LOS_TRIGGERS.AltaRolAdministrador
+		ELSE IF (@rol='Profesional') EXEC LOS_TRIGGERS.AltaRolProfesional
 	END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.InhabilitarRol') is not null DROP PROCEDURE LOS_TRIGGERS.InhabilitarRol
 GO
-CREATE PROC LOS_TRIGGERS.InhabilitarRol (@nombre_rol varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.InhabilitarRol (@rol varchar(255)) AS
 	BEGIN
-		IF (@nombre_rol='Afiliado')
+		IF (@rol='Afiliado')
 			BEGIN
 				update LOS_TRIGGERS.Afiliado set afil_habilitacion = 0
 				update LOS_TRIGGERS.Usuario set user_afiliado = null where user_afiliado is not null
 			END
-		ELSE IF (@nombre_rol='Administrador')
+		ELSE IF (@rol='Administrador')
 			BEGIN
 				update LOS_TRIGGERS.Administrador set admi_habilitacion = 0
 				update LOS_TRIGGERS.Usuario set user_administrador = null where user_administrador is not null
 			END
-		ELSE IF (@nombre_rol='Profesional')
+		ELSE IF (@rol='Profesional')
 			BEGIN
 				update LOS_TRIGGERS.Profesional set prof_habilitacion = 0
 				update LOS_TRIGGERS.Usuario set user_profesional = null where user_profesional is not null
@@ -133,13 +130,13 @@ GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.HabilitarRol') is not null DROP PROCEDURE LOS_TRIGGERS.HabilitarRol
 GO
-CREATE PROC LOS_TRIGGERS.HabilitarRol (@nombre_rol varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.HabilitarRol (@rol varchar(255)) AS
 	BEGIN
-		IF (@nombre_rol='Afiliado')
+		IF (@rol='Afiliado')
 			update LOS_TRIGGERS.Afiliado set afil_habilitacion = 1
-		ELSE IF (@nombre_rol='Administrador')
+		ELSE IF (@rol='Administrador')
 			update LOS_TRIGGERS.Administrador set admi_habilitacion = 1
-		ELSE IF (@nombre_rol='Profesional')
+		ELSE IF (@rol='Profesional')
 			update LOS_TRIGGERS.Profesional set prof_habilitacion = 1
 	END;
 GO
@@ -152,28 +149,28 @@ BEGIN
 		declare @func_id as numeric(18,0)
 		set @func_id = (select func_id from LOS_TRIGGERS.Funcionalidad where func_nombre=@funcionalidad)
 
-		IF (@rol='Afiliado' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Afiliado where funcionalidad=@func_id AND rol=afil_numero))
-			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, afil_numero from LOS_TRIGGERS.Afiliado
-		ELSE IF (@rol='Administrador' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Administrador where funcionalidad=@func_id AND rol=admi_id))
-			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, admi_id from LOS_TRIGGERS.Administrador
-		ELSE IF (@rol='Profesional' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Profesional where funcionalidad=@func_id AND rol=prof_id))
-			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, rol) select @func_id, prof_id from LOS_TRIGGERS.Profesional
+		IF (@rol='Afiliado' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND afiliado is not null))
+			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, afiliado) select @func_id, afil_numero from LOS_TRIGGERS.Afiliado
+		ELSE IF (@rol='Administrador' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND administrador is not null))
+			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, administrador) select @func_id, admi_id from LOS_TRIGGERS.Administrador
+		ELSE IF (@rol='Profesional' AND NOT EXISTS (select func_rol_id from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND profesional is not null))
+			insert into LOS_TRIGGERS.Funcionalidad_Rol(funcionalidad, profesional) select @func_id, prof_id from LOS_TRIGGERS.Profesional
 END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.QuitarFuncionalidadAUnRol') is not null DROP PROCEDURE LOS_TRIGGERS.QuitarFuncionalidadAUnRol
 GO
-CREATE PROC LOS_TRIGGERS.QuitarFuncionalidadAUnRol (@funcionalidad varchar(255), @rol varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.QuitarFuncionalidadAUnRol (@rol varchar(255), @funcionalidad varchar(255)) AS
 BEGIN
 		declare @func_id as numeric(18,0)
 		set @func_id = (select func_id from LOS_TRIGGERS.Funcionalidad where func_nombre=@funcionalidad)
 
 		IF (@rol='Afiliado')
-			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND rol IN (select afil_numero from LOS_TRIGGERS.Afiliado)
+			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND afiliado IN (select afil_numero from LOS_TRIGGERS.Afiliado)
 		ELSE IF (@rol='Administrador')
-			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND rol IN (select admi_id from LOS_TRIGGERS.Administrador)
+			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND administrador IN (select admi_id from LOS_TRIGGERS.Administrador)
 		ELSE IF (@rol='Profesional')
-			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND rol IN (select prof_id from LOS_TRIGGERS.Profesional)
+			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND profesional IN (select prof_id from LOS_TRIGGERS.Profesional)
 END;
 GO
 /*
@@ -202,7 +199,7 @@ IF OBJECT_ID ('LOS_TRIGGERS.ComboProfesionales') is not null DROP PROCEDURE LOS_
 GO
 CREATE PROC LOS_TRIGGERS.ComboProfesionales AS
 	BEGIN
-		select user_profesional, user_apellido+', '+user_nombre
+		select user_profesional, user_apellido+', '+user_nombre as apellido_y_nombre
 		from LOS_TRIGGERS.Usuario where user_profesional is not null
 		order by user_apellido, user_nombre
 	END;
@@ -230,51 +227,103 @@ CREATE PROC LOS_TRIGGERS.ComboHorariosDeUnProfesionalEnUnaEspecialidad (@profesi
 	END;
 GO
 
-IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurno') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurno
+IF OBJECT_ID ('LOS_TRIGGERS.PedirTurno') is not null DROP PROCEDURE LOS_TRIGGERS.PedirTurno
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurno (@afiliado numeric(18,00), @profesional numeric(18,00), @especialidad numeric(18,0), @fecha datetime) AS
+CREATE PROC LOS_TRIGGERS.PedirTurno (@afiliado numeric(18,00), @profesional numeric(18,00), @especialidad numeric(18,0), @fecha date, @hora varchar(255)) AS
 BEGIN
-		IF NOT EXISTS (select turn_numero from LOS_TRIGGERS.Turno where turn_fecha=@fecha) AND NOT EXISTS (select canc_id from LOS_TRIGGERS.Cancelacion_Turno where canc_fecha_turno=@fecha)
-			insert into LOS_TRIGGERS.Turno (turn_afiliado, turn_especialidad_profesional, turn_fecha)
-				select @afiliado, (select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad), @fecha
+		IF (NOT EXISTS (select turn_numero from LOS_TRIGGERS.Turno where CAST(turn_fecha as date)=@fecha AND turn_hora_inicio=@hora)
+			AND NOT EXISTS (select canc_id from LOS_TRIGGERS.Cancelacion_Turno where CAST(canc_fecha_turno as date)=@fecha AND canc_hora_turno=@hora))
+				insert into LOS_TRIGGERS.Turno (turn_afiliado, turn_especialidad_profesional, turn_fecha, turn_nombre_dia, turn_hora_inicio, turn_hora_fin)
+					select @afiliado, (select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad), cast(@fecha as datetime)+cast(@hora as datetime),
+						datename(weekday, @fecha), @hora, format(dateadd(minute, 30, cast(@hora as datetime)), 'HH:mm')
+		ELSE PRINT 'Ya hay un turno asignado para ese horario.'
 END
 GO
 
 --- << Cancelación de un Turno >> ---
+-- OBS.: Muestra todos los turnos asignados a partir de la fecha actual, no pasados
 IF OBJECT_ID ('LOS_TRIGGERS.TurnosAsignadosAUnAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.TurnosAsignadosAUnAfiliado
 GO
 CREATE PROC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado (@afiliado numeric(18,0)) AS
 	BEGIN
-		select turn_numero, user_apellido+', '+user_nombre, espe_descripcion, CONVERT(date, turn_fecha), turn_nombre_dia, turn_hora_inicio
+		select turn_numero, user_apellido+', '+user_nombre as profesional, espe_descripcion, CONVERT(date, turn_fecha) as fecha, turn_nombre_dia, turn_hora_inicio
 		from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad
-		where turn_afiliado=@afiliado AND turn_fecha >= GETDATE() AND espe_prof_id=turn_especialidad_profesional AND espe_codigo=especialidad
+		where turn_afiliado=@afiliado AND turn_fecha >= GETDATE() AND espe_prof_id=turn_especialidad_profesional AND espe_codigo=especialidad AND user_profesional=profesional
 		order by turn_fecha, turn_hora_inicio
 	END;
 GO
 
+IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnoAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoAfiliado
+GO
+CREATE PROC LOS_TRIGGERS.CancelarTurnoAfiliado (@afiliado numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+BEGIN
+	insert into LOS_TRIGGERS.Cancelacion_Turno (canc_afiliado, canc_emisor_afiliado, canc_especialidad_profesional, canc_fecha_turno, canc_hora_turno, canc_fecha_y_hora, canc_tipo, canc_motivo)
+		select @afiliado, @afiliado, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, GETDATE(), @tipo_canc, @motivo
+		from LOS_TRIGGERS.Turno where turn_numero=@turno
+
+	delete from LOS_TRIGGERS.Turno where turn_numero=@turno
+END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular
+GO
+CREATE PROC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular (@profesional numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+BEGIN
+	insert into LOS_TRIGGERS.Cancelacion_Turno (canc_afiliado, canc_emisor_profesional, canc_especialidad_profesional, canc_fecha_turno, canc_hora_turno, canc_fecha_y_hora, canc_tipo, canc_motivo)
+		select turn_afiliado, @profesional, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, GETDATE(), @tipo_canc, @motivo
+		from LOS_TRIGGERS.Turno where turn_numero=@turno
+
+	delete from LOS_TRIGGERS.Turno where turn_numero=@turno
+END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoProfesionalPeriodo
+GO
+CREATE PROC LOS_TRIGGERS.CancelarTurnoProfesionalPeriodo (@profesional numeric(18,0), @desde date, @hasta date, @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+BEGIN
+	declare @turno as numeric(18,0)
+	declare CANCELACIONES cursor for select turn_numero from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional
+									where espe_prof_id=turn_especialidad_profesional AND profesional=@profesional AND (turn_fecha BETWEEN @desde AND @hasta)
+	OPEN CANCELACIONES
+	FETCH NEXT FROM CANCELACIONES INTO @turno
+	WHILE @@fetch_status = 0
+	BEGIN
+			EXEC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular @profesional=@profesional, @turno=@turno, @tipo_canc=@tipo_canc, @motivo=@motivo
+
+		FETCH NEXT FROM CANCELACIONES INTO @turno
+	END
+CLOSE CANCELACIONES
+DEALLOCATE CANCELACIONES
+END;
+GO
+/*
 IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurno') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurno
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurno (@usuario numeric(18,0), @turno numeric(18,0), @tipo numeric(18,0), @motivo varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.CancelarTurno (@usuario numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255)) AS
 BEGIN
-	declare @fecha_turno as datetime, @rol_id as numeric(18,0)
-	set @fecha_turno = (select turn_fecha from LOS_TRIGGERS.Turno where turn_numero=@turno)
+	declare @rol_id as numeric(18,0), @cancelacion as numeric(18,0)
 
 	IF EXISTS (select user_profesional from LOS_TRIGGERS.Usuario where user_id=@usuario)
 		set @rol_id = (select user_profesional from LOS_TRIGGERS.Usuario where user_id=@usuario)
 	ELSE IF EXISTS (select user_afiliado from LOS_TRIGGERS.Usuario where user_id=@usuario)
 		set @rol_id = (select user_afiliado from LOS_TRIGGERS.Usuario where user_id=@usuario)
 
-	IF (GETDATE() < @fecha_turno)
-		BEGIN
-			insert into LOS_TRIGGERS.Cancelacion_Turno (canc_emisor, canc_afiliado, canc_especialidad_profesional, canc_fecha_turno, canc_fecha_y_hora, canc_tipo, canc_motivo)
-				select @rol_id, turn_afiliado, espe_prof_id, @fecha_turno, GETDATE(), @tipo, @motivo
-				from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional where turn_numero=@turno AND espe_prof_id=turn_especialidad_profesional
-	
-			delete from LOS_TRIGGERS.Turno where turn_numero=@turno
-		END
+	insert into LOS_TRIGGERS.Cancelacion_Turno (canc_afiliado, canc_especialidad_profesional, canc_fecha_turno, canc_fecha_y_hora, canc_tipo, canc_motivo, canc_hora_turno)
+		select turn_afiliado, espe_prof_id, turn_fecha, GETDATE(), @tipo_canc, @motivo, turn_hora_inicio
+		from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional where turn_numero=@turno AND espe_prof_id=turn_especialidad_profesional
+
+	-- Seteo al emisor:
+	set @cancelacion = (select SCOPE_IDENTITY())
+	IF(@rol_id = (select turn_afiliado from LOS_TRIGGERS.Turno where turn_numero=@turno))
+		update LOS_TRIGGERS.Cancelacion_Turno set canc_emisor_afiliado=@rol_id where canc_id=@cancelacion
+	ELSE
+		update LOS_TRIGGERS.Cancelacion_Turno set canc_emisor_profesional=@rol_id where canc_id=@cancelacion
+
+	delete from LOS_TRIGGERS.Turno where turn_numero=@turno
+
 END;
 GO
-
+*/
 --- << Registrar la Agenda de un Profesional >> ---
 -- 1) Determinar Profesional
 -- 2) Determinar Especialidad
@@ -315,8 +364,7 @@ BEGIN
 			update LOS_TRIGGERS.Profesional
 				set prof_horas_laborales = CONVERT(numeric(2,0), @horas_acumuladas)
 		END
-	--ELSE
-		-- NO PERMITIDO
+	ELSE PRINT 'El profesional no puede sumar más de 48 hs laborales.'
 END;
 GO
 
@@ -330,8 +378,7 @@ BEGIN
 				set disponible_desde_fecha = @desde, disponible_hasta_fecha = @hasta
 				where profesional=@profesional AND especialidad=@especialidad
 		END
-	--ELSE
-		-- NO ESTÁ EN EL RANGO DE ESTE AÑO O ES INVÁLIDO
+	ELSE PRINT 'El rango hrario es inválido o no está dentro del resto de este año.'
 END;
 GO
 
