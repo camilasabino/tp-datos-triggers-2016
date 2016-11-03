@@ -2,52 +2,18 @@
 *				           OBJETOS DE BASE DE DATOS                                  *
 **************************************************************************************/
 
---- << Historial de cambios de Plan Médico >> ---
-IF OBJECT_ID ('LOS_TRIGGERS.ModificacionPlan') is not null DROP TRIGGER LOS_TRIGGERS.ModificacionPlan
+--- << Historial de cambios del Plan Médico de un Afiliado >> ---
+IF OBJECT_ID ('LOS_TRIGGERS.ModificacionPlanEnAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.ModificacionPlanEnAfiliado
 GO
-CREATE TRIGGER LOS_TRIGGERS.ModificacionPlan 
-ON LOS_TRIGGERS.Plan_Medico
-AFTER UPDATE
-AS 
-BEGIN
-	SET NOCOUNT ON;
-	INSERT INTO LOS_TRIGGERS.Modificacion_Plan(modi_fecha_y_hora, modi_plan_medico, modi_motivo)
-		SELECT GETDATE(), plan_id, 'Precio bono consulta: '+CAST(plan_precio_bono_consulta as varchar)+
-										'. Precio bono farmacia: '+CAST(plan_precio_bono_farmacia as varchar)+
-										'. Descripción: '+plan_med_descripcion
-		FROM INSERTED
-END;
-GO
-
-IF OBJECT_ID ('LOS_TRIGGERS.InsercionPlan') is not null DROP TRIGGER LOS_TRIGGERS.InsercionPlan
-GO
-CREATE TRIGGER LOS_TRIGGERS.InsercionPlan 
-ON LOS_TRIGGERS.Plan_Medico
-AFTER INSERT
-AS 
-BEGIN
-	SET NOCOUNT ON;
-	INSERT INTO LOS_TRIGGERS.Modificacion_Plan(modi_fecha_y_hora, modi_plan_medico, modi_motivo)
-		SELECT GETDATE(), plan_id, 'Precio bono consulta: '+CAST(plan_precio_bono_consulta as varchar)+
-										'. Precio bono farmacia: '+CAST(plan_precio_bono_farmacia as varchar)+
-										'. Descripción: '+plan_med_descripcion
-		FROM INSERTED
-END;
-GO
-
-IF OBJECT_ID ('LOS_TRIGGERS.Calendario') IS NOT NULL DROP TABLE LOS_TRIGGERS.Calendario
-CREATE TABLE [LOS_TRIGGERS].[Calendario](
-	[dia_del_año] [date] NOT NULL primary key
-	);
-
-DECLARE @primer_dia datetime, @ultimo_dia datetime
-SET @primer_dia = DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0)
-SET @ultimo_dia = DATEADD(d, 365, @primer_dia)
-
-WHILE @primer_dia <= @ultimo_dia
+CREATE PROC LOS_TRIGGERS.ModificacionPlanEnAfiliado(@afiliado numeric(18,0), @viejo_plan varchar(255), @nuevo_plan varchar(255), @motivo varchar(255)) AS
 	BEGIN
-		insert into [LOS_TRIGGERS].[Calendario] (dia_del_año)
-			select @primer_dia SET @primer_dia = DATEADD(dd, 1, @primer_dia)
+		IF((select afil_titular_grupo_familiar from LOS_TRIGGERS.Afiliado where afil_numero=@afiliado)=@afiliado)
+			insert into LOS_TRIGGERS.Modificacion_Plan(modi_afiliado, modi_viejo_plan, modi_nuevo_plan, modi_fecha_y_hora, modi_motivo)
+				select afil_numero, @viejo_plan, @nuevo_plan, GETDATE(), @motivo
+				from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar=@afiliado
+		ELSE
+			insert into LOS_TRIGGERS.Modificacion_Plan(modi_afiliado, modi_viejo_plan, modi_nuevo_plan, modi_fecha_y_hora, modi_motivo)
+					values(@afiliado, @viejo_plan, @nuevo_plan, GETDATE(), @motivo)
 	END;
 GO
 
@@ -82,7 +48,6 @@ CREATE PROC LOS_TRIGGERS.ModificarRol (@rol varchar(255), @nuevo_nombre varchar(
 		update LOS_TRIGGERS.Profesional set nombre_rol = @nuevo_nombre where nombre_rol=@rol
 	END;
 GO
-
 
 IF OBJECT_ID ('LOS_TRIGGERS.AltaRolAdministrador') is not null DROP PROCEDURE LOS_TRIGGERS.AltaRolAdministrador
 GO
@@ -261,6 +226,30 @@ CREATE PROC LOS_TRIGGERS.ComboHorariosDeUnProfesionalEnUnaEspecialidad (@profesi
 	END;
 GO
 
+IF OBJECT_ID ('LOS_TRIGGERS.AgendaCompletaDeUnProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.AgendaCompletaDeUnProfesional
+GO
+CREATE PROC LOS_TRIGGERS.AgendaCompletaDeUnProfesional (@profesional numeric(18,0), @especialidad numeric(18,0)) AS
+	BEGIN
+		select dia_nombre_dia, dia_hora_inicio, dia_hora_fin, dia_del_año
+		from LOS_TRIGGERS.Dia_Atencion, LOS_TRIGGERS.Calendario
+		where dia_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+			AND dia_del_año>=GETDATE() AND datename(weekday, dia_del_año)=dia_nombre_dia
+		order by dia_del_año ASC
+	END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.HorariosDeUnDiaDelProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.HorariosDeUnDiaDelProfesional
+GO
+CREATE PROC LOS_TRIGGERS.HorariosDeUnDiaDelProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
+	BEGIN
+		select dia_nombre_dia, dia_hora_inicio, dia_hora_fin, dia_del_año
+		from LOS_TRIGGERS.Dia_Atencion, LOS_TRIGGERS.Calendario
+		where dia_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+			AND dia_del_año>=GETDATE() AND datename(weekday, dia_del_año)=dia_nombre_dia
+		order by dia_del_año ASC
+	END;
+GO
+
 IF OBJECT_ID ('LOS_TRIGGERS.PedirTurno') is not null DROP PROCEDURE LOS_TRIGGERS.PedirTurno
 GO
 CREATE PROC LOS_TRIGGERS.PedirTurno (@afiliado numeric(18,00), @profesional numeric(18,00), @especialidad numeric(18,0), @fecha date, @hora varchar(255)) AS
@@ -359,6 +348,7 @@ END;
 GO
 */
 --- << Registrar la Agenda de un Profesional >> ---
+
 -- 1) Determinar Profesional
 -- 2) Determinar Especialidad
 -- 3) Determinar día de atención
@@ -366,14 +356,36 @@ GO
 -- 5) Verificar que no acumule más de 48hs p/semana
 -- 6) Determinar fechas de disponibilidad
 -- ** Una vez cargada, la agenda es inalterable **
+
+IF OBJECT_ID ('LOS_TRIGGERS.Calendario') IS NOT NULL DROP TABLE LOS_TRIGGERS.Calendario
+CREATE TABLE [LOS_TRIGGERS].[Calendario](
+	[dia_del_año] [date] NOT NULL primary key
+	);
+
+DECLARE @primer_dia datetime, @ultimo_dia datetime
+SET @primer_dia = DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0)
+SET @ultimo_dia = DATEADD(d, 365, @primer_dia)
+
+WHILE @primer_dia <= @ultimo_dia
+	BEGIN
+		insert into [LOS_TRIGGERS].[Calendario] (dia_del_año)
+			select @primer_dia SET @primer_dia = DATEADD(dd, 1, @primer_dia)
+	END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.HorarioCompletoDeLaClinica') is not null DROP VIEW LOS_TRIGGERS.HorarioCompletoDeLaClinica
+GO
+CREATE VIEW LOS_TRIGGERS.HorarioCompletoDeLaClinica AS
+	select dia_nombre_dia, dia_hora_inicio, dia_hora_fin from LOS_TRIGGERS.Dia_Atencion where dia_clinica is not null
+WITH CHECK OPTION
+GO
+
 IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP VIEW LOS_TRIGGERS.DiasDeAtencionDeLaClinica
 GO
 CREATE VIEW LOS_TRIGGERS.DiasDeAtencionDeLaClinica AS
 	select dia_nombre_dia from LOS_TRIGGERS.Dia_Atencion where dia_clinica is not null
 WITH CHECK OPTION
 GO
-
-
 
 IF OBJECT_ID ('LOS_TRIGGERS.RangoHorarioDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.RangoHorarioDeLaClinica
 GO

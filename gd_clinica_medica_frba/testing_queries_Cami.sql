@@ -11,5 +11,12 @@ select * from LOS_TRIGGERS.Usuario where user_afiliado=1123960001 --user_id: 1, 
 --select * from LOS_TRIGGERS.Tipo_Cancelacion
 --SELECT * from LOS_TRIGGERS.Turno where turn_afiliado=1123960001 order by turn_fecha DESC
 --select * from LOS_TRIGGERS.Modificacion_Plan
-IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.DiasDeAtencionDeLaClinica
-GO
+/*
+insert into LOS_TRIGGERS.Dia_Atencion(dia_nombre_dia, dia_hora_fin, dia_hora_inicio, dia_especialidad_profesional)
+values('Lunes', '19:30', '11:00', 9)
+insert into LOS_TRIGGERS.Dia_Atencion(dia_nombre_dia, dia_hora_fin, dia_hora_inicio, dia_especialidad_profesional)
+values('Martes', '19:00', '15:00', 9)
+insert into LOS_TRIGGERS.Dia_Atencion(dia_nombre_dia, dia_hora_fin, dia_hora_inicio, dia_especialidad_profesional)
+values('Jueves', '18:00', '12:00', 9)
+*/
+select * from LOS_TRIGGERS.Afiliado
