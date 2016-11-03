@@ -2,6 +2,39 @@
 *				           OBJETOS DE BASE DE DATOS                                  *
 **************************************************************************************/
 
+--- << Historial de cambios de Plan Médico >> ---
+IF OBJECT_ID ('LOS_TRIGGERS.ModificacionPlan') is not null DROP TRIGGER LOS_TRIGGERS.ModificacionPlan
+GO
+CREATE TRIGGER LOS_TRIGGERS.ModificacionPlan 
+ON LOS_TRIGGERS.Plan_Medico
+AFTER UPDATE
+AS 
+BEGIN
+	SET NOCOUNT ON;
+	INSERT INTO LOS_TRIGGERS.Modificacion_Plan(modi_fecha_y_hora, modi_plan_medico, modi_motivo)
+		SELECT GETDATE(), plan_id, 'Precio bono consulta: '+CAST(plan_precio_bono_consulta as varchar)+
+										'. Precio bono farmacia: '+CAST(plan_precio_bono_farmacia as varchar)+
+										'. Descripción: '+plan_med_descripcion
+		FROM INSERTED
+END;
+GO
+
+IF OBJECT_ID ('LOS_TRIGGERS.InsercionPlan') is not null DROP TRIGGER LOS_TRIGGERS.InsercionPlan
+GO
+CREATE TRIGGER LOS_TRIGGERS.InsercionPlan 
+ON LOS_TRIGGERS.Plan_Medico
+AFTER INSERT
+AS 
+BEGIN
+	SET NOCOUNT ON;
+	INSERT INTO LOS_TRIGGERS.Modificacion_Plan(modi_fecha_y_hora, modi_plan_medico, modi_motivo)
+		SELECT GETDATE(), plan_id, 'Precio bono consulta: '+CAST(plan_precio_bono_consulta as varchar)+
+										'. Precio bono farmacia: '+CAST(plan_precio_bono_farmacia as varchar)+
+										'. Descripción: '+plan_med_descripcion
+		FROM INSERTED
+END;
+GO
+
 IF OBJECT_ID ('LOS_TRIGGERS.Calendario') IS NOT NULL DROP TABLE LOS_TRIGGERS.Calendario
 CREATE TABLE [LOS_TRIGGERS].[Calendario](
 	[dia_del_año] [date] NOT NULL primary key
@@ -15,10 +48,10 @@ WHILE @primer_dia <= @ultimo_dia
 	BEGIN
 		insert into [LOS_TRIGGERS].[Calendario] (dia_del_año)
 			select @primer_dia SET @primer_dia = DATEADD(dd, 1, @primer_dia)
-	END
+	END;
+GO
 
 --- << ABM de Rol >> ---
-
 IF OBJECT_ID ('LOS_TRIGGERS.ComboRoles') is not null DROP PROCEDURE LOS_TRIGGERS.ComboRoles
 GO
 CREATE PROC LOS_TRIGGERS.ComboRoles AS
@@ -173,26 +206,27 @@ BEGIN
 			delete from LOS_TRIGGERS.Funcionalidad_Rol where funcionalidad=@func_id AND profesional IN (select prof_id from LOS_TRIGGERS.Profesional)
 END;
 GO
-/*
+
 -- << Carga de Funcionalidades a los Roles >>
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Rol'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Afiliado'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Plan'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'ABM de Especialidad Médica'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Registro de Usuario'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Registro de Agenda de Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Compra de Bono'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Administrador', @funcionalidad = 'Listado Estadístico'
+/*
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Rol'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Afiliado'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Profesional'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Plan'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Especialidad Médica'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Registro de Usuario'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Registro de Agenda de Profesional'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Compra de Bono'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Listado Estadístico'
 
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Agenda de Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Consulta Médica'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Registro de Diagnóstico Médico'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Profesional', @funcionalidad = 'Cancelación de Turno'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Agenda de Profesional'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Consulta Médica'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Diagnóstico Médico'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Cancelación de Turno'
 
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Compra de Bono'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Pedido de Turno'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol @rol = 'Afiliado', @funcionalidad = 'Cancelación de Turno'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Compra de Bono'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Pedido de Turno'
+EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Cancelación de Turno'
 */
 --- << Pedido de un Turno >> ---
 IF OBJECT_ID ('LOS_TRIGGERS.ComboProfesionales') is not null DROP PROCEDURE LOS_TRIGGERS.ComboProfesionales
@@ -277,9 +311,9 @@ BEGIN
 END;
 GO
 
-IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoProfesionalPeriodo
+IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurnoProfesionalPeriodo (@profesional numeric(18,0), @desde date, @hasta date, @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo (@profesional numeric(18,0), @desde date, @hasta date, @tipo_canc numeric(18,0), @motivo varchar(255)) AS
 BEGIN
 	declare @turno as numeric(18,0)
 	declare CANCELACIONES cursor for select turn_numero from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional
@@ -332,14 +366,14 @@ GO
 -- 5) Verificar que no acumule más de 48hs p/semana
 -- 6) Determinar fechas de disponibilidad
 -- ** Una vez cargada, la agenda es inalterable **
-
-IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.DiasDeAtencionDeLaClinica
+IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP VIEW LOS_TRIGGERS.DiasDeAtencionDeLaClinica
 GO
-CREATE PROC LOS_TRIGGERS.DiasDeAtencionDeLaClinica AS
-BEGIN
+CREATE VIEW LOS_TRIGGERS.DiasDeAtencionDeLaClinica AS
 	select dia_nombre_dia from LOS_TRIGGERS.Dia_Atencion where dia_clinica is not null
-END;
+WITH CHECK OPTION
 GO
+
+
 
 IF OBJECT_ID ('LOS_TRIGGERS.RangoHorarioDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.RangoHorarioDeLaClinica
 GO

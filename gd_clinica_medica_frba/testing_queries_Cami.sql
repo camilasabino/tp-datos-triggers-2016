@@ -9,4 +9,7 @@ select * from LOS_TRIGGERS.Usuario where user_afiliado=1123960001 --user_id: 1, 
 */
 --SELECT * from LOS_TRIGGERS.Turno where turn_afiliado=1123960001 order by turn_fecha DESC
 --select * from LOS_TRIGGERS.Tipo_Cancelacion
-SELECT * from LOS_TRIGGERS.Turno where turn_afiliado=1123960001 order by turn_fecha DESC
+--SELECT * from LOS_TRIGGERS.Turno where turn_afiliado=1123960001 order by turn_fecha DESC
+--select * from LOS_TRIGGERS.Modificacion_Plan
+IF OBJECT_ID ('LOS_TRIGGERS.DiasDeAtencionDeLaClinica') is not null DROP PROCEDURE LOS_TRIGGERS.DiasDeAtencionDeLaClinica
+GO
