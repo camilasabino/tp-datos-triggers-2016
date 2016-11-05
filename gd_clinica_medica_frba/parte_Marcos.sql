@@ -83,7 +83,6 @@ IF (@password is not null)
 				 END
 		FROM LOS_TRIGGERS.Usuario
 		WHERE @usuario = user_name
-	RETURN @nro
 
 
 /************* EJERCICIO 3 *************/
