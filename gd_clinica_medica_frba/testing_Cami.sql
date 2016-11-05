@@ -1,8 +1,10 @@
 /*************************************************************************************
 *				         TESTS PARA LOS OBEJTOS CREADOS                              *
 **************************************************************************************/
-
 -- << JUEGO DE DATOS >>
+declare @fecha_sistema as datetime
+set @fecha_sistema = CAST('2016-11-01' as datetime)
+
 INSERT INTO LOS_TRIGGERS.Administrador (admi_habilitacion, nombre_rol) values (1, 'Administrador')
 INSERT INTO LOS_TRIGGERS.Usuario (user_name, user_password, user_intentos_fallidos_login, user_administrador)
 	values ('admin', HASHBYTES('SHA2_256', CONVERT(varchar(255), 'w23e')), 0, (select SCOPE_IDENTITY()))
@@ -83,10 +85,10 @@ EXEC LOS_TRIGGERS.ComboEspecialidadesDeUnProfesional @profesional=1875689699 -- 
 EXEC LOS_TRIGGERS.ComboEspecialidadesDeUnProfesional @profesional=2803667799 -- Muestra 3
 
 EXEC LOS_TRIGGERS.ComboHorariosDeUnProfesionalEnUnaEspecialidad 146592599, 10033 -- OK
-EXEC LOS_TRIGGERS.AgendaCompletaDeUnProfesional 146592599, 10033 -- OK
+EXEC LOS_TRIGGERS.AgendaCompletaDeUnProfesional 146592599, 10033, @fecha_sistema -- OK
 
-EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=112396001 -- Muestra 24 (fechas pasadas), 0 (actual)
-EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=113347201 -- Muestra 34 (fechas pasadas), 0 (actual)
+EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado 112396001, @fecha_sistema -- Muestra 24 (fechas pasadas), 0 (actual)
+EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado 113347201, @fecha_sistema -- Muestra 34 (fechas pasadas), 0 (actual)
 
 -- << PEDIDO DE TURNOS >> -- RESULTADO: OK
 declare @fecha_turno as date
@@ -95,18 +97,18 @@ EXEC LOS_TRIGGERS.PedirTurno @afiliado=112396001, @profesional=146592599, @espec
 EXEC LOS_TRIGGERS.PedirTurno @afiliado=112396001, @profesional=146592599, @especialidad=10033, @fecha=@fecha_turno, @hora='12:00'
 -- ** Verifico que no me deje sacar turno cuando ya está asignado el horario **
 EXEC LOS_TRIGGERS.PedirTurno @afiliado=113347201, @profesional=146592599, @especialidad=10033, @fecha=@fecha_turno, @hora='19:30'
-EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=112396001 -- Muestra bien
+EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado 112396001, @fecha_sistema -- Muestra bien
 
 -- << CNCELACIÓN DE TURNOS >> -- RESULTADO: OK
 -- Por Afiliado: -- OK
-EXEC LOS_TRIGGERS.CancelarTurnoAfiliado 112396001, 202165, 4, 'Me demoré' -- OK
+EXEC LOS_TRIGGERS.CancelarTurnoAfiliado 112396001, 202165, 4, 'Me demoré', @fecha_sistema -- OK
 select * from LOS_TRIGGERS.Cancelacion_Turno where canc_emisor_afiliado=112396001
-EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=112396001 -- Muestra bien
+EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado 112396001, @fecha_sistema -- Muestra bien
 
 -- Por Profesional un solo Turno: -- OK
-EXEC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular 146592599, 202166, 4, 'No puedo asistir' -- OK
+EXEC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular 146592599, 202166, 4, 'No puedo asistir', @fecha_sistema -- OK
 select * from LOS_TRIGGERS.Cancelacion_Turno where canc_afiliado=112396001
-EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=112396001 -- Muestra bien
+EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado 112396001, @fecha_sistema -- Muestra bien
 
 -- Por Profesional período de Turnos: -- OK
 declare @fecha_turno1 as date, @fecha_turno2 as date, @fecha_turno3 as date
@@ -126,7 +128,7 @@ select * from LOS_TRIGGERS.Turno where turn_afiliado=112396001 -- OK
 select * from LOS_TRIGGERS.Cancelacion_Turno where canc_afiliado=112396001 -- OK
 
 -- << RESGITRO DE AGENDA PROFESIONAL >> -- RESULTADO: OK
-EXEC LOS_TRIGGERS.RegistrarAgendaProfesional 146592599, 10033, @d1, @d2
+EXEC LOS_TRIGGERS.RegistrarAgendaProfesional 146592599, 10033, @d1, @d2, @fecha_sistema
 
 -- << LISTADO ESTADÍSTICO >> -- RESULTADO: REVISAR
 -- A) 
@@ -145,7 +147,7 @@ EXEC LOS_TRIGGERS.ModificarAfiliadoEstadoCivil 112396001, 'Concubinato'
 EXEC LOS_TRIGGERS.ModificarAfiliadoMail 112396001, 'mail_mail@gmail.com'
 
 -- << BAJA AFILIADO >> -- RESULTADO: OK
-EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 124453901
+EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 124453901, @fecha_sistema
 select * from LOS_TRIGGERS.Baja_Afiliado -- OK
 select * from LOS_TRIGGERS.Afiliado where afil_numero=124453901 -- OK
 
@@ -155,7 +157,7 @@ EXEC LOS_TRIGGERS.PedirTurno 112396001, 146592599, 10033, @prox_lunes,'19:00'
 EXEC LOS_TRIGGERS.PedirTurno 112396001, 146592599, 10033, @prox_lunes, '12:30'
 select * from LOS_TRIGGERS.Turno where turn_afiliado=112396001 and year(turn_fecha)=2016
 
-EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 112396001
+EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 112396001, @fecha_sistema
 select * from LOS_TRIGGERS.Turno where turn_afiliado=112396001 and year(turn_fecha)=2016 --OK
 
 -- << ALTA AFILIADO >> -- RESULTADO: OK
@@ -174,10 +176,10 @@ EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 5, 45859824, 154849901, 'Soltero/a', 55555
 select * from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar=154849901
 
 -- << MODIFICACIÓN PLAN MÉDICO >> RESULTADO: OK
-EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 1593635401, 555556, 'No podía pagar el Plan anterior'
+EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 1593635401, 555556, 'No podía pagar el Plan anterior', @fecha_sistema
 select * from LOS_TRIGGERS.Afiliado where afil_numero = 1593635401
 select * from LOS_TRIGGERS.Modificacion_Plan
 
-EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 154849901, 555555, 'Elijo un plan mejor'
+EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 154849901, 555555, 'Elijo un plan mejor', @fecha_sistema
 select * from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar = 154849901
 select * from LOS_TRIGGERS.Modificacion_Plan

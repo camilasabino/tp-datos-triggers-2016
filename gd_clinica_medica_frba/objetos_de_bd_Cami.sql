@@ -1,22 +1,6 @@
 /*************************************************************************************
 *				           OBJETOS DE BASE DE DATOS                                  *
 **************************************************************************************/
-
---- << Historial de cambios del Plan Médico de un Afiliado >> ---
-IF OBJECT_ID ('LOS_TRIGGERS.ModificacionPlanEnAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.ModificacionPlanEnAfiliado
-GO
-CREATE PROC LOS_TRIGGERS.ModificacionPlanEnAfiliado(@afiliado numeric(18,0), @viejo_plan varchar(255), @nuevo_plan varchar(255), @motivo varchar(255)) AS
-	BEGIN
-		IF((select afil_titular_grupo_familiar from LOS_TRIGGERS.Afiliado where afil_numero=@afiliado)=@afiliado)
-			insert into LOS_TRIGGERS.Modificacion_Plan(modi_afiliado, modi_viejo_plan, modi_nuevo_plan, modi_fecha_y_hora, modi_motivo)
-				select afil_numero, @viejo_plan, @nuevo_plan, GETDATE(), @motivo
-				from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar=@afiliado
-		ELSE
-			insert into LOS_TRIGGERS.Modificacion_Plan(modi_afiliado, modi_viejo_plan, modi_nuevo_plan, modi_fecha_y_hora, modi_motivo)
-					values(@afiliado, @viejo_plan, @nuevo_plan, GETDATE(), @motivo)
-	END;
-GO
-
 --- << ABM de Rol >> ---
 IF OBJECT_ID ('LOS_TRIGGERS.ComboRoles') is not null DROP PROCEDURE LOS_TRIGGERS.ComboRoles
 GO
@@ -36,6 +20,16 @@ CREATE PROC LOS_TRIGGERS.ComboRolesDeUnUsuario(@usuario numeric(18,0)) AS
 		select nombre_rol as rol from LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Usuario where user_id=@usuario AND afil_numero=user_afiliado AND afil_habilitacion=1
 		UNION select nombre_rol from LOS_TRIGGERS.Administrador, LOS_TRIGGERS.Usuario where user_id=@usuario AND admi_id=user_administrador AND admi_habilitacion=1
 		UNION select nombre_rol from LOS_TRIGGERS.Profesional, LOS_TRIGGERS.Usuario where user_id=@usuario AND prof_id=user_profesional AND prof_habilitacion=1
+	END;
+
+
+IF OBJECT_ID ('LOS_TRIGGERS.ComboFuncionalidadesRol') is not null DROP PROCEDURE LOS_TRIGGERS.ComboFuncionalidadesRol
+GO
+CREATE PROC LOS_TRIGGERS.ComboFuncionalidadesRol (@rol varchar(255)) AS
+	BEGIN
+		select func_nombre as rol from LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad where nombre_rol=@rol AND afiliado IS NOT NULL AND func_id=funcionalidad
+		UNION select func_nombre from LOS_TRIGGERS.Administrador, LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad where nombre_rol=@rol AND administrador IS NOT NULL AND func_id=funcionalidad
+		UNION select func_nombre from LOS_TRIGGERS.Profesional, LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad where nombre_rol=@rol AND profesional IS NOT NULL AND func_id=funcionalidad
 	END;
 GO
 
@@ -230,41 +224,53 @@ GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.AgendaCompletaDeUnProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.AgendaCompletaDeUnProfesional
 GO
-CREATE PROC LOS_TRIGGERS.AgendaCompletaDeUnProfesional (@profesional numeric(18,0), @especialidad numeric(18,0)) AS
+CREATE PROC LOS_TRIGGERS.AgendaCompletaDeUnProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @fecha_sistema datetime) AS
 	BEGIN
 		select dia_nombre_dia, dia_hora_inicio, dia_hora_fin, dia_del_año
 		from LOS_TRIGGERS.Dia_Atencion, LOS_TRIGGERS.Calendario
 		where dia_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
-			AND dia_del_año>=GETDATE() AND datename(weekday, dia_del_año)=dia_nombre_dia
+			AND dia_del_año>=@fecha_sistema AND datename(weekday, dia_del_año)=dia_nombre_dia
 		order by dia_del_año ASC
 	END;
 GO
-/*
+
 IF OBJECT_ID ('LOS_TRIGGERS.HorariosDisponiblesEnUnDiaDelProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.HorariosDisponiblesEnUnDiaDelProfesional
 GO
-CREATE PROC LOS_TRIGGERS.HorariosDisponiblesEnUnDiaDelProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @fecha date) AS
+CREATE PROC LOS_TRIGGERS.HorariosDisponiblesEnUnDiaDelProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @fecha_sistema datetime) AS
 	BEGIN
-		
+		select hora_id, hora_nombre_dia, hora_inicio, hora_fin, hora_fecha
+		from LOS_TRIGGERS.Horario_Atencion
+		where hora_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+			AND hora_fecha>=@fecha_sistema AND hora_turno IS NULL
 	END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.HorariosYaReservadosEnUnDiaDelProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.HorariosYaReservadosEnUnDiaDelProfesional
 GO
-CREATE PROC LOS_TRIGGERS.HorariosYaReservadosEnUnDiaDelProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @dia varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.HorariosYaReservadosEnUnDiaDelProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @fecha_sistema datetime) AS
 	BEGIN
-	
+		select hora_id, hora_nombre_dia, hora_inicio, hora_fin, hora_fecha
+		from LOS_TRIGGERS.Horario_Atencion
+		where hora_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+			AND hora_fecha>=@fecha_sistema AND hora_turno IS NOT NULL
 	END;
 GO
-*/
+
 IF OBJECT_ID ('LOS_TRIGGERS.PedirTurno') is not null DROP PROCEDURE LOS_TRIGGERS.PedirTurno
 GO
 CREATE PROC LOS_TRIGGERS.PedirTurno (@afiliado numeric(18,00), @profesional numeric(18,00), @especialidad numeric(18,0), @fecha date, @hora varchar(255)) AS
 BEGIN
 		IF (NOT EXISTS (select turn_numero from LOS_TRIGGERS.Turno where CAST(turn_fecha as date)=@fecha AND turn_hora_inicio=@hora)
 			AND NOT EXISTS (select canc_id from LOS_TRIGGERS.Cancelacion_Turno where CAST(canc_fecha_turno as date)=@fecha AND canc_hora_turno=@hora))
+			BEGIN	
 				insert into LOS_TRIGGERS.Turno (turn_afiliado, turn_especialidad_profesional, turn_fecha, turn_nombre_dia, turn_hora_inicio, turn_hora_fin)
 					select @afiliado, (select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad), cast(@fecha as datetime)+cast(@hora as datetime),
 						datename(weekday, @fecha), @hora, format(dateadd(minute, 30, cast(@hora as datetime)), 'HH:mm')
+
+				update LOS_TRIGGERS.Horario_Atencion set hora_turno=(select SCOPE_IDENTITY()) where hora_turno=@turno
+				where hora_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
+					AND hora_fecha=@fecha AND hora_inicio=@hora
+			END
 		ELSE PRINT 'Ya hay un turno asignado para ese horario.'
 END
 GO
@@ -273,26 +279,29 @@ GO
 -- OBS.: Muestra todos los turnos asignados a partir de la fecha actual, no pasados
 IF OBJECT_ID ('LOS_TRIGGERS.TurnosAsignadosAUnAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.TurnosAsignadosAUnAfiliado
 GO
-CREATE PROC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado (@afiliado numeric(18,0)) AS
+CREATE PROC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado (@afiliado numeric(18,0), @fecha_sistema datetime) AS
 	BEGIN
 		select turn_numero, user_apellido+', '+user_nombre as profesional, espe_descripcion, CONVERT(date, turn_fecha) as fecha, turn_nombre_dia, turn_hora_inicio
 		from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad
-		where turn_afiliado=@afiliado AND turn_fecha >= CAST(GETDATE() as date) AND espe_prof_id=turn_especialidad_profesional AND espe_codigo=especialidad AND user_profesional=profesional
+		where turn_afiliado=@afiliado AND turn_fecha >= CAST(@fecha_sistema as date) AND espe_prof_id=turn_especialidad_profesional AND espe_codigo=especialidad AND user_profesional=profesional
 		order by turn_fecha, turn_hora_inicio
 	END;
 GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnoAfiliado') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoAfiliado
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurnoAfiliado (@afiliado numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.CancelarTurnoAfiliado (@afiliado numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255), @fecha_sistema datetime) AS
 BEGIN
 	IF EXISTS (select * from LOS_TRIGGERS.Turno where turn_numero=@turno)
 		BEGIN
 			insert into LOS_TRIGGERS.Cancelacion_Turno (canc_afiliado, canc_emisor_afiliado, canc_especialidad_profesional, canc_fecha_turno, canc_hora_turno, canc_fecha_y_hora, canc_tipo, canc_motivo)
-				select @afiliado, @afiliado, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, GETDATE(), @tipo_canc, @motivo
+				select @afiliado, @afiliado, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, @fecha_sistema, @tipo_canc, @motivo
 				from LOS_TRIGGERS.Turno where turn_numero=@turno
 
+			update LOS_TRIGGERS.Horario_Atencion set hora_turno=null where hora_turno=@turno
+
 			delete from LOS_TRIGGERS.Turno where turn_numero=@turno
+
 		END
 	ELSE PRINT 'El turno indicado ya ha sido cancelado.'
 END;
@@ -300,12 +309,12 @@ GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular (@profesional numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular (@profesional numeric(18,0), @turno numeric(18,0), @tipo_canc numeric(18,0), @motivo varchar(255), @fecha_sistema datetime) AS
 BEGIN
 	IF EXISTS (select * from LOS_TRIGGERS.Turno where turn_numero=@turno)
 		BEGIN
 			insert into LOS_TRIGGERS.Cancelacion_Turno (canc_afiliado, canc_emisor_profesional, canc_especialidad_profesional, canc_fecha_turno, canc_hora_turno, canc_fecha_y_hora, canc_tipo, canc_motivo)
-				select turn_afiliado, @profesional, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, GETDATE(), @tipo_canc, @motivo
+				select turn_afiliado, @profesional, turn_especialidad_profesional, turn_fecha, turn_hora_inicio, @fecha_sistema, @tipo_canc, @motivo
 				from LOS_TRIGGERS.Turno where turn_numero=@turno
 
 			delete from LOS_TRIGGERS.Turno where turn_numero=@turno
@@ -316,7 +325,7 @@ GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo') is not null DROP PROCEDURE LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo
 GO
-CREATE PROC LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo (@profesional numeric(18,0), @desde date, @hasta date, @tipo_canc numeric(18,0), @motivo varchar(255)) AS
+CREATE PROC LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo (@profesional numeric(18,0), @desde date, @hasta date, @tipo_canc numeric(18,0), @motivo varchar(255), @fecha_sistema datetime) AS
 BEGIN
 	declare @turno as numeric(18,0)
 	declare CANCELACIONES cursor for select turn_numero from LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional
@@ -325,7 +334,7 @@ BEGIN
 	FETCH NEXT FROM CANCELACIONES INTO @turno
 	WHILE @@fetch_status = 0
 	BEGIN
-			EXEC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular @profesional=@profesional, @turno=@turno, @tipo_canc=@tipo_canc, @motivo=@motivo
+			EXEC LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular @profesional, @turno, @tipo_canc,@motivo, @fecha_sistema
 
 		FETCH NEXT FROM CANCELACIONES INTO @turno
 	END
@@ -350,7 +359,7 @@ CREATE TABLE [LOS_TRIGGERS].[Calendario](
 	);
 
 DECLARE @primer_dia datetime, @ultimo_dia datetime
-SET @primer_dia = DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0)
+SET @primer_dia = DATEADD(YEAR, -1, DATEADD(YEAR, DATEDIFF(YEAR, 0, GETDATE()), 0))
 SET @ultimo_dia = DATEADD(d, 365, @primer_dia)
 
 WHILE @primer_dia <= @ultimo_dia
@@ -403,14 +412,14 @@ GO
 
 IF OBJECT_ID ('LOS_TRIGGERS.RegistrarAgendaProfesional') is not null DROP PROCEDURE LOS_TRIGGERS.RegistrarAgendaProfesional
 GO
-CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @desde date, @hasta date) AS
+CREATE PROC LOS_TRIGGERS.RegistrarAgendaProfesional (@profesional numeric(18,0), @especialidad numeric(18,0), @desde date, @hasta date, @fecha_sistema datetime) AS
 BEGIN
 	declare @espe_prof as numeric(18,0)
 	set @espe_prof=(select espe_prof_id from Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
 
 	IF NOT EXISTS (select * from LOS_TRIGGERS.Horario_Atencion where hora_especialidad_profesional=@espe_prof)
 	BEGIN
-		IF (@desde >= cast(GETDATE() as date) AND @desde < @hasta AND @hasta <= CONVERT(date, DATEADD(yy, DATEDIFF(yy,0,getdate())+ 1, -1)))
+		IF (@desde >= cast(@fecha_sistema as date) AND @desde < @hasta AND @hasta <= CONVERT(date, DATEADD(yy, DATEDIFF(yy,0,GETDATE())+ 1, -1)))
 			BEGIN
 				update LOS_TRIGGERS.Especialidad_Profesional
 					set disponible_desde_fecha = @desde, disponible_hasta_fecha = @hasta
@@ -421,7 +430,7 @@ BEGIN
 		declare @inicio as varchar(255), @fin as varchar(255), @nombre_dia as varchar(255), @fecha as date
 		declare AGENDA cursor for select dia_nombre_dia, dia_hora_inicio, dia_hora_fin, dia_del_año
 							from LOS_TRIGGERS.Dia_Atencion, LOS_TRIGGERS.Calendario
-							where dia_especialidad_profesional=@espe_prof AND dia_del_año>=GETDATE() AND datename(weekday, dia_del_año)=dia_nombre_dia
+							where dia_especialidad_profesional=@espe_prof AND dia_del_año>=@fecha_sistema AND datename(weekday, dia_del_año)=dia_nombre_dia
 		OPEN AGENDA
 		FETCH NEXT FROM AGENDA INTO @nombre_dia, @inicio, @fin, @fecha
 		WHILE @@fetch_status = 0
@@ -467,7 +476,8 @@ CREATE PROC LOS_TRIGGERS.ProfesionalesConMenosHorasTrabajadas (@anio int, @semes
 		declare @mes as int
 		IF (@semestre = 1) set @mes = 1
 		ELSE IF (@semestre = 2) set @mes = 7
-		-- SEGÚN LOS TURNOS QUE ATENDIÓ: (Revisar criterio)
+
+		-- SEGÚN LOS TURNOS QUE ATENDIÓ:
 		select TOP 5 profesional, user_apellido+', '+user_nombre as nombre_y_apellido, ISNULL((COUNT(turn_numero)*30)/60, 0) as cantidad_horas_trabajadas
 		from  LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Plan_Medico
 		where turn_fecha_y_hora_asistencia is not null AND espe_prof_id=turn_especialidad_profesional AND especialidad=@especialidad
