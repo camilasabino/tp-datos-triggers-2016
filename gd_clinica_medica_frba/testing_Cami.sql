@@ -97,7 +97,7 @@ EXEC LOS_TRIGGERS.PedirTurno @afiliado=112396001, @profesional=146592599, @espec
 EXEC LOS_TRIGGERS.PedirTurno @afiliado=113347201, @profesional=146592599, @especialidad=10033, @fecha=@fecha_turno, @hora='19:30'
 EXEC LOS_TRIGGERS.TurnosAsignadosAUnAfiliado @afiliado=112396001 -- Muestra bien
 
--- << CNCELACIÓN DE TURNOS >> -- RESULTADO: REVISAR
+-- << CNCELACIÓN DE TURNOS >> -- RESULTADO: OK
 -- Por Afiliado: -- OK
 EXEC LOS_TRIGGERS.CancelarTurnoAfiliado 112396001, 202165, 4, 'Me demoré' -- OK
 select * from LOS_TRIGGERS.Cancelacion_Turno where canc_emisor_afiliado=112396001
@@ -128,10 +128,56 @@ select * from LOS_TRIGGERS.Cancelacion_Turno where canc_afiliado=112396001 -- OK
 -- << RESGITRO DE AGENDA PROFESIONAL >> -- RESULTADO: OK
 EXEC LOS_TRIGGERS.RegistrarAgendaProfesional 146592599, 10033, @d1, @d2
 
--- << LISTADO ESTADÍSTICO >>
+-- << LISTADO ESTADÍSTICO >> -- RESULTADO: REVISAR
 -- A) 
 EXEC LOS_TRIGGERS.EspecialidadeConMasCancelaciones 2016,2 -- OK
 
 -- B)
 EXEC LOS_TRIGGERS.ProfesionalesConMenosHorasTrabajadas 2015, 2, 555556, 10010 -- OK
 
+-- << MODIFICACIÓN AFILIADO >> -- RESULTADO: OK
+-- Afiliado Nº: 112396001
+--select * from LOS_TRIGGERS.Afiliado where afil_numero=112396001
+--select * from LOS_TRIGGERS.Usuario where user_afiliado=112396001
+EXEC LOS_TRIGGERS.ModificarAfiliadoTelefono 112396001, 2226538726
+EXEC LOS_TRIGGERS.ModificarAfiliadoDireccion 112396001, 'Del Carmen 1064'
+EXEC LOS_TRIGGERS.ModificarAfiliadoEstadoCivil 112396001, 'Concubinato'
+EXEC LOS_TRIGGERS.ModificarAfiliadoMail 112396001, 'mail_mail@gmail.com'
+
+-- << BAJA AFILIADO >> -- RESULTADO: OK
+EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 124453901
+select * from LOS_TRIGGERS.Baja_Afiliado -- OK
+select * from LOS_TRIGGERS.Afiliado where afil_numero=124453901 -- OK
+
+declare @prox_lunes as date
+set @prox_lunes = DATEADD(day, 3, GETDATE())
+EXEC LOS_TRIGGERS.PedirTurno 112396001, 146592599, 10033, @prox_lunes,'19:00'
+EXEC LOS_TRIGGERS.PedirTurno 112396001, 146592599, 10033, @prox_lunes, '12:30'
+select * from LOS_TRIGGERS.Turno where turn_afiliado=112396001 and year(turn_fecha)=2016
+
+EXEC LOS_TRIGGERS.DarDeBajaUnAfiliado 112396001
+select * from LOS_TRIGGERS.Turno where turn_afiliado=112396001 and year(turn_fecha)=2016 --OK
+
+-- << ALTA AFILIADO >> -- RESULTADO: OK
+update LOS_TRIGGERS.Usuario set user_afiliado=null where user_id in (2,3,4,5,6)
+update LOS_TRIGGERS.Afiliado set afil_relacion_con_titular='Titular' where afil_numero=154849901
+
+EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 6, 15936354, null, 'Divorciado/a', 555555, 0, 'Titular'
+select * from LOS_TRIGGERS.Afiliado where afil_numero=1593635401
+select * from LOS_TRIGGERS.Usuario where user_afiliado=1593635401
+
+-- Titular: 154849901
+EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 2, 18333824, 154849901, 'Casado/a', 555558, 0, 'Cónyuge'
+EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 3, 38859824, 154849901, 'Soltero/a', 555558, 0, 'Hijo/a'
+EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 4, 40859824, 154849901, 'Soltero/a', 555558, 0, 'Hijo/a'
+EXEC LOS_TRIGGERS.DarDeAltaUnAfiliado 5, 45859824, 154849901, 'Soltero/a', 555558, 0, 'Hijo/a'
+select * from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar=154849901
+
+-- << MODIFICACIÓN PLAN MÉDICO >> RESULTADO: OK
+EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 1593635401, 555556, 'No podía pagar el Plan anterior'
+select * from LOS_TRIGGERS.Afiliado where afil_numero = 1593635401
+select * from LOS_TRIGGERS.Modificacion_Plan
+
+EXEC LOS_TRIGGERS.ModificarAfiliadoPlanMedico 154849901, 555555, 'Elijo un plan mejor'
+select * from LOS_TRIGGERS.Afiliado where afil_titular_grupo_familiar = 154849901
+select * from LOS_TRIGGERS.Modificacion_Plan
