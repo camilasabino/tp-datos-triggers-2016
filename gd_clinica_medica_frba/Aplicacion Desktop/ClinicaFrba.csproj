@@ -44,11 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Afiliado\Form1.cs">
+    <Compile Include="Abm Afiliado\FormAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Afiliado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Afiliado\FormAfiliado.Designer.cs">
+      <DependentUpon>FormAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Afiliado\FormEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\FormEditar.Designer.cs">
+      <DependentUpon>FormEditar.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Especialidades Medicas\Form1.cs">
       <SubType>Form</SubType>
@@ -129,6 +135,12 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Afiliado\FormAfiliado.resx">
+      <DependentUpon>FormAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\FormEditar.resx">
+      <DependentUpon>FormEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
