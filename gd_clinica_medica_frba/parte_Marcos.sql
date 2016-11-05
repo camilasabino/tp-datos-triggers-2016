@@ -70,6 +70,21 @@ IF (@password is not null)
 			UPDATE LOS_TRIGGERS.Usuario SET user_intentos_fallidos_login = user_intentos_fallidos_login + 1
 			WHERE user_name = @user_name
 	END	
+	
+	CREATE PROC [dbo].[usuario_traer_ID_rol](
+	@usuario nvarchar(255),
+	@rol nvarchar(255),
+	@nro numeric(18) OUTPUT
+	)
+	AS 
+	SELECT @nro=CASE @rol WHEN 'Afiliado' THEN user_afiliado
+				 WHEN 'Profesional' THEN user_profesional
+				 WHEN 'Administrativo' THEN user_administrador
+				 END
+		FROM LOS_TRIGGERS.Usuario
+		WHERE @usuario = user_name
+	RETURN @nro
+
 
 /************* EJERCICIO 3 *************/
 
@@ -100,8 +115,7 @@ INSERT INTO LOS_TRIGGERS.Consulta_Medica (cons_diagnostico,cons_turno)
 UPDATE LOS_TRIGGERS.Bono SET bono_afiliado = @afiliado,
 							bono_consulta_medica = @@IDENTITY
 				WHERE bono_numero = @bono_numero
-GO
-
+				
 /***************** EJERCICIO 12 *****************/
 
 
@@ -115,7 +129,7 @@ AS
 DECLARE @ID_DIAGNOSTICO NUMERIC(18,0)
 SELECT @ID_DIAGNOSTICO=cons_diagnostico FROM LOS_TRIGGERS.Consulta_Medica 
 		WHERE cons_turno = @turn_numero
-UPDATE Diagnostico SET diag_fecha_y_hora = @fecha_y_hora,
+UPDATE LOS_TRIGGERS.Diagnostico SET diag_fecha_y_hora = @fecha_y_hora,
 						diag_sintomas = @diag_sintomas,
 						diag_descripcion = @diag_descripcion
 		WHERE diag_id = @ID_DIAGNOSTICO
