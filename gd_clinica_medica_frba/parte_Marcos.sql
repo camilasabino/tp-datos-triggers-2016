@@ -83,6 +83,9 @@ IF (@password is not null)
 				 END
 		FROM LOS_TRIGGERS.Usuario
 		WHERE @usuario = user_name
+	IF @nro is null
+		set @nro = 0
+
 
 CREATE PROC usuario_tiene_permiso(
 @rol nvarchar(255),
