@@ -84,6 +84,28 @@ IF (@password is not null)
 		FROM LOS_TRIGGERS.Usuario
 		WHERE @usuario = user_name
 
+CREATE PROC usuario_tiene_permiso(
+@rol nvarchar(255),
+@funcionalidad nvarchar(255),
+@resultado bit OUTPUT
+)
+AS
+IF @rol='Afiliado'
+	(SELECT * FROM LOS_TRIGGERS.Funcionalidad AS f 
+	JOIN LOS_TRIGGERS.Funcionalidad_Rol AS fr on f.func_id = fr.funcionalidad
+	WHERE f.func_nombre = @funcionalidad and fr.afiliado is not null)
+IF @rol = 'Administrador'
+	(SELECT * FROM LOS_TRIGGERS.Funcionalidad AS f 
+	JOIN LOS_TRIGGERS.Funcionalidad_Rol AS fr on f.func_id = fr.funcionalidad
+	WHERE f.func_nombre = @funcionalidad and fr.administrador is not null)
+IF @rol='Profesional'
+	(SELECT * FROM LOS_TRIGGERS.Funcionalidad AS f 
+	JOIN LOS_TRIGGERS.Funcionalidad_Rol AS fr on f.func_id = fr.funcionalidad
+	WHERE f.func_nombre = @funcionalidad and fr.profesional is not null)
+IF (@@ROWCOUNT = 0)
+	SET @RESULTADO =0	
+ELSE
+	SET @RESULTADO =1	
 
 /************* EJERCICIO 3 *************/
 
