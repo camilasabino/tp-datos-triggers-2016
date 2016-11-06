@@ -8,26 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.AbmRol
+namespace ClinicaFrba.Abm_Profesional
 {
-    public partial class Form1 : Form
+    public partial class FormEditar : Form
     {
-        public Form1()
+        public FormEditar()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void Aceptar_Click(object sender, EventArgs e)
         {
 
         }

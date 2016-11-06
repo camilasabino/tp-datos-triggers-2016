@@ -5,29 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 
 namespace ClinicaFrba
 {
-    class Modelo
-    {
-    }
 
     public class conexion
     {
-        static string server = "PC-MARCOS\\SQLSERVER2012";
+        /*static string server = "PC-MARCOS\\SQLSERVER2012";
         static string bd = "GD2C2016";
         static string user = "gd";
         static string pass = "gd2016";
-        
-        public static string cadena_de_conexion = "data source=" + server + " ;initial catalog="+ bd +";persist security info=True;user id=" + user + ";password="+ pass +"";
+        */
+        //public static string cadena_de_conexion = "data source=" + server + " ;initial catalog="+ bd +";persist security info=True;user id=" + user + ";password="+ pass +"";
+
+        public static string cadena = ConfigurationManager.AppSettings["cadena_conexion"].ToString();
     }
 
     public class login
     {
         public static int validar(string usuario, string contrasena,string rol)
-        {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+        {            
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
@@ -53,7 +53,7 @@ namespace ClinicaFrba
     {
         public static DataSet listar(string especialidad)
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
                 
@@ -81,7 +81,7 @@ namespace ClinicaFrba
     {
         public static DataSet listar()
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
@@ -102,9 +102,9 @@ namespace ClinicaFrba
 
     public class turnos
     {
-        public static DataSet listar(decimal profesional,string fecha)
+        public static DataSet listar(decimal profesional,string fecha,int hora,decimal afiliado)
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
@@ -115,6 +115,8 @@ namespace ClinicaFrba
                                 "JOIN LOS_TRIGGERS.Usuario as u2 on u2.user_afiliado = turn_afiliado "+
                                 "WHERE turn_profesional = "+ profesional +" and "+ 
                                 "turn_fecha_atencion between convert(datetime,'"+fecha+"') and convert(datetime,DATEADD(DAY,1,'"+fecha+"')) "+
+                                "AND (datepart(hour,turn_fecha_atencion) = " + hora + " or " + hora + " = 0) " +
+                                "AND (turn_afiliado = "+afiliado+ " or "+ afiliado +" = 0) "+
                                 "AND turn_fecha_y_hora_asistencia is null "+
                                 "ORDER BY turn_fecha_atencion";
 
@@ -134,7 +136,7 @@ namespace ClinicaFrba
         public static DataSet listar_disponibles_afiliado(decimal afiliado)
         {
             string afil_grupo_familiar = afiliado.ToString().Substring(0, afiliado.ToString().Length - 2);
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
@@ -158,7 +160,7 @@ namespace ClinicaFrba
     {
         public static void llegada(decimal turno, decimal bono, decimal afiliado, string fecha)
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
@@ -176,11 +178,11 @@ namespace ClinicaFrba
 
         public static void registro_resultado(decimal turno, string fecha, string sintomas, string descripcion)
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena_de_conexion))
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("registro_llegada", conn);
+                SqlCommand command = new SqlCommand("registro_resultado", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("turn_numero", turno);
                 command.Parameters.AddWithValue("fecha_y_hora", fecha);
@@ -194,6 +196,37 @@ namespace ClinicaFrba
 
     }
 
+    public class usuario
+    {
+        public static string nombre_usuario;
+        public static decimal id_rol;
+        public static string rol;
 
+        public static decimal traer_id_rol(string usuario, string rol)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
 
+                SqlCommand command = new SqlCommand("usuario_traer_ID_rol", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("usuario", usuario);
+                command.Parameters.AddWithValue("rol", rol);
+
+                SqlParameter paramRetorno = new SqlParameter("nro", SqlDbType.Decimal);
+                paramRetorno.Direction = ParameterDirection.Output;
+                command.Parameters.Add(paramRetorno);
+
+                command.ExecuteNonQuery();
+                return Convert.ToDecimal(command.Parameters["nro"].Value);
+
+            }
+        }
+
+    }
+
+    public class fecha
+    {
+        public static string ahora = ConfigurationManager.AppSettings["fechaSistema"].ToString();
+    }
 }
