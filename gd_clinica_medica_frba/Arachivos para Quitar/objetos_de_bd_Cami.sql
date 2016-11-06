@@ -169,26 +169,6 @@ BEGIN
 END;
 GO
 
--- << Carga de Funcionalidades a los Roles del sistema >>
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Rol'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Afiliado'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Plan'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'ABM de Especialidad Médica'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Registro de Usuario'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Registro de Agenda Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Compra de Bono'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Administrador', 'Listado Estadístico'
-
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Agenda Profesional'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Consulta Médica'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Registro de Diagnóstico Médico'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Profesional', 'Cancelación de Turno'
-
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Compra de Bono'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Pedido de Turno'
-EXEC LOS_TRIGGERS.AgregarFuncionalidadAUnRol 'Afiliado', 'Cancelación de Turno'
-
 --- << Pedido de un Turno >> ---
 IF OBJECT_ID ('LOS_TRIGGERS.ComboProfesionales') is not null DROP PROCEDURE LOS_TRIGGERS.ComboProfesionales
 GO
