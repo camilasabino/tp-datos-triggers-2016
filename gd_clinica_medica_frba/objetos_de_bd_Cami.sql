@@ -267,7 +267,7 @@ BEGIN
 					select @afiliado, (select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad), cast(@fecha as datetime)+cast(@hora as datetime),
 						datename(weekday, @fecha), @hora, format(dateadd(minute, 30, cast(@hora as datetime)), 'HH:mm')
 
-				update LOS_TRIGGERS.Horario_Atencion set hora_turno=(select SCOPE_IDENTITY()) where hora_turno=@turno
+				update LOS_TRIGGERS.Horario_Atencion set hora_turno=(select SCOPE_IDENTITY())
 				where hora_especialidad_profesional=(select espe_prof_id from LOS_TRIGGERS.Especialidad_Profesional where profesional=@profesional AND especialidad=@especialidad)
 					AND hora_fecha=@fecha AND hora_inicio=@hora
 			END
@@ -437,8 +437,8 @@ BEGIN
 			BEGIN
 				WHILE(@inicio<@fin AND @fecha<=@hasta)
 					BEGIN
-						insert into LOS_TRIGGERS.Horario_Atencion(hora_especialidad_profesional, hora_fecha, hora_nombre_dia, hora_inicio, hora_fin, hora_disponible)
-							values(@espe_prof, @fecha, @nombre_dia, @inicio, FORMAT(DATEADD(MINUTE, 30, @inicio), 'HH:mm'), 1)
+						insert into LOS_TRIGGERS.Horario_Atencion(hora_especialidad_profesional, hora_fecha, hora_nombre_dia, hora_inicio, hora_fin)
+							values(@espe_prof, @fecha, @nombre_dia, @inicio, FORMAT(DATEADD(MINUTE, 30, @inicio), 'HH:mm'))
 					
 						set @inicio = FORMAT(DATEADD(MINUTE, 30, @inicio), 'HH:mm')
 					END;
@@ -479,10 +479,27 @@ CREATE PROC LOS_TRIGGERS.ProfesionalesConMenosHorasTrabajadas (@anio int, @semes
 
 		-- SEGÚN LOS TURNOS QUE ATENDIÓ:
 		select TOP 5 profesional, user_apellido+', '+user_nombre as nombre_y_apellido, ISNULL((COUNT(turn_numero)*30)/60, 0) as cantidad_horas_trabajadas
-		from  LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Plan_Medico
-		where turn_fecha_y_hora_asistencia is not null AND espe_prof_id=turn_especialidad_profesional AND especialidad=@especialidad
+		from  LOS_TRIGGERS.Consulta_Medica, LOS_TRIGGERS.Turno, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Plan_Medico
+		where turn_numero=cons_numero AND espe_prof_id=turn_especialidad_profesional AND especialidad=@especialidad
 			AND user_profesional=profesional AND afil_numero=turn_afiliado AND afil_plan_medico=@plan
 			AND year(turn_fecha)=@anio AND (month(turn_fecha) BETWEEN @mes AND @mes+5)
 		group by profesional, user_apellido+', '+user_nombre order by 3 ASC
+	END;
+GO
+
+-- Top 5 de las especialidades de médicos con más bonos de consultas utilizados.
+IF OBJECT_ID ('LOS_TRIGGERS.EspecialidadesMedicasConMasBonosUtilizados') is not null DROP PROCEDURE LOS_TRIGGERS.EspecialidadesMedicasConMasBonosUtilizados
+GO
+CREATE PROC LOS_TRIGGERS.EspecialidadesMedicasConMasBonosUtilizados (@anio int, @semestre int) AS
+	BEGIN
+		declare @mes as int
+		IF (@semestre = 1) set @mes = 1
+		ELSE IF (@semestre = 2) set @mes = 7
+
+		select TOP 5 espe_codigo, espe_descripcion, ISNULL(COUNT(cons_numero), 0) as bonos_consulta_utilizados
+		from LOS_TRIGGERS.Especialidad, LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Bono, LOS_TRIGGERS.Turno, LOS_TRIGGERS.Consulta_Medica
+		where turn_numero=cons_turno AND espe_prof_id=turn_especialidad_profesional AND espe_codigo=especialidad
+			AND year(turn_fecha)=@anio AND (month(turn_fecha) BETWEEN @mes AND @mes+5)
+		group by espe_codigo, espe_descripcion order by 3 ASC
 	END;
 GO
