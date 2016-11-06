@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,7 +39,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         protected void llenar_grilla()
         {
-            grilla_turnos.DataSource = turnos.listar(decimal.Parse(c_profesional.SelectedValue.ToString()),("2015-01-01")).Tables[0];
+            grilla_turnos.DataSource = turnos.listar(decimal.Parse(c_profesional.SelectedValue.ToString()), fecha.fechaActual, 0, 0).Tables[0];
         }
 
         protected void llenar_bonos(decimal afiliado)
@@ -72,8 +72,29 @@ namespace ClinicaFrba.Registro_Llegada
             if (c_bonos.Text == "")
                 MessageBox.Show("No hay bonos disponibles", "Alerta");
             else
-                registrar.llegada(decimal.Parse(turno.Text), decimal.Parse(c_bonos.Text), decimal.Parse(afiliado.Text), ("2015-01-01"));
+            {
+                registrar.llegada(decimal.Parse(turno.Text), decimal.Parse(c_bonos.Text), decimal.Parse(afiliado.Text), fecha.fechaActual);
+                MessageBox.Show("El registro se ha completado");
+            }
+        }
+
+        private void grilla_turnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
 }

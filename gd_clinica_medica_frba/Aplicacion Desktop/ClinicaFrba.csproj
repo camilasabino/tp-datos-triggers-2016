@@ -31,8 +31,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,17 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Afiliado\FormAfiliado.cs">
+    <Compile Include="Abm Afiliado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Afiliado\FormAfiliado.Designer.cs">
-      <DependentUpon>FormAfiliado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Afiliado\FormEditar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Afiliado\FormEditar.Designer.cs">
-      <DependentUpon>FormEditar.cs</DependentUpon>
+    <Compile Include="Abm Afiliado\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Especialidades Medicas\Form1.cs">
       <SubType>Form</SubType>
@@ -110,10 +109,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GD2C2016DataSet.Designer.cs">
+    <Compile Include="GD2C2016DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Listados\Form1.cs">
       <SubType>Form</SubType>
@@ -121,6 +120,13 @@
     <Compile Include="Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo.cs" />
     <Compile Include="Pedir Turno\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,11 +153,14 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Abm Afiliado\FormAfiliado.resx">
-      <DependentUpon>FormAfiliado.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Afiliado\FormEditar.resx">
-      <DependentUpon>FormEditar.cs</DependentUpon>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Especialidades Medicas\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -180,16 +189,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="GD2C2016DataSet.xsc">
-      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="GD2C2016DataSet1.xsc">
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
     </None>
-    <None Include="GD2C2016DataSet.xsd">
+    <None Include="GD2C2016DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>GD2C2016DataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>GD2C2016DataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="GD2C2016DataSet.xss">
-      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    <None Include="GD2C2016DataSet1.xss">
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

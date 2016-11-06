@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,13 +13,6 @@ namespace ClinicaFrba
 
     public class conexion
     {
-        /*static string server = "PC-MARCOS\\SQLSERVER2012";
-        static string bd = "GD2C2016";
-        static string user = "gd";
-        static string pass = "gd2016";
-        */
-        //public static string cadena_de_conexion = "data source=" + server + " ;initial catalog="+ bd +";persist security info=True;user id=" + user + ";password="+ pass +"";
-
         public static string cadena = ConfigurationManager.AppSettings["cadena_conexion"].ToString();
     }
 
@@ -202,6 +195,8 @@ namespace ClinicaFrba
         public static decimal id_rol;
         public static string rol;
 
+        
+
         public static decimal traer_id_rol(string usuario, string rol)
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
@@ -223,10 +218,31 @@ namespace ClinicaFrba
             }
         }
 
+        public static bool permiso(string funcionalidad, string rol)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("usuario_tiene_permiso", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("funcionalidad", funcionalidad);
+                command.Parameters.AddWithValue("rol", rol);
+
+                SqlParameter paramRetorno = new SqlParameter("resultado", SqlDbType.Decimal);
+                paramRetorno.Direction = ParameterDirection.Output;
+                command.Parameters.Add(paramRetorno);
+
+                command.ExecuteNonQuery();
+                return Convert.ToBoolean(command.Parameters["resultado"].Value);
+
+            }
+        }
+
     }
 
     public class fecha
     {
-        public static string ahora = ConfigurationManager.AppSettings["fechaSistema"].ToString();
+        public static string fechaActual = ConfigurationManager.AppSettings["fechaSistema"].ToString();
     }
 }
