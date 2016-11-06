@@ -74,7 +74,7 @@
             // 
             this.c_rol.FormattingEnabled = true;
             this.c_rol.Items.AddRange(new object[] {
-            "Administrativo",
+            "Administrador",
             "Afiliado",
             "Profesional"});
             this.c_rol.Location = new System.Drawing.Point(127, 232);
@@ -93,7 +93,7 @@
             // 
             // b_ingresar
             // 
-            this.b_ingresar.Location = new System.Drawing.Point(221, 302);
+            this.b_ingresar.Location = new System.Drawing.Point(255, 303);
             this.b_ingresar.Name = "b_ingresar";
             this.b_ingresar.Size = new System.Drawing.Size(75, 23);
             this.b_ingresar.TabIndex = 6;
@@ -131,6 +131,4 @@
         private System.Windows.Forms.Button b_ingresar;
     }
 }
-
-
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -202,6 +202,8 @@ namespace ClinicaFrba
         public static decimal id_rol;
         public static string rol;
 
+        
+
         public static decimal traer_id_rol(string usuario, string rol)
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
@@ -219,6 +221,27 @@ namespace ClinicaFrba
 
                 command.ExecuteNonQuery();
                 return Convert.ToDecimal(command.Parameters["nro"].Value);
+
+            }
+        }
+
+        public static bool permiso(string funcionalidad, string rol)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("usuario_tiene_permiso", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("funcionalidad", funcionalidad);
+                command.Parameters.AddWithValue("rol", rol);
+
+                SqlParameter paramRetorno = new SqlParameter("resultado", SqlDbType.Decimal);
+                paramRetorno.Direction = ParameterDirection.Output;
+                command.Parameters.Add(paramRetorno);
+
+                command.ExecuteNonQuery();
+                return Convert.ToBoolean(command.Parameters["resultado"].Value);
 
             }
         }
