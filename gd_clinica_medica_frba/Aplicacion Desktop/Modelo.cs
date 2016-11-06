@@ -13,13 +13,6 @@ namespace ClinicaFrba
 
     public class conexion
     {
-        /*static string server = "PC-MARCOS\\SQLSERVER2012";
-        static string bd = "GD2C2016";
-        static string user = "gd";
-        static string pass = "gd2016";
-        */
-        //public static string cadena_de_conexion = "data source=" + server + " ;initial catalog="+ bd +";persist security info=True;user id=" + user + ";password="+ pass +"";
-
         public static string cadena = ConfigurationManager.AppSettings["cadena_conexion"].ToString();
     }
 
