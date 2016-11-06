@@ -39,7 +39,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         protected void llenar_grilla()
         {
-            grilla_turnos.DataSource = turnos.listar(decimal.Parse(c_profesional.SelectedValue.ToString()),fecha.ahora,0,0).Tables[0];
+            grilla_turnos.DataSource = turnos.listar(decimal.Parse(c_profesional.SelectedValue.ToString()), fecha.fechaActual, 0, 0).Tables[0];
         }
 
         protected void llenar_bonos(decimal afiliado)
@@ -73,7 +73,7 @@ namespace ClinicaFrba.Registro_Llegada
                 MessageBox.Show("No hay bonos disponibles", "Alerta");
             else
             {
-                registrar.llegada(decimal.Parse(turno.Text), decimal.Parse(c_bonos.Text), decimal.Parse(afiliado.Text), fecha.ahora);
+                registrar.llegada(decimal.Parse(turno.Text), decimal.Parse(c_bonos.Text), decimal.Parse(afiliado.Text), fecha.fechaActual);
                 MessageBox.Show("El registro se ha completado");
             }
         }

@@ -243,6 +243,6 @@ namespace ClinicaFrba
 
     public class fecha
     {
-        public static string ahora = ConfigurationManager.AppSettings["fechaSistema"].ToString();
+        public static string fechaActual = ConfigurationManager.AppSettings["fechaSistema"].ToString();
     }
 }

@@ -31,7 +31,7 @@ namespace ClinicaFrba.Registro_Resultado
 
         protected void llenar_grilla(int hora, decimal afiliado)
         {
-            grilla_turnos.DataSource = turnos.listar(decimal.Parse(t_profesional.Text),fecha.ahora,hora,afiliado).Tables[0];
+            grilla_turnos.DataSource = turnos.listar(decimal.Parse(t_profesional.Text),fecha.fechaActual,hora,afiliado).Tables[0];
         }
 
         private void b_filtrar_Click(object sender, EventArgs e)
@@ -72,7 +72,7 @@ namespace ClinicaFrba.Registro_Resultado
                     MessageBox.Show("Complete los campos vacíos");
                 else
                 {
-                    registrar.registro_resultado(decimal.Parse(grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[0].Value.ToString()), fecha.ahora, t_sintomas.Text, t_diagnostico.Text);
+                    registrar.registro_resultado(decimal.Parse(grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[0].Value.ToString()), fecha.fechaActual, t_sintomas.Text, t_diagnostico.Text);
                     MessageBox.Show("El registro se ha completado");                
                 }
             }
