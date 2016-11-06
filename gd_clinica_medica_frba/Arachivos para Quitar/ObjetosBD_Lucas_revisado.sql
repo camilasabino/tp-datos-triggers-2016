@@ -159,16 +159,16 @@ CREATE PROC LOS_TRIGGERS.AfiliadosConMasBonosComprados(@anio int, @semestre int)
 		IF (@semestre = 1) set @mes = 1
 		ELSE IF (@semestre = 2) set @mes = 7
 
-select TOP 5 afil_numero, user_apellido+', '+user_nombre as "nombre y apellido", ISNULL(SUM(comp_cantidad), 0) as "cantidad de consultas realizadas", (select afil_titular_grupo_familiar, CASE WHEN (afil_titular_grupo_familiar = afil_numero AND afil_cant_familiares_a_cargo=0) THEN 'NO'
-																																																WHEN (afil_titular_grupo_familiar = afil_numero AND afil_cant_familiares_a_cargo<>0) THEN 'SI'
-																																																WHEN (afil_titular_grupo_familiar<>afil_numero) THEN 'SI'
-																																																)
-from LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Usuario, LOS_TRIGGERS.Turno LOS_TRIGGERS.Compra_Bono
-where afil_numero = comp_afiliado AND afil_numero = turn_afiliado AND cons_turno = turn_numero AND turn_especialidad_profesional = espe_prof_id AND profesional = user_profesional AND especialidad = espe_codigo
-		AND year(turn_fecha)=@anio AND (month(turn_fecha) BETWEEN @mes AND @mes+5)
-group by profesional, user_apellido+', '+user_nombre, especialidad, espe_descripcion
-order by 3 DESC
-		
+		select TOP 5 afil_numero as afiliado , user_apellido+', '+user_nombre as "nombre y apellido",  ISNULL(SUM(comp_cantidad), 0) as "cantidad de bonos comprados", "pertenece a grupo familiar" = CASE 
+																																																		WHEN (afil_titular_grupo_familiar = afil_numero AND (afil_cant_familiares_a_cargo is null OR afil_cant_familiares_a_cargo = 0)) THEN 'NO'
+																																																		WHEN (afil_titular_grupo_familiar = afil_numero AND afil_cant_familiares_a_cargo <> 0) THEN 'SI'
+																																																		WHEN (afil_titular_grupo_familiar <> afil_numero) THEN 'SI'
+																																																	  END
+		from LOS_TRIGGERS.Afiliado, LOS_TRIGGERS.Compra_Bono, LOS_TRIGGERS.Usuario
+		where afil_numero = comp_afiliado AND user_afiliado = afil_numero
+			AND year(comp_fecha_y_hora)=@anio AND (month(comp_fecha_y_hora) BETWEEN @mes AND @mes+5)
+		group by afil_numero, user_apellido+', '+user_nombre, afil_cant_familiares_a_cargo, afil_titular_grupo_familiar
+		order by 3 DESC		
 	END;
 GO
 
