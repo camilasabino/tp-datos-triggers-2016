@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Compra_Bono
 {
-    public partial class Form1 : Form
+    public partial class FormCompraRecibo : Form
     {
-        public Form1()
+        public FormCompraRecibo()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

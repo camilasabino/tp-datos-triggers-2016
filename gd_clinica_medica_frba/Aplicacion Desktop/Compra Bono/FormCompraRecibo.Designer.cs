@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Cancelar_Atencion
+﻿namespace ClinicaFrba.Compra_Bono
 {
-    partial class Form1
+    partial class FormCompraRecibo
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 466);
-            this.Name = "Form1";
-            this.Text = "Cancelar Turno";
-            this.ResumeLayout(false);
-
+            this.Text = "FormCompraRecibo";
         }
 
         #endregion
