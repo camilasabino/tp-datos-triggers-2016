@@ -24,7 +24,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("usuario_login", conn);
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("user_name", usuario);
                 command.Parameters.AddWithValue("user_password", contrasena);
@@ -134,7 +134,7 @@ namespace ClinicaFrba
                 conn.Open();
 
                 string cadena = "SELECT bono_numero as 'id' " +
-                                "FROM [GD2C2016].[LOS_TRIGGERS].[Bono] " +
+                                "FROM [LOS_TRIGGERS].[Bono] " +
                                 "WHERE left(bono_afiliado,len(bono_afiliado)-2) = " + afil_grupo_familiar + ""+
                                 "and bono_consulta_medica is null";
 
@@ -157,7 +157,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("registro_llegada", conn);
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.registro_llegada", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("turn_numero", turno);
                 command.Parameters.AddWithValue("bono_numero", bono);
@@ -175,7 +175,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("registro_resultado", conn);
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.registro_resultado", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("turn_numero", turno);
                 command.Parameters.AddWithValue("fecha_y_hora", fecha);
@@ -203,7 +203,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("usuario_traer_ID_rol", conn);
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_traer_ID_rol", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("usuario", usuario);
                 command.Parameters.AddWithValue("rol", rol);
@@ -224,7 +224,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("usuario_tiene_permiso", conn);
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_tiene_permiso", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("funcionalidad", funcionalidad);
                 command.Parameters.AddWithValue("rol", rol);
