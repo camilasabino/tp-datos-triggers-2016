@@ -102,16 +102,17 @@ namespace ClinicaFrba
                 conn.Open();
 
                 string cadena = "SELECT turn_numero as 'Nro de turno' ," +
-                                "turn_afiliado as 'Nro Afiliado',upper(u2.user_apellido +', '+u2.user_nombre) as 'Nombre Afiliado',turn_fecha_atencion as 'Fecha' " +
+                                "turn_afiliado as 'Nro Afiliado',upper(u2.user_apellido +', '+u2.user_nombre) as 'Nombre Afiliado',turn_fecha as 'Fecha' " +
                                 "FROM LOS_TRIGGERS.Turno as t " +
-                                "JOIN LOS_TRIGGERS.Usuario as u1 on u1.user_profesional = turn_profesional " +
+                                "JOIN LOS_TRIGGERS.Especialidad_Profesional as ep on t.turn_especialidad_profesional = ep.espe_prof_id " +
+                                "JOIN LOS_TRIGGERS.Usuario as u1 on u1.user_profesional = ep.profesional " +
                                 "JOIN LOS_TRIGGERS.Usuario as u2 on u2.user_afiliado = turn_afiliado "+
-                                "WHERE turn_profesional = "+ profesional +" and "+ 
-                                "turn_fecha_atencion between convert(datetime,'"+fecha+"') and convert(datetime,DATEADD(DAY,1,'"+fecha+"')) "+
-                                "AND (datepart(hour,turn_fecha_atencion) = " + hora + " or " + hora + " = 0) " +
+                                "WHERE ep.profesional = " + profesional + " and " +
+                                "turn_fecha between convert(datetime,'" + fecha + "') and convert(datetime,DATEADD(DAY,1,'" + fecha + "')) " +
+                                "AND (datepart(hour,turn_fecha) = " + hora + " or " + hora + " = 0) " +
                                 "AND (turn_afiliado = "+afiliado+ " or "+ afiliado +" = 0) "+
                                 "AND turn_fecha_y_hora_asistencia is null "+
-                                "ORDER BY turn_fecha_atencion";
+                                "ORDER BY turn_fecha";
 
                 SqlCommand comando = new SqlCommand(cadena, conn);
                 SqlDataAdapter da = new SqlDataAdapter(comando);
