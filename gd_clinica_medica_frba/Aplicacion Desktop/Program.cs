@@ -22,7 +22,8 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Abm_Afiliado.Afiliado());
+            //Application.Run(new Abm_Afiliado.Afiliado());
+            Application.Run(new ClinicaFrba.Pedir_Turno.PedirTurno());
         }
     }
 
@@ -45,31 +46,31 @@ namespace ClinicaFrba
 
     public class DBHelper
     {
-        public static SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-
         public static DataSet ExecuteDataSet(string sqlSpName, SqlParameter[] dbParams)
         {
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             DataSet dataSet = null;
             dataSet = new DataSet();
             SqlCommand cmd = new SqlCommand(sqlSpName, conexionBase);
 
             cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
 
             if (dbParams != null)
             {
                 foreach (SqlParameter dbParam in dbParams)
                 {
-                    da.SelectCommand.Parameters.Add(dbParam);
+                    dataAdapter.SelectCommand.Parameters.Add(dbParam);
                 }
             }
-            da.Fill(dataSet);
+            dataAdapter.Fill(dataSet);
 
             return dataSet;
         }
 
         public static SqlDataReader ExecuteDataReader(string sqlSpName, SqlParameter[] dbParams)
         {
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             SqlDataReader dataReader;
             SqlCommand cmd = new SqlCommand(sqlSpName, conexionBase);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -97,6 +98,7 @@ namespace ClinicaFrba
 
         public static void ExecuteNonQuery(string sqlSpName, SqlParameter[] dbParams)
         {
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             SqlCommand cmd = new SqlCommand(sqlSpName, conexionBase);
             cmd.CommandType = CommandType.StoredProcedure;
 

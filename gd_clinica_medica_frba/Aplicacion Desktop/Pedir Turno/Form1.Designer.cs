@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Pedir_Turno
 {
-    partial class Form1
+    partial class PedirTurno
     {
         /// <summary>
         /// Required designer variable.
@@ -46,16 +46,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(197, 22);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(268, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.Size = new System.Drawing.Size(164, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Pedido de Turnos";
+            this.label1.Text = "Solicitud de Turno";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 124);
+            this.label2.Location = new System.Drawing.Point(110, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 1;
@@ -64,7 +65,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 78);
+            this.label3.Location = new System.Drawing.Point(110, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(126, 13);
             this.label3.TabIndex = 2;
@@ -73,7 +74,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 183);
+            this.label4.Location = new System.Drawing.Point(53, 183);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(131, 13);
             this.label4.TabIndex = 3;
@@ -82,7 +83,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(255, 183);
+            this.label5.Location = new System.Drawing.Point(409, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 13);
             this.label5.TabIndex = 4;
@@ -91,40 +92,42 @@
             // cEspecialidad
             // 
             this.cEspecialidad.FormattingEnabled = true;
-            this.cEspecialidad.Location = new System.Drawing.Point(217, 70);
+            this.cEspecialidad.Location = new System.Drawing.Point(318, 75);
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(247, 21);
             this.cEspecialidad.TabIndex = 5;
-            this.cEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cEspecialidad_SelectedIndexChanged);
+            this.cEspecialidad.SelectionChangeCommitted += new System.EventHandler(this.cEspecialidad_SelectionChangeCommitted);
             // 
             // cProfesional
             // 
             this.cProfesional.FormattingEnabled = true;
-            this.cProfesional.Location = new System.Drawing.Point(217, 124);
+            this.cProfesional.Location = new System.Drawing.Point(318, 124);
             this.cProfesional.Name = "cProfesional";
             this.cProfesional.Size = new System.Drawing.Size(247, 21);
             this.cProfesional.TabIndex = 6;
+            this.cProfesional.SelectionChangeCommitted += new System.EventHandler(this.cProfesional_SelectionChangeCommitted);
             // 
             // gridFechas
             // 
             this.gridFechas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridFechas.Location = new System.Drawing.Point(33, 208);
+            this.gridFechas.Location = new System.Drawing.Point(42, 208);
             this.gridFechas.Name = "gridFechas";
-            this.gridFechas.Size = new System.Drawing.Size(193, 197);
+            this.gridFechas.Size = new System.Drawing.Size(287, 197);
             this.gridFechas.TabIndex = 8;
+            this.gridFechas.SelectionChanged += new System.EventHandler(this.gridFechas_SelectionChanged);
             // 
             // gridHorarios
             // 
             this.gridHorarios.AllowUserToOrderColumns = true;
             this.gridHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridHorarios.Location = new System.Drawing.Point(258, 208);
+            this.gridHorarios.Location = new System.Drawing.Point(366, 208);
             this.gridHorarios.Name = "gridHorarios";
-            this.gridHorarios.Size = new System.Drawing.Size(194, 197);
+            this.gridHorarios.Size = new System.Drawing.Size(285, 197);
             this.gridHorarios.TabIndex = 9;
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(268, 434);
+            this.buttonConfirmar.Location = new System.Drawing.Point(470, 435);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 10;
@@ -133,18 +136,18 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(377, 434);
+            this.buttonCancelar.Location = new System.Drawing.Point(576, 435);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 11;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 488);
+            this.ClientSize = new System.Drawing.Size(699, 470);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.gridHorarios);
@@ -156,7 +159,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "PedirTurno";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).EndInit();
