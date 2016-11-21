@@ -74,7 +74,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 183);
+            this.label4.Location = new System.Drawing.Point(110, 183);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(131, 13);
             this.label4.TabIndex = 3;
@@ -83,7 +83,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(409, 183);
+            this.label5.Location = new System.Drawing.Point(441, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 13);
             this.label5.TabIndex = 4;
@@ -91,6 +91,7 @@
             // 
             // cEspecialidad
             // 
+            this.cEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cEspecialidad.FormattingEnabled = true;
             this.cEspecialidad.Location = new System.Drawing.Point(318, 75);
             this.cEspecialidad.Name = "cEspecialidad";
@@ -100,6 +101,7 @@
             // 
             // cProfesional
             // 
+            this.cProfesional.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cProfesional.FormattingEnabled = true;
             this.cProfesional.Location = new System.Drawing.Point(318, 124);
             this.cProfesional.Name = "cProfesional";
@@ -110,44 +112,55 @@
             // gridFechas
             // 
             this.gridFechas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridFechas.Location = new System.Drawing.Point(42, 208);
+            this.gridFechas.Location = new System.Drawing.Point(102, 208);
+            this.gridFechas.MultiSelect = false;
             this.gridFechas.Name = "gridFechas";
-            this.gridFechas.Size = new System.Drawing.Size(287, 197);
+            this.gridFechas.ReadOnly = true;
+            this.gridFechas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridFechas.ShowEditingIcon = false;
+            this.gridFechas.Size = new System.Drawing.Size(304, 186);
             this.gridFechas.TabIndex = 8;
-            this.gridFechas.SelectionChanged += new System.EventHandler(this.gridFechas_SelectionChanged);
+            this.gridFechas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridFechas_MouseDoubleClick);
             // 
             // gridHorarios
             // 
+            this.gridHorarios.AllowUserToAddRows = false;
+            this.gridHorarios.AllowUserToDeleteRows = false;
             this.gridHorarios.AllowUserToOrderColumns = true;
             this.gridHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridHorarios.Location = new System.Drawing.Point(366, 208);
+            this.gridHorarios.Location = new System.Drawing.Point(444, 208);
             this.gridHorarios.Name = "gridHorarios";
-            this.gridHorarios.Size = new System.Drawing.Size(285, 197);
+            this.gridHorarios.ReadOnly = true;
+            this.gridHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridHorarios.ShowEditingIcon = false;
+            this.gridHorarios.Size = new System.Drawing.Size(161, 186);
             this.gridHorarios.TabIndex = 9;
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(470, 435);
+            this.buttonConfirmar.Location = new System.Drawing.Point(463, 423);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 10;
             this.buttonConfirmar.Text = "Confirmar";
             this.buttonConfirmar.UseVisualStyleBackColor = true;
+            this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(576, 435);
+            this.buttonCancelar.Location = new System.Drawing.Point(567, 423);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 11;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
+            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 470);
+            this.ClientSize = new System.Drawing.Size(679, 470);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.gridHorarios);
