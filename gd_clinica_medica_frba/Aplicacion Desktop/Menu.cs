@@ -44,7 +44,7 @@ namespace ClinicaFrba
             usuario.nombre_usuario = "";
             usuario.rol = "";
             
-            Form1 f1 = new Form1();
+            Login f1 = new Login();
             this.Hide();
             f1.Show();
             
