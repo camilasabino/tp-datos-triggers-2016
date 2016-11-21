@@ -37,6 +37,8 @@
             this.cProfesional = new System.Windows.Forms.ComboBox();
             this.gridFechas = new System.Windows.Forms.DataGridView();
             this.gridHorarios = new System.Windows.Forms.DataGridView();
+            this.buttonConfirmar = new System.Windows.Forms.Button();
+            this.buttonCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +95,7 @@
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(247, 21);
             this.cEspecialidad.TabIndex = 5;
-//            this.cEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cEspecialidad_SelectedIndexChanged);
+            this.cEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cEspecialidad_SelectedIndexChanged);
             // 
             // cProfesional
             // 
@@ -102,7 +104,6 @@
             this.cProfesional.Name = "cProfesional";
             this.cProfesional.Size = new System.Drawing.Size(247, 21);
             this.cProfesional.TabIndex = 6;
-     //       this.cProfesional.SelectedIndexChanged += new System.EventHandler(this.cProfesional_SelectedIndexChanged);
             // 
             // gridFechas
             // 
@@ -121,11 +122,31 @@
             this.gridHorarios.Size = new System.Drawing.Size(194, 197);
             this.gridHorarios.TabIndex = 9;
             // 
+            // buttonConfirmar
+            // 
+            this.buttonConfirmar.Location = new System.Drawing.Point(268, 434);
+            this.buttonConfirmar.Name = "buttonConfirmar";
+            this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirmar.TabIndex = 10;
+            this.buttonConfirmar.Text = "Confirmar";
+            this.buttonConfirmar.UseVisualStyleBackColor = true;
+            // 
+            // buttonCancelar
+            // 
+            this.buttonCancelar.Location = new System.Drawing.Point(377, 434);
+            this.buttonCancelar.Name = "buttonCancelar";
+            this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancelar.TabIndex = 11;
+            this.buttonCancelar.Text = "Cancelar";
+            this.buttonCancelar.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 488);
+            this.Controls.Add(this.buttonCancelar);
+            this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.gridHorarios);
             this.Controls.Add(this.gridFechas);
             this.Controls.Add(this.cProfesional);
@@ -155,5 +176,7 @@
         private System.Windows.Forms.ComboBox cProfesional;
         private System.Windows.Forms.DataGridView gridFechas;
         private System.Windows.Forms.DataGridView gridHorarios;
+        private System.Windows.Forms.Button buttonConfirmar;
+        private System.Windows.Forms.Button buttonCancelar;
     }
 }

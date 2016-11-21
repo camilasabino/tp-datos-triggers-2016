@@ -5,16 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
-using System.Configuration;
-
 
 namespace ClinicaFrba
 {
-
-    public class conexion
-    {
-        public static string cadena = ConfigurationManager.AppSettings["cadena_conexion"].ToString();
-    }
 
     public class login
     {
@@ -196,8 +189,6 @@ namespace ClinicaFrba
         public static decimal id_rol;
         public static string rol;
 
-        
-
         public static decimal traer_id_rol(string usuario, string rol)
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
@@ -240,10 +231,5 @@ namespace ClinicaFrba
             }
         }
 
-    }
-
-    public class fecha
-    {
-        public static string fechaActual = ConfigurationManager.AppSettings["fechaSistema"].ToString();
     }
 }
