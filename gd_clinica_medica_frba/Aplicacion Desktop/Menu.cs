@@ -34,7 +34,7 @@ namespace ClinicaFrba
 
         private void b_abm_afiliado_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.Form1 f1 = new Abm_Afiliado.Form1();
+            Abm_Afiliado.Afiliado f1 = new Abm_Afiliado.Afiliado();
             f1.Show();
         }
 
