@@ -93,7 +93,7 @@
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(247, 21);
             this.cEspecialidad.TabIndex = 5;
-            this.cEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cEspecialidad_SelectedIndexChanged);
+//            this.cEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cEspecialidad_SelectedIndexChanged);
             // 
             // cProfesional
             // 
@@ -102,7 +102,7 @@
             this.cProfesional.Name = "cProfesional";
             this.cProfesional.Size = new System.Drawing.Size(247, 21);
             this.cProfesional.TabIndex = 6;
-            this.cProfesional.SelectedIndexChanged += new System.EventHandler(this.cProfesional_SelectedIndexChanged);
+     //       this.cProfesional.SelectedIndexChanged += new System.EventHandler(this.cProfesional_SelectedIndexChanged);
             // 
             // gridFechas
             // 
