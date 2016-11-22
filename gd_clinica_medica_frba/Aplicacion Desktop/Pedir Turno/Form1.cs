@@ -165,7 +165,7 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        protected void confirmarTruno()
+        protected void confirmarTurno()
         {
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             using (conexionBase)
@@ -178,7 +178,7 @@ namespace ClinicaFrba.Pedir_Turno
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(gridFechas.SelectedRows[0].Cells[0].Value.ToString()));
-                comando.Parameters.AddWithValue("@hora", Convert.ToString(ClinicaFrba.fecha.fechaActual));
+                comando.Parameters.AddWithValue("@hora", gridHorarios.SelectedRows[0].Cells[0].Value.ToString());
 
                 conexionBase.Close();
             }
@@ -218,9 +218,9 @@ namespace ClinicaFrba.Pedir_Turno
                                      "Horario: " + gridHorarios.SelectedRows[0].Cells[0].Value.ToString();
 
             if (MessageBox.Show(turnoAConfirmar, "Confirmar Turno",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
-
-                confirmarTruno();
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                confirmarTurno();
                 this.Hide();
             }
         }

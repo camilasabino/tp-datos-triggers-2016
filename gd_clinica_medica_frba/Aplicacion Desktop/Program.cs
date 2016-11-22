@@ -23,7 +23,9 @@ namespace ClinicaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Abm_Afiliado.Afiliado());
-            Application.Run(new ClinicaFrba.Pedir_Turno.PedirTurno());
+            //Application.Run(new ClinicaFrba.Pedir_Turno.PedirTurno());
+            Application.Run(new ClinicaFrba.Cancelar_Atencion.CancelacionAfiliado());
+            //Application.Run(new ClinicaFrba.Login());
         }
     }
 

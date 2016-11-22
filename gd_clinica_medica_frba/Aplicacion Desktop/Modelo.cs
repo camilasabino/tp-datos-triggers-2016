@@ -29,7 +29,6 @@ namespace ClinicaFrba
 
                 command.ExecuteNonQuery();
                 return Convert.ToInt16(command.Parameters["resultado"].Value);
-
             }
         }
     }
