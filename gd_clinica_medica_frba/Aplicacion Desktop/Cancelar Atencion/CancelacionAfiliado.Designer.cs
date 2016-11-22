@@ -44,11 +44,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(244, 19);
+            this.label1.Location = new System.Drawing.Point(237, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 24);
+            this.label1.Size = new System.Drawing.Size(264, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cancelación de Turno";
+            this.label1.Text = "Cancelación de Turno Afiliado";
             // 
             // gridTurnos
             // 
@@ -61,20 +61,19 @@
             this.gridTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridTurnos.Size = new System.Drawing.Size(665, 144);
             this.gridTurnos.TabIndex = 1;
-            this.gridTurnos.SelectionChanged += new System.EventHandler(this.gridTurnos_SelectionChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(37, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(203, 13);
+            this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Selecciones el turno que desee cancelar:";
+            this.label2.Text = "Seleccione el turno que desee cancelar:";
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(630, 286);
+            this.buttonConfirmar.Location = new System.Drawing.Point(630, 291);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 3;
