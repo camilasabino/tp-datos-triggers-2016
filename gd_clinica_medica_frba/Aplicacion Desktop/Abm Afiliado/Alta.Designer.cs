@@ -72,7 +72,7 @@
             // 
             this.textBox_afil_usuario.Location = new System.Drawing.Point(147, 131);
             this.textBox_afil_usuario.Name = "textBox_afil_usuario";
-            this.textBox_afil_usuario.Size = new System.Drawing.Size(147, 22);
+            this.textBox_afil_usuario.Size = new System.Drawing.Size(155, 22);
             this.textBox_afil_usuario.TabIndex = 26;
             // 
             // label4
@@ -102,7 +102,7 @@
             // 
             this.textBox_afil_dni.Location = new System.Drawing.Point(441, 106);
             this.textBox_afil_dni.Name = "textBox_afil_dni";
-            this.textBox_afil_dni.Size = new System.Drawing.Size(147, 22);
+            this.textBox_afil_dni.Size = new System.Drawing.Size(160, 22);
             this.textBox_afil_dni.TabIndex = 30;
             // 
             // label1
@@ -119,7 +119,7 @@
             this.comboBox_afil_estadoCivil.FormattingEnabled = true;
             this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(441, 165);
             this.comboBox_afil_estadoCivil.Name = "comboBox_afil_estadoCivil";
-            this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_estadoCivil.TabIndex = 32;
             // 
             // label6
@@ -135,7 +135,7 @@
             // 
             this.textBox_afil_titular.Location = new System.Drawing.Point(147, 202);
             this.textBox_afil_titular.Name = "textBox_afil_titular";
-            this.textBox_afil_titular.Size = new System.Drawing.Size(147, 22);
+            this.textBox_afil_titular.Size = new System.Drawing.Size(155, 22);
             this.textBox_afil_titular.TabIndex = 34;
             // 
             // comboBox_afil_plan
@@ -143,7 +143,7 @@
             this.comboBox_afil_plan.FormattingEnabled = true;
             this.comboBox_afil_plan.Location = new System.Drawing.Point(441, 228);
             this.comboBox_afil_plan.Name = "comboBox_afil_plan";
-            this.comboBox_afil_plan.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_afil_plan.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_plan.TabIndex = 37;
             // 
             // label5
@@ -169,7 +169,7 @@
             this.comboBox_afil_CantFamACargo.FormattingEnabled = true;
             this.comboBox_afil_CantFamACargo.Location = new System.Drawing.Point(441, 300);
             this.comboBox_afil_CantFamACargo.Name = "comboBox_afil_CantFamACargo";
-            this.comboBox_afil_CantFamACargo.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_afil_CantFamACargo.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_CantFamACargo.TabIndex = 40;
             // 
             // label7
@@ -185,7 +185,7 @@
             // 
             this.textBox_afil_relacionConTitular.Location = new System.Drawing.Point(147, 275);
             this.textBox_afil_relacionConTitular.Name = "textBox_afil_relacionConTitular";
-            this.textBox_afil_relacionConTitular.Size = new System.Drawing.Size(147, 22);
+            this.textBox_afil_relacionConTitular.Size = new System.Drawing.Size(155, 22);
             this.textBox_afil_relacionConTitular.TabIndex = 42;
             // 
             // label2

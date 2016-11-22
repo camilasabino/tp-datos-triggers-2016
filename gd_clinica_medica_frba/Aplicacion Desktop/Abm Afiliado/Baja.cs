@@ -47,5 +47,6 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             this.Close();
         }
+   
     }
 }

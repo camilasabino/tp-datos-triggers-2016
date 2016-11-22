@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.t_usuario = new System.Windows.Forms.TextBox();
             this.l_usuario = new System.Windows.Forms.Label();
             this.l_contrasena = new System.Windows.Forms.Label();
@@ -35,11 +36,15 @@
             this.c_rol = new System.Windows.Forms.ComboBox();
             this.t_rol = new System.Windows.Forms.Label();
             this.b_ingresar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // t_usuario
             // 
-            this.t_usuario.Location = new System.Drawing.Point(127, 103);
+            this.t_usuario.Location = new System.Drawing.Point(127, 137);
             this.t_usuario.Name = "t_usuario";
             this.t_usuario.Size = new System.Drawing.Size(320, 20);
             this.t_usuario.TabIndex = 0;
@@ -47,7 +52,7 @@
             // l_usuario
             // 
             this.l_usuario.AutoSize = true;
-            this.l_usuario.Location = new System.Drawing.Point(122, 78);
+            this.l_usuario.Location = new System.Drawing.Point(124, 111);
             this.l_usuario.Name = "l_usuario";
             this.l_usuario.Size = new System.Drawing.Size(43, 13);
             this.l_usuario.TabIndex = 1;
@@ -56,7 +61,7 @@
             // l_contrasena
             // 
             this.l_contrasena.AutoSize = true;
-            this.l_contrasena.Location = new System.Drawing.Point(122, 150);
+            this.l_contrasena.Location = new System.Drawing.Point(124, 183);
             this.l_contrasena.Name = "l_contrasena";
             this.l_contrasena.Size = new System.Drawing.Size(61, 13);
             this.l_contrasena.TabIndex = 3;
@@ -64,7 +69,7 @@
             // 
             // t_contrasena
             // 
-            this.t_contrasena.Location = new System.Drawing.Point(127, 175);
+            this.t_contrasena.Location = new System.Drawing.Point(127, 208);
             this.t_contrasena.Name = "t_contrasena";
             this.t_contrasena.Size = new System.Drawing.Size(320, 20);
             this.t_contrasena.TabIndex = 2;
@@ -77,7 +82,7 @@
             "Administrador",
             "Afiliado",
             "Profesional"});
-            this.c_rol.Location = new System.Drawing.Point(127, 232);
+            this.c_rol.Location = new System.Drawing.Point(127, 279);
             this.c_rol.Name = "c_rol";
             this.c_rol.Size = new System.Drawing.Size(320, 21);
             this.c_rol.TabIndex = 4;
@@ -85,7 +90,7 @@
             // t_rol
             // 
             this.t_rol.AutoSize = true;
-            this.t_rol.Location = new System.Drawing.Point(122, 208);
+            this.t_rol.Location = new System.Drawing.Point(124, 253);
             this.t_rol.Name = "t_rol";
             this.t_rol.Size = new System.Drawing.Size(23, 13);
             this.t_rol.TabIndex = 5;
@@ -93,7 +98,7 @@
             // 
             // b_ingresar
             // 
-            this.b_ingresar.Location = new System.Drawing.Point(255, 303);
+            this.b_ingresar.Location = new System.Drawing.Point(245, 336);
             this.b_ingresar.Name = "b_ingresar";
             this.b_ingresar.Size = new System.Drawing.Size(75, 23);
             this.b_ingresar.TabIndex = 6;
@@ -101,11 +106,47 @@
             this.b_ingresar.UseVisualStyleBackColor = true;
             this.b_ingresar.Click += new System.EventHandler(this.b_ingresar_Click);
             // 
-            // Form1
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(121, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(322, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Bienvenido al Sistema de Clínica FRBA";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(226, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 18);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Iniciar sesión";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(475, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(118, 112);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(618, 423);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.b_ingresar);
             this.Controls.Add(this.t_rol);
             this.Controls.Add(this.c_rol);
@@ -113,8 +154,10 @@
             this.Controls.Add(this.t_contrasena);
             this.Controls.Add(this.l_usuario);
             this.Controls.Add(this.t_usuario);
-            this.Name = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Login";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,6 +172,9 @@
         private System.Windows.Forms.ComboBox c_rol;
         private System.Windows.Forms.Label t_rol;
         private System.Windows.Forms.Button b_ingresar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
