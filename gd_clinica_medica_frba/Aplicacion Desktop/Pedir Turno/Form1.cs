@@ -84,7 +84,7 @@ namespace ClinicaFrba.Pedir_Turno
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboProfesionalesDeUnaEspecialidad", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(cEspecialidad.SelectedValue));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id));
 
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
@@ -117,8 +117,8 @@ namespace ClinicaFrba.Pedir_Turno
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboFechasDisponiblesTurno", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(cProfesional.SelectedValue));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(cEspecialidad.SelectedValue));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional) cProfesional.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
                 
                 DataTable fechas = new DataTable();
@@ -137,9 +137,8 @@ namespace ClinicaFrba.Pedir_Turno
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HorariosDisponiblesTurno", conexionBase);
 
-                string fechaSeleccionada = "2099/01/01";
+                string fechaSeleccionada = "2100/01/01";
                 try
                 {
                     fechaSeleccionada = gridFechas.SelectedRows[0].Cells[0].Value.ToString();
@@ -149,9 +148,10 @@ namespace ClinicaFrba.Pedir_Turno
                     Console.WriteLine(e.Message);
                 }
 
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HorariosDisponiblesTurno", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(cProfesional.SelectedValue));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(cEspecialidad.SelectedValue)); 
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional) cProfesional.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id)); 
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(fechaSeleccionada));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
@@ -174,8 +174,8 @@ namespace ClinicaFrba.Pedir_Turno
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.PedirTurno", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(cProfesional.SelectedValue));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(cEspecialidad.SelectedValue));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(gridFechas.SelectedRows[0].Cells[0].Value.ToString()));
                 comando.Parameters.AddWithValue("@hora", Convert.ToString(ClinicaFrba.fecha.fechaActual));
 
@@ -183,12 +183,23 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        private void cEspecialidad_SelectionChangeCommitted(object sender, EventArgs e) {
+/**************************************************************************************************
+*                                   EVENTOS DEL FORM                                              *
+***************************************************************************************************/
+      
+        private void cEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
             cargarProfesionales();
         }
 
-        private void cProfesional_SelectionChangeCommitted(object sender, EventArgs e) {
+        private void cProfesional_SelectedIndexChanged(object sender, EventArgs e)
+        {
             cargarFechas();
+        }
+
+        private void gridFechas_SelectionChanged(object sender, EventArgs e)
+        {
+            cargarHorarios();
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
@@ -199,8 +210,9 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
-            string turnoAConfirmar = "Especialidad: " + cEspecialidad.DisplayMember.ToString() + "\n" +
-                                     "Profesional: " + cProfesional.DisplayMember.ToString() + "\n" +
+            string turnoAConfirmar = "¿Desea confirmar el siguiente turno?" + "\n\n" +
+                                     "Especialidad: " + ((Especialidad) cEspecialidad.SelectedItem).nombre + "\n" +
+                                     "Profesional: " + ((Profesional) cProfesional.SelectedItem).nombreYApellido + "\n" +
                                      "Fecha: " + gridFechas.SelectedRows[0].Cells[0].Value.ToString() + "\n" +
                                      "Horario: " + gridHorarios.SelectedRows[0].Cells[0].Value.ToString();
 
@@ -211,11 +223,6 @@ namespace ClinicaFrba.Pedir_Turno
                 this.Hide();
             }
         }
-
-        private void gridFechas_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            cargarHorarios();
-        }
-
     }
 }
+                                                                                                                    
