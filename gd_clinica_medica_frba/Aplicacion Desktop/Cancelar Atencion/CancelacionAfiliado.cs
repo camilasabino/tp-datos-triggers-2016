@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
+/**************************************************************************************************
+*                             CANCELACIÓN TURNO AFILIADO                                          *
+***************************************************************************************************/
     public partial class CancelacionAfiliado : Form
     {
         public CancelacionAfiliado()
@@ -101,6 +104,10 @@ namespace ClinicaFrba.Cancelar_Atencion
                 conexionBase.Close();
             }
         }
+
+/**************************************************************************************************
+*                                   EVENTOS DEL FORM                                              *
+***************************************************************************************************/
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {

@@ -42,7 +42,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cFechaDesde = new System.Windows.Forms.ComboBox();
             this.cFechaHasta = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkModoCancelacion = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,6 +166,7 @@
             this.cFechaDesde.Name = "cFechaDesde";
             this.cFechaDesde.Size = new System.Drawing.Size(156, 21);
             this.cFechaDesde.TabIndex = 14;
+            this.cFechaDesde.SelectedIndexChanged += new System.EventHandler(this.cFechaDesde_SelectedIndexChanged);
             // 
             // cFechaHasta
             // 
@@ -175,22 +176,22 @@
             this.cFechaHasta.Size = new System.Drawing.Size(157, 21);
             this.cFechaHasta.TabIndex = 15;
             // 
-            // checkBox1
+            // checkModoCancelacion
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(40, 118);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(181, 17);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "Deseo cancelar un día particular";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkModoCancelacion.AutoSize = true;
+            this.checkModoCancelacion.Location = new System.Drawing.Point(40, 118);
+            this.checkModoCancelacion.Name = "checkModoCancelacion";
+            this.checkModoCancelacion.Size = new System.Drawing.Size(181, 17);
+            this.checkModoCancelacion.TabIndex = 16;
+            this.checkModoCancelacion.Text = "Deseo cancelar un día particular";
+            this.checkModoCancelacion.UseVisualStyleBackColor = true;
             // 
             // CancelacionProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 433);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkModoCancelacion);
             this.Controls.Add(this.cFechaHasta);
             this.Controls.Add(this.cFechaDesde);
             this.Controls.Add(this.label7);
@@ -229,6 +230,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cFechaDesde;
         private System.Windows.Forms.ComboBox cFechaHasta;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkModoCancelacion;
     }
 }

@@ -18,8 +18,6 @@ namespace ClinicaFrba.Pedir_Turno
  ***************************************************************************************************/
     public partial class PedirTurno : Form
     {
-        private BindingSource bindingSourceFechas = new BindingSource();
-
         public PedirTurno()
         {
             InitializeComponent();
