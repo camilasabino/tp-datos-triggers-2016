@@ -94,17 +94,12 @@ namespace ClinicaFrba.Cancelar_Atencion
                 //comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(112396001));
                 comando.Parameters.AddWithValue("@turno", Convert.ToDecimal(gridTurnos.SelectedRows[0].Cells[0].Value.ToString()));
-                comando.Parameters.AddWithValue("@tipo_can", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
+                comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 conexionBase.Close();
             }
-        }
-
-        private void gridTurnos_SelectionChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonConfirmar_Click(object sender, EventArgs e)

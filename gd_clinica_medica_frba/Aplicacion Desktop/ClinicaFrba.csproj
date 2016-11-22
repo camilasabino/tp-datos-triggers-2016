@@ -197,6 +197,9 @@
     <EmbeddedResource Include="Cancelar Atencion\CancelacionAfiliado.resx">
       <DependentUpon>CancelacionAfiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx">
+      <DependentUpon>CancelacionProfesional.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
