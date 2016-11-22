@@ -14,18 +14,22 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class Alta : Form
     {
-        SqlConnection conn = new SqlConnection(conexion.cadena);
 
         public Alta()
         {
             InitializeComponent();
         }
 
+        SqlConnection conn = new SqlConnection(conexion.cadena);
+
         private void alta_Afiliado_Load(object sender, EventArgs e)
         {
-            this.llenarComboPLan(comboBox_afil_plan);
-            this.llenarComboEstadoCivil(comboBox_afil_estadoCivil);
-            this.llenarCantidadFamiliaresACargo(comboBox_afil_CantFamACargo);
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                this.llenarComboPLan(comboBox_afil_plan);
+                this.llenarComboEstadoCivil(comboBox_afil_estadoCivil);
+                this.llenarCantidadFamiliaresACargo(comboBox_afil_CantFamACargo);
+            }
         }
 
         private void llenarComboPLan(ComboBox combo)

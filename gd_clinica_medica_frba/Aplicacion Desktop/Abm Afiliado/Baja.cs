@@ -14,12 +14,13 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class Baja : Form
     {
-        SqlConnection conn = new SqlConnection(conexion.cadena);
 
         public Baja()
         {
             InitializeComponent();
         }
+
+        SqlConnection conn = new SqlConnection(conexion.cadena);
 
         private void button_confirmar_Click(object sender, EventArgs e)
         {
@@ -38,6 +39,7 @@ namespace ClinicaFrba.Abm_Afiliado
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@afiliado", SqlDbType.Decimal).Value = textBox_afil_numero.Text;
             command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
+            command.ExecuteNonQuery();
 
             conn.Close();
 
