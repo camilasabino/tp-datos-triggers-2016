@@ -174,6 +174,7 @@ namespace ClinicaFrba.Pedir_Turno
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.PedirTurno", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(gridFechas.SelectedRows[0].Cells[0].Value.ToString()));

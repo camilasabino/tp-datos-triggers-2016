@@ -32,7 +32,6 @@ namespace ClinicaFrba
 
             }
         }
-
     }
 
     public class profesionales
@@ -58,7 +57,6 @@ namespace ClinicaFrba
 
                 da.Fill(ds);
                 return ds;
-
             }
         }
     }
@@ -81,7 +79,6 @@ namespace ClinicaFrba
 
                 da.Fill(ds);
                 return ds;
-
             }
         }
     }
@@ -113,7 +110,6 @@ namespace ClinicaFrba
 
                 da.Fill(ds);
                 return ds;
-
             }
         }
     }
@@ -138,7 +134,6 @@ namespace ClinicaFrba
 
                 da.Fill(ds);
                 return ds;
-
             }
         }
     }
@@ -159,7 +154,6 @@ namespace ClinicaFrba
                 command.Parameters.AddWithValue("fecha", fecha);
 
                 command.ExecuteNonQuery();
-
             }
         }
 
@@ -177,7 +171,6 @@ namespace ClinicaFrba
                 command.Parameters.AddWithValue("diag_descripcion", descripcion);
 
                 command.ExecuteNonQuery();
-
             }
         }
 
@@ -206,7 +199,6 @@ namespace ClinicaFrba
 
                 command.ExecuteNonQuery();
                 return Convert.ToDecimal(command.Parameters["nro"].Value);
-
             }
         }
 
@@ -227,9 +219,7 @@ namespace ClinicaFrba
 
                 command.ExecuteNonQuery();
                 return Convert.ToBoolean(command.Parameters["resultado"].Value);
-
             }
         }
-
     }
 }
