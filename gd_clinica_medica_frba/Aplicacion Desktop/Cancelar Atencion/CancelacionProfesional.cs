@@ -153,6 +153,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+
                 conexionBase.Close();
             }
         }
@@ -173,6 +175,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
+
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
 
                 conexionBase.Close();
             }

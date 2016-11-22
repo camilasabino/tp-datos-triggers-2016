@@ -178,6 +178,8 @@ namespace ClinicaFrba.Pedir_Turno
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(gridFechas.SelectedRows[0].Cells[0].Value.ToString()));
                 comando.Parameters.AddWithValue("@hora", gridHorarios.SelectedRows[0].Cells[0].Value.ToString());
 
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                
                 conexionBase.Close();
             }
         }
