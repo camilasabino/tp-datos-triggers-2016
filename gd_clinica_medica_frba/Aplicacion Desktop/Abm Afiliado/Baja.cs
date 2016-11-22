@@ -14,9 +14,38 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class Baja : Form
     {
+        SqlConnection conn = new SqlConnection(conexion.cadena);
+
         public Baja()
         {
             InitializeComponent();
+        }
+
+        private void button_confirmar_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                this.darDeBaja();
+                this.Close();
+            }
+        }
+
+        private void darDeBaja()
+        {
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("LOS_TRIGGERS.DarDeBajaUnAfiliado", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@afiliado", SqlDbType.Decimal).Value = textBox_afil_numero.Text;
+            command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
+
+            conn.Close();
+
+        }
+
+        private void button_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

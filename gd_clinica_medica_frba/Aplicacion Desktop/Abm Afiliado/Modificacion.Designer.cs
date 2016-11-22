@@ -36,15 +36,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_afil_numero = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox_afil_plan = new System.Windows.Forms.ComboBox();
-            this.textBox_afil_estadoCivil = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_afil_motivo = new System.Windows.Forms.RichTextBox();
             this.button_confirmar = new System.Windows.Forms.Button();
             this.button_cancelar = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox_afil_plan = new System.Windows.Forms.ComboBox();
+            this.comboBox_afil_estadoCivil = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -111,31 +111,6 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Numero de Afiliado";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(359, 182);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 17);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Plan";
-            // 
-            // comboBox_afil_plan
-            // 
-            this.comboBox_afil_plan.FormattingEnabled = true;
-            this.comboBox_afil_plan.Location = new System.Drawing.Point(362, 202);
-            this.comboBox_afil_plan.Name = "comboBox_afil_plan";
-            this.comboBox_afil_plan.Size = new System.Drawing.Size(147, 24);
-            this.comboBox_afil_plan.TabIndex = 9;
-            this.comboBox_afil_plan.SelectedIndexChanged += new System.EventHandler(this.comboBox_afil_plan_SelectedIndexChanged);
-            // 
-            // textBox_afil_estadoCivil
-            // 
-            this.textBox_afil_estadoCivil.Location = new System.Drawing.Point(108, 161);
-            this.textBox_afil_estadoCivil.Name = "textBox_afil_estadoCivil";
-            this.textBox_afil_estadoCivil.Size = new System.Drawing.Size(147, 22);
-            this.textBox_afil_estadoCivil.TabIndex = 11;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -154,14 +129,14 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Motivo";
             // 
-            // richTextBox1
+            // richTextBox_afil_motivo
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Location = new System.Drawing.Point(539, 202);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(201, 86);
-            this.richTextBox1.TabIndex = 13;
-            this.richTextBox1.Text = "";
+            this.richTextBox_afil_motivo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox_afil_motivo.Location = new System.Drawing.Point(539, 202);
+            this.richTextBox_afil_motivo.Name = "richTextBox_afil_motivo";
+            this.richTextBox_afil_motivo.Size = new System.Drawing.Size(201, 86);
+            this.richTextBox_afil_motivo.TabIndex = 13;
+            this.richTextBox_afil_motivo.Text = "";
             // 
             // button_confirmar
             // 
@@ -171,15 +146,18 @@
             this.button_confirmar.TabIndex = 14;
             this.button_confirmar.Text = "Confirmar";
             this.button_confirmar.UseVisualStyleBackColor = true;
+            this.button_confirmar.Click += new System.EventHandler(this.button_confirmar_Click);
             // 
             // button_cancelar
             // 
+            this.button_cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_cancelar.Location = new System.Drawing.Point(498, 400);
             this.button_cancelar.Name = "button_cancelar";
             this.button_cancelar.Size = new System.Drawing.Size(123, 38);
             this.button_cancelar.TabIndex = 15;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
+            this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
             // 
             // linkLabel1
             // 
@@ -195,6 +173,31 @@
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Black;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(359, 182);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 17);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Plan";
+            // 
+            // comboBox_afil_plan
+            // 
+            this.comboBox_afil_plan.FormattingEnabled = true;
+            this.comboBox_afil_plan.Location = new System.Drawing.Point(362, 203);
+            this.comboBox_afil_plan.Name = "comboBox_afil_plan";
+            this.comboBox_afil_plan.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_afil_plan.TabIndex = 18;
+            // 
+            // comboBox_afil_estadoCivil
+            // 
+            this.comboBox_afil_estadoCivil.FormattingEnabled = true;
+            this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(108, 161);
+            this.comboBox_afil_estadoCivil.Name = "comboBox_afil_estadoCivil";
+            this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_afil_estadoCivil.TabIndex = 19;
+            // 
             // Modificacion
             // 
             this.AcceptButton = this.button_confirmar;
@@ -202,15 +205,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button_cancelar;
             this.ClientSize = new System.Drawing.Size(782, 513);
+            this.Controls.Add(this.comboBox_afil_estadoCivil);
+            this.Controls.Add(this.comboBox_afil_plan);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button_cancelar);
             this.Controls.Add(this.button_confirmar);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.richTextBox_afil_motivo);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox_afil_estadoCivil);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox_afil_plan);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox_afil_numero);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox_afil_mail);
@@ -221,7 +224,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Modificacion";
             this.Text = "Modificacion";
-            this.Load += new System.EventHandler(this.comboBox_afil_plan_SelectedIndexChanged);
+            this.Load += new System.EventHandler(this.modificacion_Afiliado_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,14 +240,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_afil_numero;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox_afil_plan;
-        private System.Windows.Forms.TextBox textBox_afil_estadoCivil;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox_afil_motivo;
         private System.Windows.Forms.Button button_confirmar;
         private System.Windows.Forms.Button button_cancelar;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox_afil_plan;
+        private System.Windows.Forms.ComboBox comboBox_afil_estadoCivil;
     }
 }
