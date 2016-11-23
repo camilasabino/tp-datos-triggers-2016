@@ -144,11 +144,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
@@ -171,17 +171,17 @@
     <Compile Include="Registrar Agenta Medico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Llegada\Registrar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\Registrar.Designer.cs">
+      <DependentUpon>Registrar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.cs">
+    <Compile Include="Registro Resultado\Registrar_resul.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Resultado\Registrar_resul.Designer.cs">
+      <DependentUpon>Registrar_resul.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\Afiliados.resx">
       <DependentUpon>Afiliados.cs</DependentUpon>
@@ -206,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -246,11 +249,11 @@
     <EmbeddedResource Include="Registrar Agenta Medico\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\Registrar.resx">
+      <DependentUpon>Registrar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Resultado\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Resultado\Registrar_resul.resx">
+      <DependentUpon>Registrar_resul.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="GD2C2016DataSet1.xsc">
       <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>

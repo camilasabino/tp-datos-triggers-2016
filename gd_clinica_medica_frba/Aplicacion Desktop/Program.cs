@@ -26,13 +26,13 @@ namespace ClinicaFrba
             //Application.Run(new ClinicaFrba.Pedir_Turno.PedirTurno());
             //Application.Run(new ClinicaFrba.Cancelar_Atencion.CancelacionAfiliado());
             //Application.Run(new ClinicaFrba.Cancelar_Atencion.CancelacionProfesional());
-<<<<<<< HEAD
+//<<<<<<< HEAD
             //Application.Run(new ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgenda());
             Application.Run(new ClinicaFrba.Login());
-=======
+//=======
             //Application.Run(new ClinicaFrba.Login());
             Application.Run(new ClinicaFrba.Compra_Bono.CompraBono());
->>>>>>> e93f1a234b4b2575d5e00e231199463c4d74db0d
+//>>>>>>> e93f1a234b4b2575d5e00e231199463c4d74db0d
         }
     }
 

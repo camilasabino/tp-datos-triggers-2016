@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registro_Llegada
 {
-    public partial class Form1 : Form
+    public partial class Registrar : Form
     {
-        public Form1()
+        public Registrar()
         {
             InitializeComponent();
             llenar_especialidades();
@@ -33,7 +33,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             
             c_especialidad.DataSource = especialidades.listar().Tables[0];
-            c_profesional.ValueMember = "id";
+            c_especialidad.ValueMember = "id";
             c_especialidad.DisplayMember = "Nombre";          
         }
 

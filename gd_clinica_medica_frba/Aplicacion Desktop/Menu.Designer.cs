@@ -80,6 +80,7 @@
             this.b_abm_espcialidades.TabIndex = 3;
             this.b_abm_espcialidades.Text = "ABM Especialidades Medicas";
             this.b_abm_espcialidades.UseVisualStyleBackColor = true;
+            this.b_abm_espcialidades.Click += new System.EventHandler(this.b_abm_espcialidades_Click);
             // 
             // b_abm_planes
             // 
@@ -89,6 +90,7 @@
             this.b_abm_planes.TabIndex = 4;
             this.b_abm_planes.Text = "ABM Planes";
             this.b_abm_planes.UseVisualStyleBackColor = true;
+            this.b_abm_planes.Click += new System.EventHandler(this.b_abm_planes_Click);
             // 
             // b_abm_profesional
             // 
@@ -98,6 +100,7 @@
             this.b_abm_profesional.TabIndex = 5;
             this.b_abm_profesional.Text = "ABM Profesional";
             this.b_abm_profesional.UseVisualStyleBackColor = true;
+            this.b_abm_profesional.Click += new System.EventHandler(this.b_abm_profesional_Click);
             // 
             // b_abm_rol
             // 
@@ -107,6 +110,7 @@
             this.b_abm_rol.TabIndex = 6;
             this.b_abm_rol.Text = "ABM Rol";
             this.b_abm_rol.UseVisualStyleBackColor = true;
+            this.b_abm_rol.Click += new System.EventHandler(this.b_abm_rol_Click);
             // 
             // b_cancelar_atencion
             // 
@@ -116,6 +120,7 @@
             this.b_cancelar_atencion.TabIndex = 7;
             this.b_cancelar_atencion.Text = "Cancelar Atención";
             this.b_cancelar_atencion.UseVisualStyleBackColor = true;
+            this.b_cancelar_atencion.Click += new System.EventHandler(this.b_cancelar_atencion_Click);
             // 
             // b_compra_bono
             // 
@@ -125,6 +130,7 @@
             this.b_compra_bono.TabIndex = 8;
             this.b_compra_bono.Text = "Compra Bono";
             this.b_compra_bono.UseVisualStyleBackColor = true;
+            this.b_compra_bono.Click += new System.EventHandler(this.b_compra_bono_Click);
             // 
             // b_listados
             // 
@@ -134,6 +140,7 @@
             this.b_listados.TabIndex = 9;
             this.b_listados.Text = "Listados";
             this.b_listados.UseVisualStyleBackColor = true;
+            this.b_listados.Click += new System.EventHandler(this.b_listados_Click);
             // 
             // b_pedir_turno
             // 
@@ -143,6 +150,7 @@
             this.b_pedir_turno.TabIndex = 10;
             this.b_pedir_turno.Text = "Pedir Turno";
             this.b_pedir_turno.UseVisualStyleBackColor = true;
+            this.b_pedir_turno.Click += new System.EventHandler(this.b_pedir_turno_Click);
             // 
             // b_registrar_agenda
             // 
@@ -152,6 +160,7 @@
             this.b_registrar_agenda.TabIndex = 11;
             this.b_registrar_agenda.Text = "Registrar Agenda Profesional";
             this.b_registrar_agenda.UseVisualStyleBackColor = true;
+            this.b_registrar_agenda.Click += new System.EventHandler(this.b_registrar_agenda_Click);
             // 
             // b_registrar_llegada
             // 

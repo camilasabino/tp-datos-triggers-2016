@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registro_Resultado
 {
-    public partial class Form1 : Form
+    public partial class Registrar_resul : Form
     {
-        public Form1()
+        public Registrar_resul()
         {
             InitializeComponent();
             if (usuario.rol == "Profesional")

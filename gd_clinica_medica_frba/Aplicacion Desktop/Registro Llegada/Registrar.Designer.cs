@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registro_Llegada
 {
-    partial class Form1
+    partial class Registrar
     {
         /// <summary>
         /// Required designer variable.
