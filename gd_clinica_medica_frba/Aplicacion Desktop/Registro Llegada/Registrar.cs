@@ -78,10 +78,7 @@ namespace ClinicaFrba.Registro_Llegada
             }
         }
 
-        private void grilla_turnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+      
 
 
 

@@ -17,19 +17,23 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
+        private void Añadir_Click(object sender, EventArgs e)
+        {
+            AbmRol.Alta alta = new AbmRol.Alta();
+            alta.Show();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void Eliminar_Click(object sender, EventArgs e)
         {
-
+            AbmRol.Eliminar eliminar = new AbmRol.Eliminar();
+            eliminar.Show();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void Modificar_Click(object sender, EventArgs e)
         {
-
+            AbmRol.Editar editar = new AbmRol.Editar();
+            editar.Show();
         }
     }
 }

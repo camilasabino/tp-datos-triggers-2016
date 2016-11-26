@@ -13,7 +13,8 @@ namespace ClinicaFrba.Abm_Afiliado
 {
 
 
-    public partial class Modificacion : Form
+    public partial class 
+        Modificacion : Form
     {
         public class Plan
         {
