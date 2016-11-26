@@ -48,7 +48,7 @@
             // Aceptar
             // 
             this.Aceptar.Location = new System.Drawing.Point(104, 150);
-            this.Aceptar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Aceptar.Margin = new System.Windows.Forms.Padding(2);
             this.Aceptar.Name = "Aceptar";
             this.Aceptar.Size = new System.Drawing.Size(77, 30);
             this.Aceptar.TabIndex = 2;
@@ -59,7 +59,7 @@
             // Cancelar
             // 
             this.Cancelar.Location = new System.Drawing.Point(222, 150);
-            this.Cancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancelar.Margin = new System.Windows.Forms.Padding(2);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(77, 30);
             this.Cancelar.TabIndex = 3;
@@ -96,7 +96,7 @@
             this.Controls.Add(this.Cancelar);
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Eliminar";
             this.Text = "Eliminar";
             this.ResumeLayout(false);

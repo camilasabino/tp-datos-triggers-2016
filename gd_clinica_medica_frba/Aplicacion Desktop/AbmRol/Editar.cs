@@ -18,30 +18,22 @@ namespace ClinicaFrba.AbmRol
         {
             InitializeComponent();
             cargarRoles();
-            cargarDatosRol();
+            cargarNombre();
+            cargarFuncionalidades();
         }
 
-        public void cargarDatosRol()
+        public void cargarNombre()
         {
-            String queryFuncionalidades = "", queryNombre = "";
+            String queryNombre = "";
             switch (cRoles.SelectedItem.ToString())
             {
                 case "Administrador":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND administrador is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Administrador";
                     break;
                 case "Afiliado":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND afiliado is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Afiliado";
                     break;
                 case "Profesional":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND profesional is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Profesional";
                     break;
             }
@@ -50,17 +42,48 @@ namespace ClinicaFrba.AbmRol
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando1 = new SqlCommand(queryFuncionalidades, conexionBase);
                 SqlCommand comando2 = new SqlCommand(queryNombre, conexionBase);
+
+                SqlDataReader reader = comando2.ExecuteReader();
+                reader.Read();
+                textNombre.Text = reader.GetString(0);
+
+                conexionBase.Close();
+            }
+        }
+
+        public void cargarFuncionalidades()
+        {
+            String queryFuncionalidades = "";
+            switch (cRoles.SelectedItem.ToString())
+            {
+                case "Administrador":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND administrador is not null";
+                    break;
+                case "Afiliado":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND afiliado is not null";
+                    break;
+                case "Profesional":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND profesional is not null";
+                    break;
+            }
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando1 = new SqlCommand(queryFuncionalidades, conexionBase);
 
                 DataTable funcionalidades = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(comando1);
                 adapter.Fill(funcionalidades);
                 gridFuncionalidades.DataSource = funcionalidades;
-
-                SqlDataReader reader = comando2.ExecuteReader();
-                reader.Read();
-                textNombre.Text = reader.GetString(0);
 
                 conexionBase.Close();
             }
@@ -88,7 +111,7 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
-            cargarDatosRol();
+            cargarFuncionalidades();
         }
 
         private void eliminar_Click(object sender, EventArgs e)
@@ -105,7 +128,7 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
-            cargarDatosRol();
+            cargarFuncionalidades();
         }
 
         private void aceptar_Click(object sender, EventArgs e)
@@ -130,7 +153,6 @@ namespace ClinicaFrba.AbmRol
                     conexionBase.Close();
                 }
             }
-            cargarDatosRol();
         }
 
         private void cancelar_Click(object sender, EventArgs e)
@@ -139,9 +161,10 @@ namespace ClinicaFrba.AbmRol
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
-        private void cRoles_SelectedIndexChanged(object sender, EventArgs e)
+        private void cRoles_SelectedValueChanged(object sender, EventArgs e)
         {
-            cargarDatosRol();
+            cargarNombre();
+            cargarFuncionalidades();
         }
     }
 }

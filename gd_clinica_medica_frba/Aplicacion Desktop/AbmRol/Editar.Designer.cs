@@ -151,6 +151,7 @@
             this.cRoles.Size = new System.Drawing.Size(156, 21);
             this.cRoles.Sorted = true;
             this.cRoles.TabIndex = 12;
+            this.cRoles.SelectedValueChanged += new System.EventHandler(this.cRoles_SelectedValueChanged);
             // 
             // label4
             // 
