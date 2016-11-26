@@ -14,116 +14,134 @@ namespace ClinicaFrba.AbmRol
     public partial class Editar : Form
     {
 
-        public class Funcionalidad
-        {
-            public decimal id { get; set; }
-            public string nombre { get; set; }
-
-            public Funcionalidad(decimal _id, string _nombre)
-            {
-                this.id = _id;
-                this.nombre = _nombre;
-            }
-        }
-
-      
         public Editar()
         {
             InitializeComponent();
-            cargarFuncionalidades();
-            
+            cargarRoles();
+            cargarDatosRol();
         }
-        SqlConnection conn = new SqlConnection(conexion.cadena);
 
-        private void modificacion_Afiliado_Load(object sender, EventArgs e)
+        public void cargarDatosRol()
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            String queryFuncionalidades = "", queryNombre = "";
+            switch (cRoles.SelectedItem.ToString())
             {
-                this.cargarFuncionalidadesDeRol();
+                case "Administrador":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND administrador is not null";
+                    queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Administrador";
+                    break;
+                case "Afiliado":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND afiliado is not null";
+                    queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Afiliado";
+                    break;
+                case "Profesional":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND profesional is not null";
+                    queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Profesional";
+                    break;
             }
-        }
-
-
-        public List<Funcionalidad> cargarFuncionalidadesDeRol()
-        {
-            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
 
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboFuncionalidadesRol", conexionBase);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@rol", SqlDbType.VarChar).Value = nombreRol.Text;
+                SqlCommand comando1 = new SqlCommand(queryFuncionalidades, conexionBase);
+                SqlCommand comando2 = new SqlCommand(queryNombre, conexionBase);
 
+                DataTable funcionalidades = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(comando1);
+                adapter.Fill(funcionalidades);
+                gridFuncionalidades.DataSource = funcionalidades;
 
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    listBox1.Items.Add(new Funcionalidad(reader.GetDecimal(0), reader.GetString(1)));
-                }
+                SqlDataReader reader = comando2.ExecuteReader();
+                reader.Read();
+                textNombre.Text = reader.GetString(0);
+
                 conexionBase.Close();
-
             }
-            return funcionalidades;
         }
-        protected void cargarFuncionalidades()
+
+        public void cargarRoles()
         {
-            listBox1.DataSource = cargarFuncionalidadesDeRol();
-            listBox1.DisplayMember = "nombre";
-            listBox1.ValueMember = "id";
+            cRoles.Items.Insert(0, "Administrador");
+            cRoles.Items.Insert(1, "Afiliado");
+            cRoles.Items.Insert(2, "Profesional");
+            cRoles.SelectedIndex = 0;
         }
-
-
-        private void modificarNombre()
-        {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.ModificarRol", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@rol", SqlDbType.VarChar).Value = nombreRol.Text;
-            cmd.Parameters.AddWithValue("@nuevo_nombre", SqlDbType.VarChar).Value = nombreRol.Text;
-            cmd.ExecuteNonQuery();
-            conn.Close();
-        
-        }
-
-
-        private void eliminar_Click(object sender, EventArgs e)
-        {
-            listBox1.Items.Remove(listBox1.SelectedItem);
-        }
-
 
         private void agregar_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(agregarFuncionalidad.Text);
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.AgregarFuncionalidadAUnRol", conexionBase);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@rol", cRoles.SelectedItem.ToString());
+                cmd.Parameters.AddWithValue("@funcionalidad", textAgregar.Text);
+                cmd.ExecuteNonQuery();
 
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.AgregarFuncionalidadAUnRol", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@rol", SqlDbType.VarChar).Value = nombreRol.Text;
-            cmd.Parameters.AddWithValue("@funcionalidad", SqlDbType.VarChar).Value = agregarFuncionalidad.Text;
-            cmd.ExecuteNonQuery();
-            conn.Close();
-
+                conexionBase.Close();
+            }
+            cargarDatosRol();
         }
 
+        private void eliminar_Click(object sender, EventArgs e)
+        {
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.QuitarFuncionalidadAUnRol", conexionBase);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@rol", cRoles.SelectedItem.ToString());
+                cmd.Parameters.AddWithValue("@funcionalidad", gridFuncionalidades.SelectedRows[0].Cells[0].Value.ToString());
+                cmd.ExecuteNonQuery();
+
+                conexionBase.Close();
+            }
+            cargarDatosRol();
+        }
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(nombreRol.Text))
+            if (String.IsNullOrEmpty(textNombre.Text))
             {
-                MessageBox.Show("Debe ingresar el nombre del ROL");
-
-                return;
+                MessageBox.Show("Debe ingresar el nombre del Rol.", "No se ha indicado un nombre",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.Close();
+            else
+            {
+                SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+                using (conexionBase)
+                {
+                    conexionBase.Open();
+                    SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.ModificarRol", conexionBase);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@rol", cRoles.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@nuevo_nombre", textNombre.Text);
+                    cmd.ExecuteNonQuery();
+
+                    conexionBase.Close();
+                }
+            }
+            cargarDatosRol();
         }
 
         private void cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
+        private void cRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarDatosRol();
+        }
     }
 }

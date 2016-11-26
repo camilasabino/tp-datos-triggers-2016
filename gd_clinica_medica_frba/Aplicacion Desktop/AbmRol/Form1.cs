@@ -17,11 +17,11 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
         }
 
-
         private void Añadir_Click(object sender, EventArgs e)
         {
-            AbmRol.Alta alta = new AbmRol.Alta();
-            alta.Show();
+            MessageBox.Show("El Alta de un Rol no está implementado, ya que para ello debe crearse su tabla correspondiente en la Base de Datos.",
+                "Funcionalidad no implementada en el sistema",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void Eliminar_Click(object sender, EventArgs e)
@@ -34,6 +34,12 @@ namespace ClinicaFrba.AbmRol
         {
             AbmRol.Editar editar = new AbmRol.Editar();
             editar.Show();
+        }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
     }
 }
