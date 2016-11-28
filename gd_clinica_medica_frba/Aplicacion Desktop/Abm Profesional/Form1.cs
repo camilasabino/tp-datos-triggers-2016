@@ -16,5 +16,7 @@ namespace ClinicaFrba.Abm_Profesional
         {
             InitializeComponent();
         }
+
+       
     }
 }

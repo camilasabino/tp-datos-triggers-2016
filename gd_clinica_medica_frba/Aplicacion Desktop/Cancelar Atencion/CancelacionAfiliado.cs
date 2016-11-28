@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
+/**************************************************************************************************
+*                             CANCELACIÓN TURNO AFILIADO                                          *
+***************************************************************************************************/
     public partial class CancelacionAfiliado : Form
     {
         public CancelacionAfiliado()
@@ -98,9 +101,15 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+
                 conexionBase.Close();
             }
         }
+
+/**************************************************************************************************
+*                                   EVENTOS DEL FORM                                              *
+***************************************************************************************************/
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {

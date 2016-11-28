@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registro_Llegada
 {
-    partial class Form1
+    partial class Registrar
     {
         /// <summary>
         /// Required designer variable.
@@ -109,7 +109,6 @@
             this.grilla_turnos.Size = new System.Drawing.Size(449, 246);
             this.grilla_turnos.TabIndex = 6;
             this.grilla_turnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grilla_turnos_CellClick);
-            this.grilla_turnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grilla_turnos_CellContentClick);
             // 
             // label1
             // 

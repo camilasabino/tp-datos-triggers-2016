@@ -17,19 +17,29 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Añadir_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("El Alta de un Rol no está implementado, ya que para ello debe crearse su tabla correspondiente en la Base de Datos.",
+                "Funcionalidad no implementada en el sistema",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void Eliminar_Click(object sender, EventArgs e)
         {
-
+            AbmRol.Eliminar eliminar = new AbmRol.Eliminar();
+            eliminar.Show();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void Modificar_Click(object sender, EventArgs e)
         {
+            AbmRol.Editar editar = new AbmRol.Editar();
+            editar.Show();
+        }
 
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
     }
 }

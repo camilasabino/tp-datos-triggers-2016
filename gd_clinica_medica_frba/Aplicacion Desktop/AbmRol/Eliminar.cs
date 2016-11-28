@@ -2,54 +2,57 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
-
-namespace ClinicaFrba.Abm_Afiliado
+namespace ClinicaFrba.AbmRol
 {
-    public partial class Baja : Form
+    public partial class Eliminar : Form
     {
-
-        public Baja()
+        public Eliminar()
         {
             InitializeComponent();
+            cargarRoles();
         }
 
-        SqlConnection conn = new SqlConnection(conexion.cadena);
-
-        private void button_confirmar_Click(object sender, EventArgs e)
+        private void Aceptar_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
-                this.darDeBaja();
+                darDeBaja();
                 this.Close();
             }
         }
 
+        public void cargarRoles()
+        {
+            cRoles.Items.Insert(0, "Administrador");
+            cRoles.Items.Insert(1, "Afiliado");
+            cRoles.Items.Insert(2, "Profesional");
+            cRoles.SelectedIndex = 0;
+        }
+
         private void darDeBaja()
         {
+            SqlConnection conn = new SqlConnection(conexion.cadena);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("LOS_TRIGGERS.DarDeBajaUnAfiliado", conn);
+            SqlCommand command = new SqlCommand("LOS_TRIGGERS.DarDeBajaRol", conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@afiliado", SqlDbType.Decimal).Value = textBox_afil_numero.Text;
+            command.Parameters.AddWithValue("@Rol", cRoles.SelectedItem.ToString());
             command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
             command.ExecuteNonQuery();
 
             conn.Close();
-
         }
 
-        private void button_cancelar_Click(object sender, EventArgs e)
+        private void Cancelar_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
             this.Close();
         }
-   
     }
 }

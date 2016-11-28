@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
+/**************************************************************************************************
+*                              CANCELACIÓN TURNO PROFESIONAL                                      *
+***************************************************************************************************/
     public partial class CancelacionProfesional : Form
     {
         public CancelacionProfesional()
@@ -18,7 +21,8 @@ namespace ClinicaFrba.Cancelar_Atencion
             InitializeComponent();
             cargarTurnos();
             cargarTiposCancelacion();
-            cargarFechasPeriodo();
+            cargarFechasDesde();
+            cargarFechasHasta();
         }
 
         public class TipoCancelacion
@@ -76,9 +80,33 @@ namespace ClinicaFrba.Cancelar_Atencion
             return cancelaciones;
         }
 
-        public void cargarFechasPeriodo()
+        public void cargarFechasDesde()
         {
             List<String> fechasDesde = new List<String>();
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.FechasDeAtencionProfesional", conexionBase);
+
+                comando.CommandType = CommandType.StoredProcedure;
+                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    fechasDesde.Add(reader.GetString(0));
+                }
+                cFechaDesde.DataSource = fechasDesde;
+
+                conexionBase.Close();
+            }
+        }
+
+        public void cargarFechasHasta()
+        {
             List<String> fechasHasta = new List<String>();
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             using (conexionBase)
@@ -89,15 +117,13 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.CommandType = CommandType.StoredProcedure;
                 //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
-                comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
+                comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(cFechaDesde.SelectedValue));
 
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                    fechasDesde.Add(reader.GetString(0));
                     fechasHasta.Add(reader.GetString(0));
                 }
-                cFechaDesde.DataSource = fechasDesde;
                 cFechaHasta.DataSource = fechasHasta;
 
                 conexionBase.Close();
@@ -127,6 +153,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+
                 conexionBase.Close();
             }
         }
@@ -148,23 +176,52 @@ namespace ClinicaFrba.Cancelar_Atencion
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
+                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+
                 conexionBase.Close();
             }
         }
 
+/**************************************************************************************************
+*                                   EVENTOS DEL FORM                                              *
+***************************************************************************************************/
+
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
-            string turnoACancelar = "¿Desea cancelar el siguiente turno?" + "\n\n" +
-                         "Especialidad: " + gridTurnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
-                         "Profesional: " + gridTurnos.SelectedRows[0].Cells[1].Value.ToString() + "\n" +
-                         "Fecha: " + gridTurnos.SelectedRows[0].Cells[3].Value.ToString() + "\n" +
-                         "Horario: " + gridTurnos.SelectedRows[0].Cells[5].Value.ToString();
-
-            if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del Turno",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!string.IsNullOrEmpty(textMotivo.Text))
             {
-                confirmarCancelacionDiaParticular();
-                this.Hide();
+                if (checkModoCancelacion.Checked) // Cancela un día particular
+                {
+                    string turnoACancelar = "¿Desea cancelar el siguiente turno?" + "\n\n" +
+                        "Especialidad: " + gridTurnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
+                        "Fecha: " + gridTurnos.SelectedRows[0].Cells[3].Value.ToString() + "\n" +
+                        "Horario: " + gridTurnos.SelectedRows[0].Cells[4].Value.ToString();
+
+                    if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del Turno",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        confirmarCancelacionDiaParticular();
+                        this.Hide();
+                    }
+                }
+                else // Cancela un período
+                {
+                    string periodoACancelar = "¿Desea cancelar el siguiente período de turnos?" + "\n\n" +
+                        "Desde Fecha: " + cFechaDesde.SelectedValue.ToString() + "\n" +
+                        "Hasta Fecha: " + cFechaHasta.SelectedValue.ToString() + "\n\n";
+
+                    if (MessageBox.Show(periodoACancelar, "Confirmar cancelación del Período de Turnos",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        confirmarCancelacionPeriodo();
+                        this.Hide();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor indique el motivo de la cancelación.", "No se ha indicado un motivo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -172,6 +229,11 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
+
+        private void cFechaDesde_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarFechasHasta();
         }
     }
 }
