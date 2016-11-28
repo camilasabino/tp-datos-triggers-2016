@@ -26,19 +26,18 @@ namespace ClinicaFrba.Registro_Resultado
                 l_profesional.Visible = true;
                 b_turnos.Visible = true;
             }
-
         }
 
         protected void llenar_grilla(int hora, decimal afiliado)
         {
-            grilla_turnos.DataSource = turnos.listar(decimal.Parse(t_profesional.Text),fecha.fechaActual,hora,afiliado).Tables[0];
+            grilla_turnos.DataSource = turnos.listar(decimal.Parse(t_profesional.Text), fecha.fechaActual, hora, afiliado).Tables[0];
         }
 
         private void b_filtrar_Click(object sender, EventArgs e)
         {
             int hora;
             decimal afiliado;
-            
+
             if (t_afiliado.Text == "")
                 afiliado = 0;
             else
@@ -52,16 +51,6 @@ namespace ClinicaFrba.Registro_Resultado
             llenar_grilla(hora, afiliado);
         }
 
-        private void grilla_turnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void grilla_turnos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void b_registrar_Click(object sender, EventArgs e)
         {
             if (grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[0].Value.ToString() == "")
@@ -69,11 +58,11 @@ namespace ClinicaFrba.Registro_Resultado
             else
             {
                 if (t_diagnostico.Text == "" || t_sintomas.Text == "")
-                    MessageBox.Show("Complete los campos vacíos");
+                    MessageBox.Show("Por favor, complete los campos vacíos.");
                 else
                 {
                     registrar.registro_resultado(decimal.Parse(grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[0].Value.ToString()), fecha.fechaActual, t_sintomas.Text, t_diagnostico.Text);
-                    MessageBox.Show("El registro se ha completado");                
+                    MessageBox.Show("El registro se ha completado satisfactoriamente.");
                 }
             }
         }

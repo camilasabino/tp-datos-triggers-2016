@@ -139,12 +139,6 @@
     <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs">
       <DependentUpon>CancelacionProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,9 +221,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx">
       <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>

@@ -42,7 +42,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(53, 178);
+            this.dataGridView1.Location = new System.Drawing.Point(53, 231);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(734, 150);
             this.dataGridView1.TabIndex = 0;
@@ -51,11 +51,12 @@
             // l_titulo
             // 
             this.l_titulo.AutoSize = true;
-            this.l_titulo.Location = new System.Drawing.Point(50, 13);
+            this.l_titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_titulo.Location = new System.Drawing.Point(299, 18);
             this.l_titulo.Name = "l_titulo";
-            this.l_titulo.Size = new System.Drawing.Size(46, 13);
+            this.l_titulo.Size = new System.Drawing.Size(181, 24);
             this.l_titulo.TabIndex = 1;
-            this.l_titulo.Text = "Listados";
+            this.l_titulo.Text = "Listados Estadísticos";
             // 
             // c_opcion
             // 
@@ -66,25 +67,25 @@
             "Profesionales con menos horas trabajadas",
             "Afiliados con mayor cantidad de bonos comprados",
             "Especialidades de médicos con mas bonos de consultas utilizados"});
-            this.c_opcion.Location = new System.Drawing.Point(53, 51);
+            this.c_opcion.Location = new System.Drawing.Point(56, 69);
             this.c_opcion.Name = "c_opcion";
             this.c_opcion.Size = new System.Drawing.Size(734, 21);
             this.c_opcion.TabIndex = 2;
             // 
             // b_mostrar
             // 
-            this.b_mostrar.Location = new System.Drawing.Point(378, 130);
+            this.b_mostrar.Location = new System.Drawing.Point(363, 181);
             this.b_mostrar.Name = "b_mostrar";
             this.b_mostrar.Size = new System.Drawing.Size(117, 23);
             this.b_mostrar.TabIndex = 3;
-            this.b_mostrar.Text = "Mostrar listado";
+            this.b_mostrar.Text = "Mostrar Listado";
             this.b_mostrar.UseVisualStyleBackColor = true;
             this.b_mostrar.Click += new System.EventHandler(this.b_mostrar_Click);
             // 
             // c_plan
             // 
             this.c_plan.FormattingEnabled = true;
-            this.c_plan.Location = new System.Drawing.Point(53, 97);
+            this.c_plan.Location = new System.Drawing.Point(56, 134);
             this.c_plan.Name = "c_plan";
             this.c_plan.Size = new System.Drawing.Size(153, 21);
             this.c_plan.TabIndex = 4;
@@ -92,25 +93,25 @@
             // l_plan
             // 
             this.l_plan.AutoSize = true;
-            this.l_plan.Location = new System.Drawing.Point(53, 79);
+            this.l_plan.Location = new System.Drawing.Point(53, 107);
             this.l_plan.Name = "l_plan";
-            this.l_plan.Size = new System.Drawing.Size(35, 13);
+            this.l_plan.Size = new System.Drawing.Size(66, 13);
             this.l_plan.TabIndex = 5;
-            this.l_plan.Text = "PLAN";
+            this.l_plan.Text = "Plan Médico";
             // 
             // l_especialidad
             // 
             this.l_especialidad.AutoSize = true;
-            this.l_especialidad.Location = new System.Drawing.Point(523, 79);
+            this.l_especialidad.Location = new System.Drawing.Point(506, 107);
             this.l_especialidad.Name = "l_especialidad";
-            this.l_especialidad.Size = new System.Drawing.Size(84, 13);
+            this.l_especialidad.Size = new System.Drawing.Size(105, 13);
             this.l_especialidad.TabIndex = 6;
-            this.l_especialidad.Text = "ESPECIALIDAD";
+            this.l_especialidad.Text = "Especialidad Médica";
             // 
             // c_especialidad
             // 
             this.c_especialidad.FormattingEnabled = true;
-            this.c_especialidad.Location = new System.Drawing.Point(526, 97);
+            this.c_especialidad.Location = new System.Drawing.Point(509, 134);
             this.c_especialidad.Name = "c_especialidad";
             this.c_especialidad.Size = new System.Drawing.Size(261, 21);
             this.c_especialidad.TabIndex = 7;

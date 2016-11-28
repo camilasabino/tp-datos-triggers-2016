@@ -11,8 +11,8 @@ namespace ClinicaFrba
 
     public class login
     {
-        public static int validar(string usuario, string contrasena,string rol)
-        {            
+        public static int validar(string usuario, string contrasena, string rol)
+        {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
@@ -40,13 +40,13 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-                
-                string cadena = "SELECT user_profesional as 'id' ,upper(user_apellido +', '+user_nombre) as 'Nombre' FROM LOS_TRIGGERS.Usuario as u "+
-                                "JOIN LOS_TRIGGERS.Especialidad_Profesional as ep on u.user_profesional = ep.profesional "+
-                                "JOIN LOS_TRIGGERS.Especialidad as e on e.espe_codigo = ep.especialidad "+
+
+                string cadena = "SELECT user_profesional as 'id' ,upper(user_apellido +', '+user_nombre) as 'Nombre' FROM LOS_TRIGGERS.Usuario as u " +
+                                "JOIN LOS_TRIGGERS.Especialidad_Profesional as ep on u.user_profesional = ep.profesional " +
+                                "JOIN LOS_TRIGGERS.Especialidad as e on e.espe_codigo = ep.especialidad " +
                                 "JOIN LOS_TRIGGERS.Profesional as p on p.prof_id = u.user_profesional " +
                                 "WHERE (user_profesional is not null) and (('" + especialidad + "' = '') or ('" + especialidad + "' = e.espe_descripcion)) " +
-                                "and (prof_habilitacion=1) "+
+                                "and (prof_habilitacion=1) " +
                                 "GROUP BY (user_apellido +', '+user_nombre),user_profesional " +
                                 "ORDER BY (user_apellido +', '+user_nombre) ";
 
@@ -68,7 +68,7 @@ namespace ClinicaFrba
             {
                 conn.Open();
 
-                string cadena = "SELECT espe_codigo as 'id',espe_descripcion as 'Nombre' FROM LOS_TRIGGERS.Especialidad "+
+                string cadena = "SELECT espe_codigo as 'id',espe_descripcion as 'Nombre' FROM LOS_TRIGGERS.Especialidad " +
                                 "GROUP BY espe_codigo,espe_descripcion " +
                                 "ORDER BY espe_descripcion";
 
@@ -84,7 +84,7 @@ namespace ClinicaFrba
 
     public class turnos
     {
-        public static DataSet listar(decimal profesional,string fecha,int hora,decimal afiliado)
+        public static DataSet listar(decimal profesional, string fecha, int hora, decimal afiliado)
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
@@ -95,12 +95,12 @@ namespace ClinicaFrba
                                 "FROM LOS_TRIGGERS.Turno as t " +
                                 "JOIN LOS_TRIGGERS.Especialidad_Profesional as ep on t.turn_especialidad_profesional = ep.espe_prof_id " +
                                 "JOIN LOS_TRIGGERS.Usuario as u1 on u1.user_profesional = ep.profesional " +
-                                "JOIN LOS_TRIGGERS.Usuario as u2 on u2.user_afiliado = turn_afiliado "+
+                                "JOIN LOS_TRIGGERS.Usuario as u2 on u2.user_afiliado = turn_afiliado " +
                                 "WHERE ep.profesional = " + profesional + " and " +
                                 "turn_fecha between convert(datetime,'" + fecha + "') and convert(datetime,DATEADD(DAY,1,'" + fecha + "')) " +
                                 "AND (datepart(hour,turn_fecha) = " + hora + " or " + hora + " = 0) " +
-                                "AND (turn_afiliado = "+afiliado+ " or "+ afiliado +" = 0) "+
-                                "AND turn_fecha_y_hora_asistencia is null "+
+                                "AND (turn_afiliado = " + afiliado + " or " + afiliado + " = 0) " +
+                                "AND turn_fecha_y_hora_asistencia is null " +
                                 "ORDER BY turn_fecha";
 
                 SqlCommand comando = new SqlCommand(cadena, conn);
@@ -124,7 +124,7 @@ namespace ClinicaFrba
 
                 string cadena = "SELECT bono_numero as 'id' " +
                                 "FROM [LOS_TRIGGERS].[Bono] " +
-                                "WHERE left(bono_afiliado,len(bono_afiliado)-2) = " + afil_grupo_familiar + ""+
+                                "WHERE left(bono_afiliado,len(bono_afiliado)-2) = " + afil_grupo_familiar + "" +
                                 "and bono_consulta_medica is null";
 
                 SqlCommand comando = new SqlCommand(cadena, conn);
