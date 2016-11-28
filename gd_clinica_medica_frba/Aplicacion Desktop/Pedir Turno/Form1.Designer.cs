@@ -38,7 +38,7 @@
             this.gridFechas = new System.Windows.Forms.DataGridView();
             this.gridHorarios = new System.Windows.Forms.DataGridView();
             this.buttonConfirmar = new System.Windows.Forms.Button();
-            this.buttonCancelar = new System.Windows.Forms.Button();
+            this.buttonSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).BeginInit();
             this.SuspendLayout();
@@ -154,22 +154,22 @@
             this.buttonConfirmar.UseVisualStyleBackColor = true;
             this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
-            // buttonCancelar
+            // buttonSalir
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(322, 423);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelar.TabIndex = 11;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
+            this.buttonSalir.Location = new System.Drawing.Point(322, 423);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 11;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 470);
-            this.Controls.Add(this.buttonCancelar);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.gridHorarios);
             this.Controls.Add(this.gridFechas);
@@ -201,6 +201,6 @@
         private System.Windows.Forms.DataGridView gridFechas;
         private System.Windows.Forms.DataGridView gridHorarios;
         private System.Windows.Forms.Button buttonConfirmar;
-        private System.Windows.Forms.Button buttonCancelar;
+        private System.Windows.Forms.Button buttonSalir;
     }
 }

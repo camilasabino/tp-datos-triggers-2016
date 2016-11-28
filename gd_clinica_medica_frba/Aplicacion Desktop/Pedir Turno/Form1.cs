@@ -207,12 +207,6 @@ namespace ClinicaFrba.Pedir_Turno
             cargarHorarios();
         }
 
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-        }
-
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
             string turnoAConfirmar = "¿Desea confirmar el siguiente turno?" + "\n\n" +
@@ -227,6 +221,12 @@ namespace ClinicaFrba.Pedir_Turno
                 confirmarTurno();
                 this.Hide();
             }
+        }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
     }
 }

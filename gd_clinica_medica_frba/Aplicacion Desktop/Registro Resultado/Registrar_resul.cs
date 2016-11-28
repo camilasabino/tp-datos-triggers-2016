@@ -71,5 +71,11 @@ namespace ClinicaFrba.Registro_Resultado
         {
             llenar_grilla(0, 0);
         }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
     }
 }

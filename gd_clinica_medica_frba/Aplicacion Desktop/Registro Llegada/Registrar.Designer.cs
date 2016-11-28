@@ -42,6 +42,7 @@
             this.afiliado = new System.Windows.Forms.Label();
             this.turno = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,9 +140,9 @@
             // 
             // b_registrar
             // 
-            this.b_registrar.Location = new System.Drawing.Point(537, 361);
+            this.b_registrar.Location = new System.Drawing.Point(534, 326);
             this.b_registrar.Name = "b_registrar";
-            this.b_registrar.Size = new System.Drawing.Size(103, 28);
+            this.b_registrar.Size = new System.Drawing.Size(103, 24);
             this.b_registrar.TabIndex = 10;
             this.b_registrar.Text = "Registrar Llegada";
             this.b_registrar.UseVisualStyleBackColor = true;
@@ -175,11 +176,22 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Registro de Llegada a la Atención Médica";
             // 
+            // buttonSalir
+            // 
+            this.buttonSalir.Location = new System.Drawing.Point(562, 366);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 14;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
+            // 
             // Registrar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 409);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.turno);
             this.Controls.Add(this.afiliado);
@@ -218,5 +230,6 @@
         private System.Windows.Forms.Label afiliado;
         private System.Windows.Forms.Label turno;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonSalir;
     }
 }

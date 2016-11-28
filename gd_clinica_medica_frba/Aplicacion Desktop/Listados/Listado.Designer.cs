@@ -36,6 +36,7 @@
             this.l_plan = new System.Windows.Forms.Label();
             this.l_especialidad = new System.Windows.Forms.Label();
             this.c_especialidad = new System.Windows.Forms.ComboBox();
+            this.buttonSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,11 +117,22 @@
             this.c_especialidad.Size = new System.Drawing.Size(261, 21);
             this.c_especialidad.TabIndex = 7;
             // 
+            // buttonSalir
+            // 
+            this.buttonSalir.Location = new System.Drawing.Point(389, 401);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 8;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 417);
+            this.ClientSize = new System.Drawing.Size(835, 436);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.c_especialidad);
             this.Controls.Add(this.l_especialidad);
             this.Controls.Add(this.l_plan);
@@ -147,5 +159,6 @@
         private System.Windows.Forms.Label l_plan;
         private System.Windows.Forms.Label l_especialidad;
         private System.Windows.Forms.ComboBox c_especialidad;
+        private System.Windows.Forms.Button buttonSalir;
     }
 }

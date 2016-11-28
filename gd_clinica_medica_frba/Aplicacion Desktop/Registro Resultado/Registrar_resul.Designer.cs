@@ -45,6 +45,7 @@
             this.t_profesional = new System.Windows.Forms.TextBox();
             this.b_turnos = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             this.grilla_turnos.Location = new System.Drawing.Point(28, 236);
             this.grilla_turnos.Name = "grilla_turnos";
             this.grilla_turnos.ReadOnly = true;
-            this.grilla_turnos.Size = new System.Drawing.Size(449, 222);
+            this.grilla_turnos.Size = new System.Drawing.Size(449, 208);
             this.grilla_turnos.TabIndex = 8;
             // 
             // l_titulo
@@ -141,7 +142,7 @@
             this.t_sintomas.Location = new System.Drawing.Point(505, 252);
             this.t_sintomas.Multiline = true;
             this.t_sintomas.Name = "t_sintomas";
-            this.t_sintomas.Size = new System.Drawing.Size(269, 80);
+            this.t_sintomas.Size = new System.Drawing.Size(269, 79);
             this.t_sintomas.TabIndex = 17;
             // 
             // l_sintomas
@@ -156,7 +157,7 @@
             // l_diagnostico
             // 
             this.l_diagnostico.AutoSize = true;
-            this.l_diagnostico.Location = new System.Drawing.Point(502, 362);
+            this.l_diagnostico.Location = new System.Drawing.Point(502, 345);
             this.l_diagnostico.Name = "l_diagnostico";
             this.l_diagnostico.Size = new System.Drawing.Size(63, 13);
             this.l_diagnostico.TabIndex = 20;
@@ -164,7 +165,7 @@
             // 
             // t_diagnostico
             // 
-            this.t_diagnostico.Location = new System.Drawing.Point(505, 378);
+            this.t_diagnostico.Location = new System.Drawing.Point(505, 364);
             this.t_diagnostico.Multiline = true;
             this.t_diagnostico.Name = "t_diagnostico";
             this.t_diagnostico.Size = new System.Drawing.Size(269, 80);
@@ -172,9 +173,9 @@
             // 
             // b_registrar
             // 
-            this.b_registrar.Location = new System.Drawing.Point(382, 488);
+            this.b_registrar.Location = new System.Drawing.Point(266, 477);
             this.b_registrar.Name = "b_registrar";
-            this.b_registrar.Size = new System.Drawing.Size(110, 31);
+            this.b_registrar.Size = new System.Drawing.Size(110, 27);
             this.b_registrar.TabIndex = 21;
             this.b_registrar.Text = "Registrar Resultado";
             this.b_registrar.UseVisualStyleBackColor = true;
@@ -219,11 +220,22 @@
             this.label3.TabIndex = 25;
             this.label3.Text = "Registro del Resultado de Atención Médica";
             // 
+            // buttonSalir
+            // 
+            this.buttonSalir.Location = new System.Drawing.Point(455, 477);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(86, 27);
+            this.buttonSalir.TabIndex = 26;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
+            // 
             // Registrar_resul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 531);
+            this.ClientSize = new System.Drawing.Size(793, 517);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.b_turnos);
             this.Controls.Add(this.l_profesional);
@@ -268,5 +280,6 @@
         private System.Windows.Forms.TextBox t_profesional;
         private System.Windows.Forms.Button b_turnos;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonSalir;
     }
 }

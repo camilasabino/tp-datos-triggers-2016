@@ -209,15 +209,15 @@ namespace ClinicaFrba
 
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_tiene_permiso", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("funcionalidad", funcionalidad);
-                command.Parameters.AddWithValue("rol", rol);
+                command.Parameters.AddWithValue("@funcionalidad", funcionalidad);
+                command.Parameters.AddWithValue("@rol", rol);
 
-                SqlParameter paramRetorno = new SqlParameter("resultado", SqlDbType.Decimal);
+                SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Bit);
                 paramRetorno.Direction = ParameterDirection.Output;
                 command.Parameters.Add(paramRetorno);
 
                 command.ExecuteNonQuery();
-                return Convert.ToBoolean(command.Parameters["resultado"].Value);
+                return Convert.ToBoolean(command.Parameters["@resultado"].Value);
             }
         }
     }
