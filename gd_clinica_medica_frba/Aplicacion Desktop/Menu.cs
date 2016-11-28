@@ -16,7 +16,7 @@ namespace ClinicaFrba
         {
             InitializeComponent();
 
-            l_nom_user.Text = usuario.nombre_usuario;
+            labelNombreUsuario.Text = usuario.nombre_usuario;
             b_abm_afiliado.Visible = usuario.permiso("Abm de Afiliado", usuario.rol);
             b_abm_profesional.Visible = usuario.permiso("Abm de Profesional", usuario.rol);
             b_abm_espcialidades.Visible = usuario.permiso("Abm de Especialidad Médica", usuario.rol);

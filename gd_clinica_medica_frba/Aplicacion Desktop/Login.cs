@@ -19,30 +19,39 @@ namespace ClinicaFrba
 
         private void b_ingresar_Click(object sender, EventArgs e)
         {
-            int resultado = login.validar(t_usuario.Text, t_contrasena.Text, c_rol.Text);
-            if (resultado == 1)
+            if (!string.IsNullOrEmpty(t_usuario.Text) && !string.IsNullOrEmpty(t_contrasena.Text)
+                && !string.IsNullOrEmpty(c_rol.Text))
             {
-                decimal id = usuario.traer_id_rol(t_usuario.Text, c_rol.Text);
-                if (id != 0)
+                int resultado = login.validar(t_usuario.Text, t_contrasena.Text, c_rol.Text);
+                if (resultado == 1)
                 {
-                    usuario.nombre_usuario = t_usuario.Text;
-                    usuario.rol = c_rol.Text;
-                    usuario.id_rol = id;
-                    MessageBox.Show("Login correcto.");
-                    Menu m1 = new Menu();
-                    this.Hide();
-                    m1.ShowDialog();
+                    decimal id = usuario.traer_id_rol(t_usuario.Text, c_rol.Text);
+                    if (id != 0)
+                    {
+                        usuario.nombre_usuario = t_usuario.Text;
+                        usuario.rol = c_rol.Text;
+                        usuario.id_rol = id;
+                        MessageBox.Show("Login correcto.");
+                        Menu m1 = new Menu();
+                        this.Hide();
+                        m1.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario: " + t_usuario.Text + " no tiene asignado el rol " + c_rol.Text + "");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("El usuario: " + t_usuario.Text + " no tiene asignado el rol " + c_rol.Text + "");
+                    if (resultado == 2) MessageBox.Show("Ha excedido la cantidad de intentos fallidos de Login." + "\n" +
+                                                         "Su cuenta de usuario ha sido inhabilitada.");
+                    else MessageBox.Show("Login incorrecto. Intenténtelo nuevamente.");
                 }
             }
             else
             {
-                if (resultado == 2) MessageBox.Show("Ha excedido la cantidad de intentos fallidos de Login." + "\n" +
-                                                     "Su cuenta de usuario ha sido inhabilitada.");
-                else MessageBox.Show("Login incorrecto. Intenténtelo nuevamente.");
+                MessageBox.Show("Por favor, complete todos los campos requeridos para el Login.", "No se han completado todos los campos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

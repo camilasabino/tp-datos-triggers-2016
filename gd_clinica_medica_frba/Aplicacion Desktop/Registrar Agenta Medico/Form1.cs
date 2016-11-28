@@ -261,12 +261,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
         }
 
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-        }
-
         private void dateDesde_ValueChanged(object sender, EventArgs e)
         {
             dateHasta.MinDate = dateDesde.Value;
@@ -337,6 +331,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             hDesdeSab.Enabled = checkSab.Checked;
             hHastaSab.Enabled = checkSab.Checked;
+        }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
     }
 }

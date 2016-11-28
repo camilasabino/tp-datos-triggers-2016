@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.l_bienvenido = new System.Windows.Forms.Label();
-            this.l_nom_user = new System.Windows.Forms.Label();
             this.b_abm_afiliado = new System.Windows.Forms.Button();
             this.b_abm_espcialidades = new System.Windows.Forms.Button();
             this.b_abm_planes = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@
             this.b_registrar_llegada = new System.Windows.Forms.Button();
             this.b_registrar_resultado = new System.Windows.Forms.Button();
             this.b_cerrar_sesion = new System.Windows.Forms.Button();
+            this.labelNombreUsuario = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // l_bienvenido
@@ -54,14 +54,6 @@
             this.l_bienvenido.Size = new System.Drawing.Size(144, 18);
             this.l_bienvenido.TabIndex = 0;
             this.l_bienvenido.Text = "Bienvenido Usuario: ";
-            // 
-            // l_nom_user
-            // 
-            this.l_nom_user.AutoSize = true;
-            this.l_nom_user.Location = new System.Drawing.Point(87, 13);
-            this.l_nom_user.Name = "l_nom_user";
-            this.l_nom_user.Size = new System.Drawing.Size(0, 13);
-            this.l_nom_user.TabIndex = 1;
             // 
             // b_abm_afiliado
             // 
@@ -194,11 +186,22 @@
             this.b_cerrar_sesion.UseVisualStyleBackColor = false;
             this.b_cerrar_sesion.Click += new System.EventHandler(this.b_cerrar_sesion_Click);
             // 
+            // labelNombreUsuario
+            // 
+            this.labelNombreUsuario.AutoSize = true;
+            this.labelNombreUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNombreUsuario.Location = new System.Drawing.Point(188, 25);
+            this.labelNombreUsuario.Name = "labelNombreUsuario";
+            this.labelNombreUsuario.Size = new System.Drawing.Size(129, 18);
+            this.labelNombreUsuario.TabIndex = 16;
+            this.labelNombreUsuario.Text = "<nombreUsuario>";
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 367);
+            this.Controls.Add(this.labelNombreUsuario);
             this.Controls.Add(this.b_cerrar_sesion);
             this.Controls.Add(this.b_registrar_resultado);
             this.Controls.Add(this.b_registrar_llegada);
@@ -212,11 +215,9 @@
             this.Controls.Add(this.b_abm_planes);
             this.Controls.Add(this.b_abm_espcialidades);
             this.Controls.Add(this.b_abm_afiliado);
-            this.Controls.Add(this.l_nom_user);
             this.Controls.Add(this.l_bienvenido);
             this.Name = "Menu";
             this.Text = "Menu";
-            this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,7 +226,6 @@
         #endregion
 
         private System.Windows.Forms.Label l_bienvenido;
-        private System.Windows.Forms.Label l_nom_user;
         private System.Windows.Forms.Button b_abm_afiliado;
         private System.Windows.Forms.Button b_abm_espcialidades;
         private System.Windows.Forms.Button b_abm_planes;
@@ -239,5 +239,6 @@
         private System.Windows.Forms.Button b_registrar_llegada;
         private System.Windows.Forms.Button b_registrar_resultado;
         private System.Windows.Forms.Button b_cerrar_sesion;
+        private System.Windows.Forms.Label labelNombreUsuario;
     }
 }

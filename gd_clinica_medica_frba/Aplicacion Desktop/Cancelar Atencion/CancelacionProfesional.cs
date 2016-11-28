@@ -220,7 +220,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
             else
             {
-                MessageBox.Show("Por favor indique el motivo de la cancelación.", "No se ha indicado un motivo",
+                MessageBox.Show("Por favor, indique el motivo de la cancelación.", "No se ha indicado un motivo",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

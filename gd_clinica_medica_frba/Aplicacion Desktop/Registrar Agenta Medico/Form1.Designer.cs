@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonConfirmar = new System.Windows.Forms.Button();
-            this.buttonCancelar = new System.Windows.Forms.Button();
+            this.buttonSalir = new System.Windows.Forms.Button();
             this.dateDesde = new System.Windows.Forms.DateTimePicker();
             this.dateHasta = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -104,15 +104,15 @@
             this.buttonConfirmar.UseVisualStyleBackColor = true;
             this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
-            // buttonCancelar
+            // buttonSalir
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(328, 426);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelar.TabIndex = 11;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
+            this.buttonSalir.Location = new System.Drawing.Point(328, 426);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 11;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // dateDesde
             // 
@@ -354,7 +354,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dateHasta);
             this.Controls.Add(this.dateDesde);
-            this.Controls.Add(this.buttonCancelar);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -374,7 +374,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonConfirmar;
-        private System.Windows.Forms.Button buttonCancelar;
+        private System.Windows.Forms.Button buttonSalir;
         private System.Windows.Forms.DateTimePicker dateDesde;
         private System.Windows.Forms.DateTimePicker dateHasta;
         private System.Windows.Forms.Label label4;
