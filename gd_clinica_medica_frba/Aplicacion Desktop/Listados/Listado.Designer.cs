@@ -60,7 +60,6 @@
             this.gridListado.ReadOnly = true;
             this.gridListado.Size = new System.Drawing.Size(734, 150);
             this.gridListado.TabIndex = 0;
-            this.gridListado.Visible = false;
             // 
             // l_titulo
             // 
@@ -77,11 +76,11 @@
             this.c_opcion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_opcion.FormattingEnabled = true;
             this.c_opcion.Items.AddRange(new object[] {
-            "Especialidades con más cancelaciones",
-            "Profesionales más consultados por Plan",
+            "Especialidades con más cancelaciones de atención médica",
+            "Profesionales más consultados por plan",
             "Profesionales con menos horas trabajadas",
             "Afiliados con mayor cantidad de bonos comprados",
-            "Especialidades de médicos con más bonos de consultas utilizados"});
+            "Especialidades médicas con más bonos de consulta utilizados"});
             this.c_opcion.Location = new System.Drawing.Point(188, 80);
             this.c_opcion.Name = "c_opcion";
             this.c_opcion.Size = new System.Drawing.Size(426, 21);

@@ -19,6 +19,8 @@ namespace ClinicaFrba.Listados
             textAnio.MaxLength = 4;
             llenar_especialidades();
             llenar_planes();
+            c_opcion.SelectedIndex = 0;
+            cSemestre.SelectedIndex = 0;
         }
 
         protected void llenar_especialidades()
@@ -63,10 +65,10 @@ namespace ClinicaFrba.Listados
 
                 switch (c_opcion.Text)
                 {
-                    case "Especialidades con más cancelaciones":
+                    case "Especialidades con más cancelaciones de atención médica":
                         gridListado.DataSource = listados.especialidades_cancelaciones(anio, semestre).Tables[0];
                         break;
-                    case "Profesionales más consultados por Plan":
+                    case "Profesionales más consultados por plan":
                         gridListado.DataSource = listados.profesionales_consultados(anio, semestre, decimal.Parse(c_plan.SelectedValue.ToString())).Tables[0];
                         break;
                     case "Profesionales con menos horas trabajadas":
@@ -75,14 +77,14 @@ namespace ClinicaFrba.Listados
                     case "Afiliados con mayor cantidad de bonos comprados":
                         gridListado.DataSource = listados.afiliados_bonos(anio, semestre).Tables[0];
                         break;
-                    case "Especialidades de profesionales con más bonos de consultas utilizados":
+                    case "Especialidades médicas con más bonos de consulta utilizados":
                         gridListado.DataSource = listados.especialidades_bonos(anio, semestre).Tables[0];
                         break;
                 }
             }
             else
             {
-                MessageBox.Show("Por favor indique el año en base al cual se realizará el Listado.", "No se ha indicado un año",
+                MessageBox.Show("Por favor, indique el año en base al cual se realizará el Listado.", "No se ha indicado un año",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
