@@ -77,6 +77,7 @@
             // 
             // c_rol
             // 
+            this.c_rol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_rol.FormattingEnabled = true;
             this.c_rol.Items.AddRange(new object[] {
             "Administrador",
@@ -98,12 +99,13 @@
             // 
             // b_ingresar
             // 
+            this.b_ingresar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.b_ingresar.Location = new System.Drawing.Point(245, 336);
             this.b_ingresar.Name = "b_ingresar";
             this.b_ingresar.Size = new System.Drawing.Size(75, 23);
             this.b_ingresar.TabIndex = 6;
             this.b_ingresar.Text = "Ingresar";
-            this.b_ingresar.UseVisualStyleBackColor = true;
+            this.b_ingresar.UseVisualStyleBackColor = false;
             this.b_ingresar.Click += new System.EventHandler(this.b_ingresar_Click);
             // 
             // label1

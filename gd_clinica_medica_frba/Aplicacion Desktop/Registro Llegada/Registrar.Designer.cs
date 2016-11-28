@@ -41,22 +41,24 @@
             this.b_registrar = new System.Windows.Forms.Button();
             this.afiliado = new System.Windows.Forms.Label();
             this.turno = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).BeginInit();
             this.SuspendLayout();
             // 
             // l_titulo
             // 
             this.l_titulo.AutoSize = true;
-            this.l_titulo.Location = new System.Drawing.Point(13, 13);
+            this.l_titulo.Location = new System.Drawing.Point(13, 51);
             this.l_titulo.Name = "l_titulo";
-            this.l_titulo.Size = new System.Drawing.Size(124, 13);
+            this.l_titulo.Size = new System.Drawing.Size(126, 13);
             this.l_titulo.TabIndex = 0;
-            this.l_titulo.Text = "Selección de Profesional";
+            this.l_titulo.Text = "Selección del Profesional";
             // 
             // c_especialidad
             // 
             this.c_especialidad.FormattingEnabled = true;
-            this.c_especialidad.Location = new System.Drawing.Point(128, 41);
+            this.c_especialidad.Location = new System.Drawing.Point(128, 80);
             this.c_especialidad.Name = "c_especialidad";
             this.c_especialidad.Size = new System.Drawing.Size(317, 21);
             this.c_especialidad.TabIndex = 1;
@@ -65,7 +67,7 @@
             // l_especialidad
             // 
             this.l_especialidad.AutoSize = true;
-            this.l_especialidad.Location = new System.Drawing.Point(13, 44);
+            this.l_especialidad.Location = new System.Drawing.Point(13, 83);
             this.l_especialidad.Name = "l_especialidad";
             this.l_especialidad.Size = new System.Drawing.Size(67, 13);
             this.l_especialidad.TabIndex = 2;
@@ -74,7 +76,7 @@
             // c_profesional
             // 
             this.c_profesional.FormattingEnabled = true;
-            this.c_profesional.Location = new System.Drawing.Point(128, 80);
+            this.c_profesional.Location = new System.Drawing.Point(128, 119);
             this.c_profesional.Name = "c_profesional";
             this.c_profesional.Size = new System.Drawing.Size(317, 21);
             this.c_profesional.TabIndex = 3;
@@ -82,7 +84,7 @@
             // l_profesional
             // 
             this.l_profesional.AutoSize = true;
-            this.l_profesional.Location = new System.Drawing.Point(13, 88);
+            this.l_profesional.Location = new System.Drawing.Point(12, 122);
             this.l_profesional.Name = "l_profesional";
             this.l_profesional.Size = new System.Drawing.Size(59, 13);
             this.l_profesional.TabIndex = 4;
@@ -90,9 +92,9 @@
             // 
             // b_elegir_prof
             // 
-            this.b_elegir_prof.Location = new System.Drawing.Point(534, 61);
+            this.b_elegir_prof.Location = new System.Drawing.Point(487, 114);
             this.b_elegir_prof.Name = "b_elegir_prof";
-            this.b_elegir_prof.Size = new System.Drawing.Size(191, 23);
+            this.b_elegir_prof.Size = new System.Drawing.Size(132, 23);
             this.b_elegir_prof.TabIndex = 5;
             this.b_elegir_prof.Text = "Elegir Profesional";
             this.b_elegir_prof.UseVisualStyleBackColor = true;
@@ -103,17 +105,17 @@
             this.grilla_turnos.AllowUserToAddRows = false;
             this.grilla_turnos.AllowUserToDeleteRows = false;
             this.grilla_turnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grilla_turnos.Location = new System.Drawing.Point(16, 143);
+            this.grilla_turnos.Location = new System.Drawing.Point(16, 184);
             this.grilla_turnos.Name = "grilla_turnos";
             this.grilla_turnos.ReadOnly = true;
-            this.grilla_turnos.Size = new System.Drawing.Size(449, 246);
+            this.grilla_turnos.Size = new System.Drawing.Size(449, 205);
             this.grilla_turnos.TabIndex = 6;
             this.grilla_turnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grilla_turnos_CellClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 124);
+            this.label1.Location = new System.Drawing.Point(13, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 7;
@@ -122,7 +124,7 @@
             // l_bonos
             // 
             this.l_bonos.AutoSize = true;
-            this.l_bonos.Location = new System.Drawing.Point(481, 143);
+            this.l_bonos.Location = new System.Drawing.Point(484, 159);
             this.l_bonos.Name = "l_bonos";
             this.l_bonos.Size = new System.Drawing.Size(92, 13);
             this.l_bonos.TabIndex = 8;
@@ -131,18 +133,18 @@
             // c_bonos
             // 
             this.c_bonos.FormattingEnabled = true;
-            this.c_bonos.Location = new System.Drawing.Point(484, 172);
+            this.c_bonos.Location = new System.Drawing.Point(487, 184);
             this.c_bonos.Name = "c_bonos";
-            this.c_bonos.Size = new System.Drawing.Size(317, 21);
+            this.c_bonos.Size = new System.Drawing.Size(186, 21);
             this.c_bonos.TabIndex = 9;
             // 
             // b_registrar
             // 
-            this.b_registrar.Location = new System.Drawing.Point(596, 318);
+            this.b_registrar.Location = new System.Drawing.Point(534, 326);
             this.b_registrar.Name = "b_registrar";
-            this.b_registrar.Size = new System.Drawing.Size(75, 52);
+            this.b_registrar.Size = new System.Drawing.Size(103, 24);
             this.b_registrar.TabIndex = 10;
-            this.b_registrar.Text = "Registrar llegada";
+            this.b_registrar.Text = "Registrar Llegada";
             this.b_registrar.UseVisualStyleBackColor = true;
             this.b_registrar.Click += new System.EventHandler(this.b_registrar_Click);
             // 
@@ -164,11 +166,33 @@
             this.turno.TabIndex = 12;
             this.turno.Visible = false;
             // 
-            // Form1
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(179, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(359, 24);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Registro de Llegada a la Atención Médica";
+            // 
+            // buttonSalir
+            // 
+            this.buttonSalir.Location = new System.Drawing.Point(562, 366);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 14;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
+            // 
+            // Registrar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 409);
+            this.ClientSize = new System.Drawing.Size(696, 409);
+            this.Controls.Add(this.buttonSalir);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.turno);
             this.Controls.Add(this.afiliado);
             this.Controls.Add(this.b_registrar);
@@ -182,7 +206,7 @@
             this.Controls.Add(this.l_especialidad);
             this.Controls.Add(this.c_especialidad);
             this.Controls.Add(this.l_titulo);
-            this.Name = "Form1";
+            this.Name = "Registrar";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).EndInit();
             this.ResumeLayout(false);
@@ -205,5 +229,7 @@
         private System.Windows.Forms.Button b_registrar;
         private System.Windows.Forms.Label afiliado;
         private System.Windows.Forms.Label turno;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonSalir;
     }
 }

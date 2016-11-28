@@ -13,9 +13,9 @@ using System.Configuration;
 
 namespace ClinicaFrba.Pedir_Turno
 {
-/***************************************************************************************************
- *                                   PEDIDO DE TURNOS                                              *
- ***************************************************************************************************/
+    /***************************************************************************************************
+     *                                   PEDIDO DE TURNOS                                              *
+     ***************************************************************************************************/
     public partial class PedirTurno : Form
     {
         public PedirTurno()
@@ -32,7 +32,8 @@ namespace ClinicaFrba.Pedir_Turno
             public decimal id { get; set; }
             public string nombre { get; set; }
 
-            public Especialidad(decimal _id, string _nombre) {
+            public Especialidad(decimal _id, string _nombre)
+            {
                 this.id = _id;
                 this.nombre = _nombre;
             }
@@ -43,7 +44,8 @@ namespace ClinicaFrba.Pedir_Turno
             public decimal id { get; set; }
             public string nombreYApellido { get; set; }
 
-            public Profesional(decimal _id, string _nombre) {
+            public Profesional(decimal _id, string _nombre)
+            {
                 this.id = _id;
                 this.nombreYApellido = _nombre;
             }
@@ -64,15 +66,15 @@ namespace ClinicaFrba.Pedir_Turno
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                  especialidades.Add(
-                      new Especialidad(reader.GetDecimal(0), reader.GetString(1)));
+                    especialidades.Add(
+                        new Especialidad(reader.GetDecimal(0), reader.GetString(1)));
                 }
                 conexionBase.Close();
             }
             return especialidades;
         }
 
-        public List<Profesional> obtenerProfesionales() 
+        public List<Profesional> obtenerProfesionales()
         {
             List<Profesional> profesionales = new List<Profesional>();
 
@@ -82,7 +84,7 @@ namespace ClinicaFrba.Pedir_Turno
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboProfesionalesDeUnaEspecialidad", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
 
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
@@ -95,13 +97,15 @@ namespace ClinicaFrba.Pedir_Turno
             return profesionales;
         }
 
-        protected void cargarEspecialidades() {
+        protected void cargarEspecialidades()
+        {
             cEspecialidad.DataSource = obtenerEspecialidades();
             cEspecialidad.DisplayMember = "nombre";
             cEspecialidad.ValueMember = "id";
         }
 
-        protected void cargarProfesionales() {
+        protected void cargarProfesionales()
+        {
             cProfesional.DataSource = obtenerProfesionales();
             cProfesional.DisplayMember = "nombreYApellido";
             cProfesional.ValueMember = "id";
@@ -115,10 +119,10 @@ namespace ClinicaFrba.Pedir_Turno
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboFechasDisponiblesTurno", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional) cProfesional.SelectedItem).id));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
-                
+
                 DataTable fechas = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
 
@@ -148,8 +152,8 @@ namespace ClinicaFrba.Pedir_Turno
 
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HorariosDisponiblesTurno", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional) cProfesional.SelectedItem).id));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad) cEspecialidad.SelectedItem).id)); 
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(fechaSeleccionada));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
@@ -178,16 +182,16 @@ namespace ClinicaFrba.Pedir_Turno
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(gridFechas.SelectedRows[0].Cells[0].Value.ToString()));
                 comando.Parameters.AddWithValue("@hora", gridHorarios.SelectedRows[0].Cells[0].Value.ToString());
 
-                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
-                
+                comando.ExecuteNonQuery();
+
                 conexionBase.Close();
             }
         }
 
-/**************************************************************************************************
-*                                   EVENTOS DEL FORM                                              *
-***************************************************************************************************/
-      
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void cEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             cargarProfesionales();
@@ -203,17 +207,11 @@ namespace ClinicaFrba.Pedir_Turno
             cargarHorarios();
         }
 
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-        }
-
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
             string turnoAConfirmar = "¿Desea confirmar el siguiente turno?" + "\n\n" +
-                                     "Especialidad: " + ((Especialidad) cEspecialidad.SelectedItem).nombre + "\n" +
-                                     "Profesional: " + ((Profesional) cProfesional.SelectedItem).nombreYApellido + "\n" +
+                                     "Especialidad: " + ((Especialidad)cEspecialidad.SelectedItem).nombre + "\n" +
+                                     "Profesional: " + ((Profesional)cProfesional.SelectedItem).nombreYApellido + "\n" +
                                      "Fecha: " + gridFechas.SelectedRows[0].Cells[0].Value.ToString() + "\n" +
                                      "Horario: " + gridHorarios.SelectedRows[0].Cells[0].Value.ToString();
 
@@ -224,6 +222,12 @@ namespace ClinicaFrba.Pedir_Turno
                 this.Hide();
             }
         }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
     }
 }
-                                                                                                                    
+                                     

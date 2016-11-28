@@ -103,12 +103,6 @@
     <Compile Include="Abm Profesional\FormProfesional.Designer.cs">
       <DependentUpon>FormProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Alta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmRol\Alta.Designer.cs">
-      <DependentUpon>Alta.cs</DependentUpon>
-    </Compile>
     <Compile Include="AbmRol\Editar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,12 +132,6 @@
     </Compile>
     <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs">
       <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cancelar Atencion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
@@ -213,9 +201,6 @@
     <EmbeddedResource Include="Abm Afiliado\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\Alta.resx">
-      <DependentUpon>Alta.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Editar.resx">
       <DependentUpon>Editar.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,9 +212,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx">
       <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>

@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cRoles = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.cFuncionalidades = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridFuncionalidades)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 142);
+            this.label2.Location = new System.Drawing.Point(27, 139);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
@@ -73,7 +74,7 @@
             // 
             // buttonAgregar
             // 
-            this.buttonAgregar.Location = new System.Drawing.Point(402, 206);
+            this.buttonAgregar.Location = new System.Drawing.Point(380, 206);
             this.buttonAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregar.Name = "buttonAgregar";
             this.buttonAgregar.Size = new System.Drawing.Size(127, 22);
@@ -83,7 +84,7 @@
             // 
             // textAgregar
             // 
-            this.textAgregar.Location = new System.Drawing.Point(402, 168);
+            this.textAgregar.Location = new System.Drawing.Point(230, 119);
             this.textAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.textAgregar.Name = "textAgregar";
             this.textAgregar.Size = new System.Drawing.Size(201, 20);
@@ -91,7 +92,7 @@
             // 
             // buttonEliminar
             // 
-            this.buttonEliminar.Location = new System.Drawing.Point(402, 241);
+            this.buttonEliminar.Location = new System.Drawing.Point(30, 347);
             this.buttonEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(127, 21);
@@ -101,7 +102,7 @@
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(184, 347);
+            this.buttonAceptar.Location = new System.Drawing.Point(391, 347);
             this.buttonAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(93, 24);
@@ -111,13 +112,14 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(357, 347);
+            this.buttonCancelar.Location = new System.Drawing.Point(506, 347);
             this.buttonCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(93, 24);
             this.buttonCancelar.TabIndex = 9;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
+            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             // 
             // gridFuncionalidades
             // 
@@ -126,7 +128,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridFuncionalidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridFuncionalidades.Location = new System.Drawing.Point(43, 168);
+            this.gridFuncionalidades.Location = new System.Drawing.Point(30, 168);
             this.gridFuncionalidades.Name = "gridFuncionalidades";
             this.gridFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridFuncionalidades.Size = new System.Drawing.Size(335, 156);
@@ -146,27 +148,37 @@
             // 
             this.cRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cRoles.FormattingEnabled = true;
-            this.cRoles.Location = new System.Drawing.Point(103, 84);
+            this.cRoles.Location = new System.Drawing.Point(90, 84);
             this.cRoles.Name = "cRoles";
             this.cRoles.Size = new System.Drawing.Size(156, 21);
             this.cRoles.Sorted = true;
             this.cRoles.TabIndex = 12;
+            this.cRoles.SelectedValueChanged += new System.EventHandler(this.cRoles_SelectedValueChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 87);
+            this.label4.Location = new System.Drawing.Point(27, 87);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 13;
             this.label4.Text = "Escoja Rol";
             // 
+            // cFuncionalidades
+            // 
+            this.cFuncionalidades.FormattingEnabled = true;
+            this.cFuncionalidades.Location = new System.Drawing.Point(380, 168);
+            this.cFuncionalidades.Name = "cFuncionalidades";
+            this.cFuncionalidades.Size = new System.Drawing.Size(219, 21);
+            this.cFuncionalidades.TabIndex = 14;
+            // 
             // Editar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 392);
+            this.Controls.Add(this.cFuncionalidades);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cRoles);
             this.Controls.Add(this.label3);
@@ -202,5 +214,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cRoles;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cFuncionalidades;
     }
 }

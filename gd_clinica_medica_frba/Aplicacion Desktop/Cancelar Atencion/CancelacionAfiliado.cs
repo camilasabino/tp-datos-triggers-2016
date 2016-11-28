@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
-/**************************************************************************************************
-*                             CANCELACIÓN TURNO AFILIADO                                          *
-***************************************************************************************************/
+    /**************************************************************************************************
+    *                             CANCELACIÓN TURNO AFILIADO                                          *
+    ***************************************************************************************************/
     public partial class CancelacionAfiliado : Form
     {
         public CancelacionAfiliado()
@@ -43,8 +43,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.TurnosAsignadosAUnAfiliado", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(112396001));
+                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 DataTable turnos = new DataTable();
@@ -94,22 +93,21 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnoAfiliado", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(112396001));
+                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@turno", Convert.ToDecimal(gridTurnos.SelectedRows[0].Cells[0].Value.ToString()));
                 comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
-                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                comando.ExecuteNonQuery();
 
                 conexionBase.Close();
             }
         }
 
-/**************************************************************************************************
-*                                   EVENTOS DEL FORM                                              *
-***************************************************************************************************/
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {

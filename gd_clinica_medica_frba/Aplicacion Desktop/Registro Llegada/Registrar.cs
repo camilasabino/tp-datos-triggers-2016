@@ -17,8 +17,6 @@ namespace ClinicaFrba.Registro_Llegada
             InitializeComponent();
             llenar_especialidades();
             llenar_profesionales("");
-            
-
         }
 
         protected void llenar_profesionales(string especialidad)
@@ -26,15 +24,13 @@ namespace ClinicaFrba.Registro_Llegada
             c_profesional.DataSource = profesionales.listar(especialidad).Tables[0];
             c_profesional.ValueMember = "id";
             c_profesional.DisplayMember = "Nombre";
-            
         }
 
         protected void llenar_especialidades()
         {
-            
             c_especialidad.DataSource = especialidades.listar().Tables[0];
             c_especialidad.ValueMember = "id";
-            c_especialidad.DisplayMember = "Nombre";          
+            c_especialidad.DisplayMember = "Nombre";
         }
 
         protected void llenar_grilla()
@@ -48,7 +44,6 @@ namespace ClinicaFrba.Registro_Llegada
             c_bonos.DisplayMember = "id";
         }
 
-
         private void c_especialidad_SelectedValueChanged(object sender, EventArgs e)
         {
             llenar_profesionales(c_especialidad.Text);
@@ -59,9 +54,8 @@ namespace ClinicaFrba.Registro_Llegada
             llenar_grilla();
         }
 
-
         private void grilla_turnos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {           
+        {
             llenar_bonos(decimal.Parse(grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[1].Value.ToString()));
             afiliado.Text = grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[1].Value.ToString();
             turno.Text = grilla_turnos.Rows[grilla_turnos.CurrentRow.Index].Cells[0].Value.ToString();
@@ -70,28 +64,18 @@ namespace ClinicaFrba.Registro_Llegada
         private void b_registrar_Click(object sender, EventArgs e)
         {
             if (c_bonos.Text == "")
-                MessageBox.Show("No hay bonos disponibles", "Alerta");
+                MessageBox.Show("No hay bonos disponibles para el Afiliado indicado.", "Alerta");
             else
             {
                 registrar.llegada(decimal.Parse(turno.Text), decimal.Parse(c_bonos.Text), decimal.Parse(afiliado.Text), fecha.fechaActual);
-                MessageBox.Show("El registro se ha completado");
+                MessageBox.Show("El registro se ha completado satisfactoriamente.");
             }
         }
 
-      
-
-
-
-
-
-
-
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
     }
-
-
-
-
-
-
-
 }

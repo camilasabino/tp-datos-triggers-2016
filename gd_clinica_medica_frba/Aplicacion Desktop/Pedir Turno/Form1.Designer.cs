@@ -38,7 +38,8 @@
             this.gridFechas = new System.Windows.Forms.DataGridView();
             this.gridHorarios = new System.Windows.Forms.DataGridView();
             this.buttonConfirmar = new System.Windows.Forms.Button();
-            this.buttonCancelar = new System.Windows.Forms.Button();
+            this.buttonSalir = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).BeginInit();
             this.SuspendLayout();
@@ -122,7 +123,7 @@
             this.gridFechas.ReadOnly = true;
             this.gridFechas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridFechas.ShowEditingIcon = false;
-            this.gridFechas.Size = new System.Drawing.Size(237, 194);
+            this.gridFechas.Size = new System.Drawing.Size(237, 191);
             this.gridFechas.TabIndex = 8;
             this.gridFechas.SelectionChanged += new System.EventHandler(this.gridFechas_SelectionChanged);
             // 
@@ -141,12 +142,12 @@
             this.gridHorarios.ReadOnly = true;
             this.gridHorarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridHorarios.ShowEditingIcon = false;
-            this.gridHorarios.Size = new System.Drawing.Size(158, 194);
+            this.gridHorarios.Size = new System.Drawing.Size(158, 191);
             this.gridHorarios.TabIndex = 9;
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(152, 423);
+            this.buttonConfirmar.Location = new System.Drawing.Point(159, 446);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 10;
@@ -154,22 +155,33 @@
             this.buttonConfirmar.UseVisualStyleBackColor = true;
             this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
-            // buttonCancelar
+            // buttonSalir
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(322, 423);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelar.TabIndex = 11;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
+            this.buttonSalir.Location = new System.Drawing.Point(316, 446);
+            this.buttonSalir.Name = "buttonSalir";
+            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.TabIndex = 11;
+            this.buttonSalir.Text = "Salir";
+            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(52, 413);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(326, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "* Se muestran las fechas disponibles de los próximos 6 (seis) meses.";
             // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 470);
-            this.Controls.Add(this.buttonCancelar);
+            this.ClientSize = new System.Drawing.Size(554, 483);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.gridHorarios);
             this.Controls.Add(this.gridFechas);
@@ -201,6 +213,7 @@
         private System.Windows.Forms.DataGridView gridFechas;
         private System.Windows.Forms.DataGridView gridHorarios;
         private System.Windows.Forms.Button buttonConfirmar;
-        private System.Windows.Forms.Button buttonCancelar;
+        private System.Windows.Forms.Button buttonSalir;
+        private System.Windows.Forms.Label label6;
     }
 }

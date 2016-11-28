@@ -18,30 +18,35 @@ namespace ClinicaFrba.AbmRol
         {
             InitializeComponent();
             cargarRoles();
-            cargarDatosRol();
+            cargarNombre();
+            cargarFuncionalidadesParaAgregar();
+            cargarFuncionalidades();
         }
 
-        public void cargarDatosRol()
+        public class Funcionalidad
         {
-            String queryFuncionalidades = "", queryNombre = "";
+            public decimal id { get; set; }
+            public string nombre { get; set; }
+
+            public Funcionalidad(decimal _id, string _nombre)
+            {
+                this.id = _id;
+                this.nombre = _nombre;
+            }
+        }
+
+        public void cargarNombre()
+        {
+            String queryNombre = "";
             switch (cRoles.SelectedItem.ToString())
             {
                 case "Administrador":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND administrador is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Administrador";
                     break;
                 case "Afiliado":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND afiliado is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Afiliado";
                     break;
                 case "Profesional":
-                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
-                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
-                            "where func_id=funcionalidad AND profesional is not null";
                     queryNombre = "select distinct(nombre_rol) from LOS_TRIGGERS.Profesional";
                     break;
             }
@@ -50,17 +55,80 @@ namespace ClinicaFrba.AbmRol
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando1 = new SqlCommand(queryFuncionalidades, conexionBase);
                 SqlCommand comando2 = new SqlCommand(queryNombre, conexionBase);
+
+                SqlDataReader reader = comando2.ExecuteReader();
+                reader.Read();
+                textNombre.Text = reader.GetString(0);
+
+                conexionBase.Close();
+            }
+        }
+
+        public List<Funcionalidad> obtenerFuncionalidadesParaAgregar()
+        {
+            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand(
+                    "select distinct(funcionalidad), func_nombre from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad "+
+                    "where func_id = funcionalidad AND funcionalidad NOT IN (select distinct(funcionalidad) from LOS_TRIGGERS.Funcionalidad_Rol "+
+					"where afiliado = @rol OR profesional = @rol OR administrador = @rol) order by func_nombre", conexionBase);
+                comando.Parameters.AddWithValue("@rol", usuario.id_rol);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    funcionalidades.Add(
+                        new Funcionalidad(reader.GetDecimal(0), reader.GetString(1)));
+                }
+                conexionBase.Close();
+            }
+            return funcionalidades;
+        }
+
+        protected void cargarFuncionalidadesParaAgregar()
+        {
+            cFuncionalidades.DataSource = obtenerFuncionalidadesParaAgregar();
+            cFuncionalidades.DisplayMember = "nombre";
+            cFuncionalidades.ValueMember = "id";
+        }
+
+        public void cargarFuncionalidades()
+        {
+            String queryFuncionalidades = "";
+            switch (cRoles.SelectedItem.ToString())
+            {
+                case "Administrador":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND administrador is not null";
+                    break;
+                case "Afiliado":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND afiliado is not null";
+                    break;
+                case "Profesional":
+                    queryFuncionalidades = "select distinct(funcionalidad) as Id, func_nombre as Nombre " +
+                            "from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad " +
+                            "where func_id=funcionalidad AND profesional is not null";
+                    break;
+            }
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando1 = new SqlCommand(queryFuncionalidades, conexionBase);
 
                 DataTable funcionalidades = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(comando1);
                 adapter.Fill(funcionalidades);
                 gridFuncionalidades.DataSource = funcionalidades;
-
-                SqlDataReader reader = comando2.ExecuteReader();
-                reader.Read();
-                textNombre.Text = reader.GetString(0);
 
                 conexionBase.Close();
             }
@@ -83,12 +151,13 @@ namespace ClinicaFrba.AbmRol
                 SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.AgregarFuncionalidadAUnRol", conexionBase);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@rol", cRoles.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@funcionalidad", textAgregar.Text);
+                cmd.Parameters.AddWithValue("@funcionalidad", cFuncionalidades.SelectedValue.ToString());
                 cmd.ExecuteNonQuery();
 
                 conexionBase.Close();
             }
-            cargarDatosRol();
+            cargarFuncionalidadesParaAgregar();
+            cargarFuncionalidades();
         }
 
         private void eliminar_Click(object sender, EventArgs e)
@@ -105,7 +174,8 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
-            cargarDatosRol();
+            cargarFuncionalidadesParaAgregar();
+            cargarFuncionalidades();
         }
 
         private void aceptar_Click(object sender, EventArgs e)
@@ -130,7 +200,6 @@ namespace ClinicaFrba.AbmRol
                     conexionBase.Close();
                 }
             }
-            cargarDatosRol();
         }
 
         private void cancelar_Click(object sender, EventArgs e)
@@ -139,9 +208,16 @@ namespace ClinicaFrba.AbmRol
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
-        private void cRoles_SelectedIndexChanged(object sender, EventArgs e)
+        private void cRoles_SelectedValueChanged(object sender, EventArgs e)
         {
-            cargarDatosRol();
+            cargarNombre();
+            cargarFuncionalidadesParaAgregar();
+            cargarFuncionalidades();
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
