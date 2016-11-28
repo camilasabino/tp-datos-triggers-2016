@@ -45,8 +45,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.TurnosDeUnProfesional", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 DataTable turnos = new DataTable();
@@ -90,8 +89,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.FechasDeAtencionProfesional", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -115,8 +113,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.FechasDeAtencionProfesional", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(cFechaDesde.SelectedValue));
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -146,14 +143,13 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnoProfesionalDiaParticular", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@fecha", gridTurnos.SelectedRows[0].Cells[3].Value.ToString());
                 comando.Parameters.AddWithValue("@tipo_can", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
-                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                comando.ExecuteNonQuery();
 
                 conexionBase.Close();
             }
@@ -168,15 +164,14 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnosProfesionalPeriodos", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(9719683799));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));    
                 comando.Parameters.AddWithValue("@desde", Convert.ToDateTime(gridTurnos.SelectedRows[0].Cells[3].Value.ToString()));
                 comando.Parameters.AddWithValue("@desde", Convert.ToDateTime(gridTurnos.SelectedRows[0].Cells[3].Value.ToString()));
                 comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
-                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                comando.ExecuteNonQuery();
 
                 conexionBase.Close();
             }

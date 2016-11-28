@@ -103,12 +103,6 @@
     <Compile Include="Abm Profesional\FormProfesional.Designer.cs">
       <DependentUpon>FormProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Alta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmRol\Alta.Designer.cs">
-      <DependentUpon>Alta.cs</DependentUpon>
-    </Compile>
     <Compile Include="AbmRol\Editar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,9 +200,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\Alta.resx">
-      <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Editar.resx">
       <DependentUpon>Editar.cs</DependentUpon>

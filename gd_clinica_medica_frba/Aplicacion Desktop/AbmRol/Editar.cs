@@ -19,7 +19,20 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
             cargarRoles();
             cargarNombre();
+            cargarFuncionalidadesParaAgregar();
             cargarFuncionalidades();
+        }
+
+        public class Funcionalidad
+        {
+            public decimal id { get; set; }
+            public string nombre { get; set; }
+
+            public Funcionalidad(decimal _id, string _nombre)
+            {
+                this.id = _id;
+                this.nombre = _nombre;
+            }
         }
 
         public void cargarNombre()
@@ -50,6 +63,38 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
+        }
+
+        public List<Funcionalidad> obtenerFuncionalidadesParaAgregar()
+        {
+            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand(
+                    "select distinct(funcionalidad), func_nombre from LOS_TRIGGERS.Funcionalidad_Rol, LOS_TRIGGERS.Funcionalidad "+
+                    "where func_id = funcionalidad AND funcionalidad NOT IN (select distinct(funcionalidad) from LOS_TRIGGERS.Funcionalidad_Rol "+
+					"where afiliado = @rol OR profesional = @rol OR administrador = @rol) order by func_nombre", conexionBase);
+                comando.Parameters.AddWithValue("@rol", usuario.id_rol);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    funcionalidades.Add(
+                        new Funcionalidad(reader.GetDecimal(0), reader.GetString(1)));
+                }
+                conexionBase.Close();
+            }
+            return funcionalidades;
+        }
+
+        protected void cargarFuncionalidadesParaAgregar()
+        {
+            cFuncionalidades.DataSource = obtenerFuncionalidadesParaAgregar();
+            cFuncionalidades.DisplayMember = "nombre";
+            cFuncionalidades.ValueMember = "id";
         }
 
         public void cargarFuncionalidades()
@@ -106,11 +151,12 @@ namespace ClinicaFrba.AbmRol
                 SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.AgregarFuncionalidadAUnRol", conexionBase);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@rol", cRoles.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@funcionalidad", textAgregar.Text);
+                cmd.Parameters.AddWithValue("@funcionalidad", cFuncionalidades.SelectedValue.ToString());
                 cmd.ExecuteNonQuery();
 
                 conexionBase.Close();
             }
+            cargarFuncionalidadesParaAgregar();
             cargarFuncionalidades();
         }
 
@@ -128,6 +174,7 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
+            cargarFuncionalidadesParaAgregar();
             cargarFuncionalidades();
         }
 
@@ -164,7 +211,13 @@ namespace ClinicaFrba.AbmRol
         private void cRoles_SelectedValueChanged(object sender, EventArgs e)
         {
             cargarNombre();
+            cargarFuncionalidadesParaAgregar();
             cargarFuncionalidades();
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

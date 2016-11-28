@@ -77,8 +77,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("select espe_codigo, espe_descripcion " +
                                                     "from LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad " +
-                    // "where profesional="+Convert.ToDecimal(ClinicaFrba.usuario.id_rol) +" AND espe_codigo=especialidad", conexionBase);
-                                                    "where profesional=9719683799 AND espe_codigo=especialidad", conexionBase);
+                                                    "where profesional="+Convert.ToDecimal(ClinicaFrba.usuario.id_rol) +" AND espe_codigo=especialidad", conexionBase);
 
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
@@ -156,7 +155,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                     comando.Parameters.AddWithValue("@inicio", inicio);
                     comando.Parameters.AddWithValue("@fin", fin);
 
-                    comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                    comando.ExecuteNonQuery();
 
                     conexionBase.Close();
                 }
@@ -180,7 +179,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 comando.Parameters.AddWithValue("@hasta", Convert.ToDateTime(dateHasta.Value));
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
-                comando.ExecuteNonQuery(); // TODO: Verificar estado después de la ejecución
+                comando.ExecuteNonQuery();
 
                 conexionBase.Close();
             }
