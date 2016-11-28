@@ -16,19 +16,20 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("user_name", usuario);
-                command.Parameters.AddWithValue("user_password", contrasena);
-                command.Parameters.AddWithValue("rol", rol);
+                command.Parameters.AddWithValue("@user_name", usuario);
+                command.Parameters.AddWithValue("@user_password", contrasena);
+                command.Parameters.AddWithValue("@rol", rol);
 
-                SqlParameter paramRetorno = new SqlParameter("resultado", SqlDbType.Int);
+                SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Int);
                 paramRetorno.Direction = ParameterDirection.Output;
                 command.Parameters.Add(paramRetorno);
 
                 command.ExecuteNonQuery();
-                return Convert.ToInt16(command.Parameters["resultado"].Value);
+                int resultado = Convert.ToInt32(command.Parameters["@resultado"].Value);
+                conn.Close();
+                return resultado;
             }
         }
     }
@@ -40,7 +41,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 string cadena = "SELECT user_profesional as 'id' ,upper(user_apellido +', '+user_nombre) as 'Nombre' FROM LOS_TRIGGERS.Usuario as u " +
                                 "JOIN LOS_TRIGGERS.Especialidad_Profesional as ep on u.user_profesional = ep.profesional " +
                                 "JOIN LOS_TRIGGERS.Especialidad as e on e.espe_codigo = ep.especialidad " +
@@ -55,6 +55,7 @@ namespace ClinicaFrba
                 DataSet ds = new DataSet();
 
                 da.Fill(ds);
+                conn.Close();
                 return ds;
             }
         }
@@ -67,7 +68,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 string cadena = "SELECT espe_codigo as 'id',espe_descripcion as 'Nombre' FROM LOS_TRIGGERS.Especialidad " +
                                 "GROUP BY espe_codigo,espe_descripcion " +
                                 "ORDER BY espe_descripcion";
@@ -77,6 +77,7 @@ namespace ClinicaFrba
                 DataSet ds = new DataSet();
 
                 da.Fill(ds);
+                conn.Close();
                 return ds;
             }
         }
@@ -89,7 +90,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 string cadena = "SELECT turn_numero as 'Nro de turno' ," +
                                 "turn_afiliado as 'Nro Afiliado',upper(u2.user_apellido +', '+u2.user_nombre) as 'Nombre Afiliado',turn_fecha as 'Fecha' " +
                                 "FROM LOS_TRIGGERS.Turno as t " +
@@ -108,6 +108,7 @@ namespace ClinicaFrba
                 DataSet ds = new DataSet();
 
                 da.Fill(ds);
+                conn.Close();
                 return ds;
             }
         }
@@ -121,7 +122,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 string cadena = "SELECT bono_numero as 'id' " +
                                 "FROM [LOS_TRIGGERS].[Bono] " +
                                 "WHERE left(bono_afiliado,len(bono_afiliado)-2) = " + afil_grupo_familiar + "" +
@@ -132,6 +132,7 @@ namespace ClinicaFrba
                 DataSet ds = new DataSet();
 
                 da.Fill(ds);
+                conn.Close();
                 return ds;
             }
         }
@@ -144,7 +145,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.registro_llegada", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("turn_numero", turno);
@@ -153,6 +153,7 @@ namespace ClinicaFrba
                 command.Parameters.AddWithValue("fecha", fecha);
 
                 command.ExecuteNonQuery();
+                conn.Close();
             }
         }
 
@@ -161,7 +162,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.registro_resultado", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("turn_numero", turno);
@@ -170,9 +170,9 @@ namespace ClinicaFrba
                 command.Parameters.AddWithValue("diag_descripcion", descripcion);
 
                 command.ExecuteNonQuery();
+                conn.Close();
             }
         }
-
     }
 
     public class usuario
@@ -186,18 +186,19 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_traer_ID_rol", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("usuario", usuario);
-                command.Parameters.AddWithValue("rol", rol);
+                command.Parameters.AddWithValue("@usuario", usuario);
+                command.Parameters.AddWithValue("@rol", rol);
 
-                SqlParameter paramRetorno = new SqlParameter("nro", SqlDbType.Decimal);
+                SqlParameter paramRetorno = new SqlParameter("@nro", SqlDbType.Decimal);
                 paramRetorno.Direction = ParameterDirection.Output;
                 command.Parameters.Add(paramRetorno);
 
                 command.ExecuteNonQuery();
-                return Convert.ToDecimal(command.Parameters["nro"].Value);
+                decimal numero = Convert.ToDecimal(command.Parameters["@nro"].Value);
+                conn.Close();
+                return numero;
             }
         }
 
@@ -206,7 +207,6 @@ namespace ClinicaFrba
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
                 conn.Open();
-
                 SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_tiene_permiso", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@funcionalidad", funcionalidad);
@@ -217,7 +217,9 @@ namespace ClinicaFrba
                 command.Parameters.Add(paramRetorno);
 
                 command.ExecuteNonQuery();
-                return Convert.ToBoolean(command.Parameters["@resultado"].Value);
+                bool resultado = Convert.ToBoolean(command.Parameters["@resultado"].Value);
+                conn.Close();
+                return resultado;
             }
         }
     }

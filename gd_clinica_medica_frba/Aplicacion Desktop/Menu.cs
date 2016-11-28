@@ -98,8 +98,8 @@ namespace ClinicaFrba
 
         private void mostrarAltertaDeNoImplementacion()
         {
-            MessageBox.Show("Esta funcionalidad no ha sido implementada por no ser un requisito del Trabajo Práctico.",
-                "Funcionalidad no disponible", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Esta funcionalidad no ha sido implementada por no ser un requisito del trabajo práctico.",
+                "Funcionalidad no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void b_abm_espcialidades_Click(object sender, EventArgs e)
