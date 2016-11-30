@@ -47,6 +47,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
+            Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
             this.Close();
         }
    

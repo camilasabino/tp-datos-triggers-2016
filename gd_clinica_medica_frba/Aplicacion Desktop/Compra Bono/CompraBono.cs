@@ -17,7 +17,7 @@ namespace ClinicaFrba.Compra_Bono
         {
             InitializeComponent();
         }
-
+//        public int habilitado { get; set; }
         SqlConnection conn = new SqlConnection(conexion.cadena);
 
         private void compraBonos_Load(object sender, EventArgs e)
@@ -61,9 +61,42 @@ namespace ClinicaFrba.Compra_Bono
             cmd.Parameters.AddWithValue("@cantBonos", SqlDbType.VarChar).Value = comboBox_afil_CantBonos.Text;
             cmd.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
             cmd.ExecuteNonQuery();
-            conn.Close();
 
-            this.Close();
+            //valido si el afiliado esta habilitado para realizar la compra
+
+            string afil_habilitacion = "select afil_habilitacion from LOS_TRIGGERS.Afiliado where afil_numero = " + textBox_afil_numero.Text;
+            SqlCommand command = new SqlCommand(afil_habilitacion, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            bool habilitacion = reader.GetBoolean(0);
+//            bool habilitado = System.Object.ReferenceEquals(Convert.ToInt32(habilitacion), 0);
+            reader.Close();
+
+            if (!habilitacion)
+            {
+                MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " se encuentra deshabilitado");
+            }
+            else
+            {
+                //Se realiza la compra, y muestro el Total a pagar
+
+                string precioBono = "select plan_precio_bono_consulta from LOS_TRIGGERS.Plan_Medico where plan_id = (select afil_plan_medico from LOS_TRIGGERS.Afiliado where afil_numero = " + textBox_afil_numero.Text + ")" ;
+                SqlCommand command2= new SqlCommand(precioBono, conn);
+                SqlDataReader reader2 = command2.ExecuteReader();
+                reader2.Read();
+                decimal precio = reader2.GetDecimal(0);
+                decimal totalAPagar = precio * Convert.ToDecimal(comboBox_afil_CantBonos.Text);
+
+                MessageBox.Show("Monto total a pagar es $" + totalAPagar);
+
+                //limpio los campos
+
+                textBox_afil_numero.Text = "";
+                comboBox_afil_CantBonos.SelectedItem = null;
+
+            }
+
+            conn.Close();
         }
 
         private void button_cancelar_Click(object sender, EventArgs e)

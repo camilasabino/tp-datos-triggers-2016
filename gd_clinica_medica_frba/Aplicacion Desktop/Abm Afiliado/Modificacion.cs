@@ -16,6 +16,12 @@ namespace ClinicaFrba.Abm_Afiliado
     public partial class 
         Modificacion : Form
     {
+
+        public Modificacion()
+        {
+            InitializeComponent();
+        }
+
         public class Plan
         {
             public decimal id { get; set; }
@@ -29,11 +35,6 @@ namespace ClinicaFrba.Abm_Afiliado
         }
 
         SqlConnection conn = new SqlConnection(conexion.cadena);
-
-        public Modificacion()
-        {
-            InitializeComponent();
-        }
 
         private void modificacion_Afiliado_Load(object sender, EventArgs e)
         {
@@ -179,6 +180,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
+            Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
             this.Close();
         }
 
