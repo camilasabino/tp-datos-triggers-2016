@@ -25,25 +25,21 @@ namespace ClinicaFrba
             {
                 int resultado = login.validar(t_usuario.Text, t_contrasena.Text, c_rol.Text);
 
-                if (resultado == 0) // Login OK
+                if (resultado == 3)
                 {
-                    decimal id_rol = usuario.traer_id_rol(t_usuario.Text, c_rol.Text);
-                    if (id_rol == 0)
-                    {
-                        MessageBox.Show("El usuario: " + t_usuario.Text + " no tiene asignado el rol " + c_rol.Text + ".",
-                           "Login incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
+                    MessageBox.Show("El usuario: " + t_usuario.Text + " no tiene asignado el rol " + c_rol.Text + ".",
+                        "Login incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (resultado == 0) // Login OK
+                {
                         usuario.nombre_usuario = t_usuario.Text;
                         usuario.rol = c_rol.Text;
-                        usuario.id_rol = id_rol;
+                        usuario.id_rol = usuario.traer_id_rol(t_usuario.Text, c_rol.Text);
                         MessageBox.Show("Ha ingresado satisfactoriamente al sistema como " + c_rol.Text + ".", "Login correcto.",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Menu m1 = new Menu();
                         this.Hide();
                         m1.ShowDialog();
-                    }
                 }
                 else if (resultado == 2) MessageBox.Show("Ha excedido la cantidad de intentos fallidos de Login. Su cuenta ha sido inhabilitada.",
                     "Login incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Error);
