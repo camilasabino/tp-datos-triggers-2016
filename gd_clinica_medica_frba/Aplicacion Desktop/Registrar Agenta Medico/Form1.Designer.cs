@@ -56,13 +56,14 @@
             this.hHastaVier = new System.Windows.Forms.ComboBox();
             this.hDesdeSab = new System.Windows.Forms.ComboBox();
             this.hHastaSab = new System.Windows.Forms.ComboBox();
+            this.errorPanel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(161, 20);
+            this.label1.Location = new System.Drawing.Point(157, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(254, 24);
             this.label1.TabIndex = 0;
@@ -71,7 +72,7 @@
             // cEspecialidad
             // 
             this.cEspecialidad.FormattingEnabled = true;
-            this.cEspecialidad.Location = new System.Drawing.Point(161, 74);
+            this.cEspecialidad.Location = new System.Drawing.Point(161, 65);
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(233, 21);
             this.cEspecialidad.TabIndex = 1;
@@ -79,7 +80,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 77);
+            this.label2.Location = new System.Drawing.Point(29, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 2;
@@ -327,11 +328,23 @@
             this.hHastaSab.Size = new System.Drawing.Size(121, 21);
             this.hHastaSab.TabIndex = 34;
             // 
+            // errorPanel
+            // 
+            this.errorPanel.AutoSize = true;
+            this.errorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorPanel.ForeColor = System.Drawing.Color.Crimson;
+            this.errorPanel.Location = new System.Drawing.Point(116, 98);
+            this.errorPanel.Name = "errorPanel";
+            this.errorPanel.Size = new System.Drawing.Size(72, 13);
+            this.errorPanel.TabIndex = 35;
+            this.errorPanel.Text = "<error_panel>";
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 461);
+            this.Controls.Add(this.errorPanel);
             this.Controls.Add(this.hHastaSab);
             this.Controls.Add(this.hDesdeSab);
             this.Controls.Add(this.hHastaVier);
@@ -397,5 +410,6 @@
         private System.Windows.Forms.ComboBox hHastaVier;
         private System.Windows.Forms.ComboBox hDesdeSab;
         private System.Windows.Forms.ComboBox hHastaSab;
+        private System.Windows.Forms.Label errorPanel;
     }
 }

@@ -19,6 +19,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         public RegistrarAgenda()
         {
             InitializeComponent();
+            errorPanel.Text = "";
             cargarEspecialidades();
             cargarDiasAtencionClinica();
 
@@ -48,13 +49,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             dateHasta.Format = DateTimePickerFormat.Custom;
         }
 
-        public class RegistroDiaAtencionException : Exception
-        {
-            public RegistroDiaAtencionException()
-            {
-            }
-        }
-
         public class Especialidad
         {
             public decimal id { get; set; }
@@ -77,7 +71,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("select espe_codigo, espe_descripcion " +
                                                     "from LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad " +
-                                                    "where profesional="+Convert.ToDecimal(ClinicaFrba.usuario.id_rol) +" AND espe_codigo=especialidad", conexionBase);
+                                                    "where profesional="+Convert.ToDecimal(ClinicaFrba.usuario.id_rol)+
+                                                    " AND NOT EXISTS (select * from LOS_TRIGGERS.Dia_Atencion "+
+                                                    "where dia_especialidad_profesional=espe_prof_id) AND espe_codigo=especialidad",
+                                                    conexionBase);
 
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
@@ -87,6 +84,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
                 conexionBase.Close();
             }
+            if (!especialidades.Any()) errorPanel.Text = "El Profesional ya tiene una Agenda cargada para todas sus especialidades.";
+
             return especialidades;
         }
 
