@@ -21,6 +21,16 @@ namespace ClinicaFrba.Listados
             llenar_planes();
             c_opcion.SelectedIndex = 0;
             cSemestre.SelectedIndex = 0;
+            c_plan.Enabled = false;
+            c_especialidad.Enabled = false;
+
+            if (c_opcion.Text == "Profesionales más consultados por plan")
+                c_plan.Enabled = true;
+            else if (c_opcion.Text == "Profesionales con menos horas trabajadas")
+            {
+                c_plan.Enabled = true;
+                c_especialidad.Enabled = true;
+            }
         }
 
         protected void llenar_especialidades()
@@ -84,14 +94,13 @@ namespace ClinicaFrba.Listados
             }
             else
             {
-                MessageBox.Show("Por favor, indique el año en base al cual se realizará el Listado.", "No se ha indicado un año",
+                MessageBox.Show("Por favor, indique el año en base al cual producir el Listado.", "No se ha indicado un año",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void b_mostrar_Click(object sender, EventArgs e)
         {
-            gridListado.Visible = true;
             llenarGrid();
         }
 
@@ -176,7 +185,6 @@ namespace ClinicaFrba.Listados
                 }
             }
 
-
             public static DataSet especialidades_bonos(int anio, int semestre)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
@@ -201,6 +209,22 @@ namespace ClinicaFrba.Listados
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
+
+        private void c_opcion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (c_opcion.Text == "Profesionales más consultados por plan")
+                c_plan.Enabled = true;
+            else if (c_opcion.Text == "Profesionales con menos horas trabajadas")
+            {
+                c_plan.Enabled = true;
+                c_especialidad.Enabled = true;
+            }
+            else
+            {
+                c_plan.Enabled = false;
+                c_especialidad.Enabled = false;
+            }
         }
     }
 }

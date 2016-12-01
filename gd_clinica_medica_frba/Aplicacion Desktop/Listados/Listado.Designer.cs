@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.gridListado = new System.Windows.Forms.DataGridView();
             this.l_titulo = new System.Windows.Forms.Label();
             this.c_opcion = new System.Windows.Forms.ComboBox();
@@ -44,7 +45,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cSemestre = new System.Windows.Forms.ComboBox();
             this.textAnio = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridListado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // gridListado
@@ -55,10 +58,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridListado.Location = new System.Drawing.Point(53, 282);
+            this.gridListado.Location = new System.Drawing.Point(44, 282);
             this.gridListado.Name = "gridListado";
             this.gridListado.ReadOnly = true;
-            this.gridListado.Size = new System.Drawing.Size(734, 150);
+            this.gridListado.Size = new System.Drawing.Size(699, 150);
             this.gridListado.TabIndex = 0;
             // 
             // l_titulo
@@ -83,8 +86,9 @@
             "Especialidades médicas con más bonos de consulta utilizados"});
             this.c_opcion.Location = new System.Drawing.Point(188, 80);
             this.c_opcion.Name = "c_opcion";
-            this.c_opcion.Size = new System.Drawing.Size(426, 21);
+            this.c_opcion.Size = new System.Drawing.Size(386, 21);
             this.c_opcion.TabIndex = 2;
+            this.c_opcion.SelectedIndexChanged += new System.EventHandler(this.c_opcion_SelectedIndexChanged);
             // 
             // b_mostrar
             // 
@@ -100,7 +104,7 @@
             // 
             this.c_plan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_plan.FormattingEnabled = true;
-            this.c_plan.Location = new System.Drawing.Point(217, 193);
+            this.c_plan.Location = new System.Drawing.Point(208, 193);
             this.c_plan.Name = "c_plan";
             this.c_plan.Size = new System.Drawing.Size(153, 21);
             this.c_plan.TabIndex = 4;
@@ -108,7 +112,7 @@
             // l_plan
             // 
             this.l_plan.AutoSize = true;
-            this.l_plan.Location = new System.Drawing.Point(145, 196);
+            this.l_plan.Location = new System.Drawing.Point(136, 196);
             this.l_plan.Name = "l_plan";
             this.l_plan.Size = new System.Drawing.Size(66, 13);
             this.l_plan.TabIndex = 5;
@@ -117,7 +121,7 @@
             // l_especialidad
             // 
             this.l_especialidad.AutoSize = true;
-            this.l_especialidad.Location = new System.Drawing.Point(415, 196);
+            this.l_especialidad.Location = new System.Drawing.Point(391, 196);
             this.l_especialidad.Name = "l_especialidad";
             this.l_especialidad.Size = new System.Drawing.Size(105, 13);
             this.l_especialidad.TabIndex = 6;
@@ -127,14 +131,14 @@
             // 
             this.c_especialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_especialidad.FormattingEnabled = true;
-            this.c_especialidad.Location = new System.Drawing.Point(526, 193);
+            this.c_especialidad.Location = new System.Drawing.Point(502, 193);
             this.c_especialidad.Name = "c_especialidad";
             this.c_especialidad.Size = new System.Drawing.Size(261, 21);
             this.c_especialidad.TabIndex = 7;
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(384, 450);
+            this.buttonSalir.Location = new System.Drawing.Point(371, 450);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 8;
@@ -206,11 +210,25 @@
             this.textAnio.Size = new System.Drawing.Size(100, 20);
             this.textAnio.TabIndex = 16;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(618, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(134, 123);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 494);
+            this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textAnio);
             this.Controls.Add(this.cSemestre);
             this.Controls.Add(this.label6);
@@ -230,6 +248,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.gridListado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +272,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cSemestre;
         private System.Windows.Forms.TextBox textAnio;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
