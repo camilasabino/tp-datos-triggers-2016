@@ -121,7 +121,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 confirmarCancelacion();
-                this.Hide();
+                cargarTurnos();
             }
         }
 

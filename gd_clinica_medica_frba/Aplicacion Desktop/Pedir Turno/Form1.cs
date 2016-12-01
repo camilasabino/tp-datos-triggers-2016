@@ -155,7 +155,6 @@ namespace ClinicaFrba.Pedir_Turno
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(fechaSeleccionada));
-                comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 DataTable horarios = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
@@ -219,7 +218,8 @@ namespace ClinicaFrba.Pedir_Turno
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 confirmarTurno();
-                this.Hide();
+                cargarFechas();
+                cargarHorarios();
             }
         }
 

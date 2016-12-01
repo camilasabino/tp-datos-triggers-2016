@@ -196,7 +196,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionDiaParticular();
-                        this.Hide();
+                        cargarTurnos();
                     }
                 }
                 else // Cancela un período
@@ -209,7 +209,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionPeriodo();
-                        this.Hide();
+                        cargarTurnos();
                     }
                 }
             }
