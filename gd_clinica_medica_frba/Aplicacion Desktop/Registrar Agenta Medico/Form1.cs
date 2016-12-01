@@ -19,6 +19,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         public RegistrarAgenda()
         {
             InitializeComponent();
+            actualizarFormulario();
+        }
+
+        protected void actualizarFormulario()
+        {
             errorPanel.Text = "";
             cargarEspecialidades();
             cargarDiasAtencionClinica();
@@ -71,8 +76,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("select espe_codigo, espe_descripcion " +
                                                     "from LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad " +
-                                                    "where profesional="+Convert.ToDecimal(ClinicaFrba.usuario.id_rol)+
-                                                    " AND NOT EXISTS (select * from LOS_TRIGGERS.Dia_Atencion "+
+                                                    "where profesional=" + Convert.ToDecimal(ClinicaFrba.usuario.id_rol) +
+                                                    " AND NOT EXISTS (select * from LOS_TRIGGERS.Dia_Atencion " +
                                                     "where dia_especialidad_profesional=espe_prof_id) AND espe_codigo=especialidad",
                                                     conexionBase);
 
@@ -137,30 +142,25 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             cEspecialidad.ValueMember = "id";
         }
 
-        protected Boolean registrarDiaDeAtencion(String dia, String inicio, String fin)
+        protected void registrarDiaDeAtencion(String dia, String inicio, String fin)
         {
-            if (verificarCantidadHorasLaborales(inicio, fin))
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
             {
-                SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-                using (conexionBase)
-                {
-                    conexionBase.Open();
-                    SqlCommand comando = new SqlCommand("LOS_TRIGGERS.RegistrarDiaAtencionProfesional", conexionBase);
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.RegistrarDiaAtencionProfesional", conexionBase);
 
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                    comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
-                    comando.Parameters.AddWithValue("@dia", dia);
-                    comando.Parameters.AddWithValue("@inicio", inicio);
-                    comando.Parameters.AddWithValue("@fin", fin);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
+                comando.Parameters.AddWithValue("@dia", dia);
+                comando.Parameters.AddWithValue("@inicio", inicio);
+                comando.Parameters.AddWithValue("@fin", fin);
 
-                    comando.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
 
-                    conexionBase.Close();
-                }
-                return true;
+                conexionBase.Close();
             }
-            else return false;
         }
 
         protected void registrarAgenda()
@@ -184,25 +184,55 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
         }
 
-        protected Boolean verificarCantidadHorasLaborales(String inicio, String fin)
+        protected int horasLaboralesEnUnDia(String desde, String hasta)
         {
+            TimeSpan duracion = Convert.ToDateTime(hasta) - Convert.ToDateTime(desde);
+
+            return duracion.Hours;
+        }
+
+        protected Boolean verificarCantidadHorasLaborales()
+        {
+            int cantHorasLaborales;
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select (select prof_horas_laborales from LOS_TRIGGERS.Profesional " +
-                                                    "where prof_id=@profesional) + DATEDIFF(hour, @inicio, @fin)", conexionBase);
+                SqlCommand comando = new SqlCommand("select prof_horas_laborales from LOS_TRIGGERS.Profesional " +
+                                                    "where prof_id=@profesional", conexionBase);
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@inicio", inicio);
-                comando.Parameters.AddWithValue("@fin", fin);
 
                 SqlDataReader reader = comando.ExecuteReader();
                 reader.Read();
-                int cantHorasLaborales = (int)reader.GetDecimal(0);
+                cantHorasLaborales = (int)reader.GetDecimal(0);
 
                 conexionBase.Close();
-                return cantHorasLaborales >= 48;
             }
+            if (checkLun.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeLun.SelectedValue.ToString(), hHastaLun.SelectedValue.ToString());
+            }
+            if (checkMar.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeMar.SelectedValue.ToString(), hHastaMar.SelectedValue.ToString());
+            }
+            if (checkMier.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeMier.SelectedValue.ToString(), hHastaMier.SelectedValue.ToString());
+            }
+            if (checkJue.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeJue.SelectedValue.ToString(), hHastaJue.SelectedValue.ToString());
+            }
+            if (checkVier.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeVier.SelectedValue.ToString(), hHastaVier.SelectedValue.ToString());
+            }
+            if (checkSab.Checked)
+            {
+                cantHorasLaborales += horasLaboralesEnUnDia(hDesdeSab.SelectedValue.ToString(), hHastaSab.SelectedValue.ToString());
+            }
+            return cantHorasLaborales <= 48;
         }
 
         /**************************************************************************************************
@@ -211,51 +241,43 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
-            bool failure = false;
-            if (checkLun.Checked)
-            {
-                if (!registrarDiaDeAtencion("Lunes", hDesdeLun.SelectedValue.ToString(), hHastaLun.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (checkMar.Checked)
-            {
-                if (!registrarDiaDeAtencion("Martes", hDesdeMar.SelectedValue.ToString(), hHastaMar.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (checkMier.Checked)
-            {
-                if (!registrarDiaDeAtencion("Miércoles", hDesdeMier.SelectedValue.ToString(), hHastaMier.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (checkJue.Checked)
-            {
-                if (!registrarDiaDeAtencion("Jueves", hDesdeJue.SelectedValue.ToString(), hHastaJue.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (checkVier.Checked)
-            {
-                if (!registrarDiaDeAtencion("Viernes", hDesdeVier.SelectedValue.ToString(), hHastaVier.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (checkSab.Checked)
-            {
-                if (!registrarDiaDeAtencion("Sábado", hDesdeSab.SelectedValue.ToString(), hHastaSab.SelectedValue.ToString()))
-                    failure = true;
-            }
-            if (failure)
-            {
-                MessageBox.Show("El profesional no puede sumar más de 48 hs laborales. Por favor, revise los horarios de la Agenda.",
-                    "No se puede registrar la Agenda", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+            if (verificarCantidadHorasLaborales())
             {
                 if (MessageBox.Show("¿Está seguro de registrar la Agenda con los valores indicados?" + "\n" +
                     "Una vez registrada, la Agenda es inalterable.", "Confirmar registro de Agenda",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    if (checkLun.Checked)
+                    {
+                        registrarDiaDeAtencion("Lunes", hDesdeLun.SelectedValue.ToString(), hHastaLun.SelectedValue.ToString());
+                    }
+                    if (checkMar.Checked)
+                    {
+                        registrarDiaDeAtencion("Martes", hDesdeMar.SelectedValue.ToString(), hHastaMar.SelectedValue.ToString());
+                    }
+                    if (checkMier.Checked)
+                    {
+                        registrarDiaDeAtencion("Miércoles", hDesdeMier.SelectedValue.ToString(), hHastaMier.SelectedValue.ToString());
+                    }
+                    if (checkJue.Checked)
+                    {
+                        registrarDiaDeAtencion("Jueves", hDesdeJue.SelectedValue.ToString(), hHastaJue.SelectedValue.ToString());
+                    }
+                    if (checkVier.Checked)
+                    {
+                        registrarDiaDeAtencion("Viernes", hDesdeVier.SelectedValue.ToString(), hHastaVier.SelectedValue.ToString());
+                    }
+                    if (checkSab.Checked)
+                    {
+                        registrarDiaDeAtencion("Sábado", hDesdeSab.SelectedValue.ToString(), hHastaSab.SelectedValue.ToString());
+                    }
                     registrarAgenda();
-                    this.Hide();
                 }
+            }
+            else
+            {
+                MessageBox.Show("El profesional no puede sumar más de 48 hs laborales. Por favor, revise los horarios de la Agenda.",
+                    "No se puede registrar la Agenda", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

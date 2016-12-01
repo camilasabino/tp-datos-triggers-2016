@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PedirTurno));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,15 +41,17 @@
             this.buttonConfirmar = new System.Windows.Forms.Button();
             this.buttonSalir = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(194, 18);
+            this.label1.Location = new System.Drawing.Point(199, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(164, 24);
             this.label1.TabIndex = 0;
@@ -57,7 +60,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 127);
+            this.label2.Location = new System.Drawing.Point(128, 130);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 1;
@@ -66,7 +69,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(87, 78);
+            this.label3.Location = new System.Drawing.Point(128, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(126, 13);
             this.label3.TabIndex = 2;
@@ -94,7 +97,7 @@
             // 
             this.cEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cEspecialidad.FormattingEnabled = true;
-            this.cEspecialidad.Location = new System.Drawing.Point(263, 75);
+            this.cEspecialidad.Location = new System.Drawing.Point(263, 89);
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(247, 21);
             this.cEspecialidad.TabIndex = 5;
@@ -104,7 +107,7 @@
             // 
             this.cProfesional.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cProfesional.FormattingEnabled = true;
-            this.cProfesional.Location = new System.Drawing.Point(263, 119);
+            this.cProfesional.Location = new System.Drawing.Point(263, 127);
             this.cProfesional.Name = "cProfesional";
             this.cProfesional.Size = new System.Drawing.Size(247, 21);
             this.cProfesional.TabIndex = 6;
@@ -175,11 +178,22 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "* Se muestran las fechas disponibles de los próximos 6 (seis) meses.";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(27, 28);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(72, 75);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 13;
+            this.pictureBox1.TabStop = false;
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 483);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonConfirmar);
@@ -196,6 +210,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHorarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,5 +230,6 @@
         private System.Windows.Forms.Button buttonConfirmar;
         private System.Windows.Forms.Button buttonSalir;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

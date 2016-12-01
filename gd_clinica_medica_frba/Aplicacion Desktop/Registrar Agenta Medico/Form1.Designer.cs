@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarAgenda));
             this.label1 = new System.Windows.Forms.Label();
             this.cEspecialidad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,6 +58,8 @@
             this.hDesdeSab = new System.Windows.Forms.ComboBox();
             this.hHastaSab = new System.Windows.Forms.ComboBox();
             this.errorPanel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,6 +74,7 @@
             // 
             // cEspecialidad
             // 
+            this.cEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cEspecialidad.FormattingEnabled = true;
             this.cEspecialidad.Location = new System.Drawing.Point(161, 65);
             this.cEspecialidad.Name = "cEspecialidad";
@@ -333,17 +337,31 @@
             this.errorPanel.AutoSize = true;
             this.errorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorPanel.ForeColor = System.Drawing.Color.Crimson;
-            this.errorPanel.Location = new System.Drawing.Point(116, 98);
+            this.errorPanel.Location = new System.Drawing.Point(101, 98);
             this.errorPanel.Name = "errorPanel";
             this.errorPanel.Size = new System.Drawing.Size(72, 13);
             this.errorPanel.TabIndex = 35;
             this.errorPanel.Text = "<error_panel>";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(463, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(93, 84);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 36;
+            this.pictureBox1.TabStop = false;
             // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 461);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.errorPanel);
             this.Controls.Add(this.hHastaSab);
             this.Controls.Add(this.hDesdeSab);
@@ -375,6 +393,7 @@
             this.Controls.Add(this.label1);
             this.Name = "RegistrarAgenda";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,5 +430,6 @@
         private System.Windows.Forms.ComboBox hDesdeSab;
         private System.Windows.Forms.ComboBox hHastaSab;
         private System.Windows.Forms.Label errorPanel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
