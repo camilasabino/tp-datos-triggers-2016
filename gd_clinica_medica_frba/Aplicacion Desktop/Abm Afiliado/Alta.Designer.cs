@@ -53,7 +53,7 @@
             this.button_cancelar.Location = new System.Drawing.Point(459, 375);
             this.button_cancelar.Name = "button_cancelar";
             this.button_cancelar.Size = new System.Drawing.Size(123, 38);
-            this.button_cancelar.TabIndex = 28;
+            this.button_cancelar.TabIndex = 9;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
             this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
@@ -63,7 +63,7 @@
             this.button_confirmar.Location = new System.Drawing.Point(161, 375);
             this.button_confirmar.Name = "button_confirmar";
             this.button_confirmar.Size = new System.Drawing.Size(123, 38);
-            this.button_confirmar.TabIndex = 27;
+            this.button_confirmar.TabIndex = 8;
             this.button_confirmar.Text = "Confirmar";
             this.button_confirmar.UseVisualStyleBackColor = true;
             this.button_confirmar.Click += new System.EventHandler(this.button_confirmar_Click);
@@ -73,7 +73,7 @@
             this.textBox_afil_usuario.Location = new System.Drawing.Point(147, 131);
             this.textBox_afil_usuario.Name = "textBox_afil_usuario";
             this.textBox_afil_usuario.Size = new System.Drawing.Size(155, 22);
-            this.textBox_afil_usuario.TabIndex = 26;
+            this.textBox_afil_usuario.TabIndex = 1;
             // 
             // label4
             // 
@@ -92,7 +92,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(216, 36);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(319, 37);
-            this.linkLabel1.TabIndex = 24;
+            this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Dar de Alta un Afiliado";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -103,7 +103,7 @@
             this.textBox_afil_dni.Location = new System.Drawing.Point(441, 106);
             this.textBox_afil_dni.Name = "textBox_afil_dni";
             this.textBox_afil_dni.Size = new System.Drawing.Size(160, 22);
-            this.textBox_afil_dni.TabIndex = 30;
+            this.textBox_afil_dni.TabIndex = 4;
             // 
             // label1
             // 
@@ -120,7 +120,7 @@
             this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(441, 165);
             this.comboBox_afil_estadoCivil.Name = "comboBox_afil_estadoCivil";
             this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(160, 24);
-            this.comboBox_afil_estadoCivil.TabIndex = 32;
+            this.comboBox_afil_estadoCivil.TabIndex = 5;
             // 
             // label6
             // 
@@ -136,7 +136,7 @@
             this.textBox_afil_titular.Location = new System.Drawing.Point(147, 202);
             this.textBox_afil_titular.Name = "textBox_afil_titular";
             this.textBox_afil_titular.Size = new System.Drawing.Size(155, 22);
-            this.textBox_afil_titular.TabIndex = 34;
+            this.textBox_afil_titular.TabIndex = 2;
             // 
             // comboBox_afil_plan
             // 
@@ -144,7 +144,7 @@
             this.comboBox_afil_plan.Location = new System.Drawing.Point(441, 228);
             this.comboBox_afil_plan.Name = "comboBox_afil_plan";
             this.comboBox_afil_plan.Size = new System.Drawing.Size(160, 24);
-            this.comboBox_afil_plan.TabIndex = 37;
+            this.comboBox_afil_plan.TabIndex = 6;
             // 
             // label5
             // 
@@ -170,7 +170,7 @@
             this.comboBox_afil_CantFamACargo.Location = new System.Drawing.Point(441, 300);
             this.comboBox_afil_CantFamACargo.Name = "comboBox_afil_CantFamACargo";
             this.comboBox_afil_CantFamACargo.Size = new System.Drawing.Size(160, 24);
-            this.comboBox_afil_CantFamACargo.TabIndex = 40;
+            this.comboBox_afil_CantFamACargo.TabIndex = 7;
             // 
             // label7
             // 
@@ -186,7 +186,7 @@
             this.textBox_afil_relacionConTitular.Location = new System.Drawing.Point(147, 275);
             this.textBox_afil_relacionConTitular.Name = "textBox_afil_relacionConTitular";
             this.textBox_afil_relacionConTitular.Size = new System.Drawing.Size(155, 22);
-            this.textBox_afil_relacionConTitular.TabIndex = 42;
+            this.textBox_afil_relacionConTitular.TabIndex = 3;
             // 
             // label2
             // 
