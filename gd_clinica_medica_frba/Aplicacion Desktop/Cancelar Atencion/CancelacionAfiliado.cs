@@ -111,17 +111,26 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
-            string turnoACancelar = "¿Desea cancelar el siguiente turno?" + "\n\n" +
-                         "Especialidad: " + gridTurnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
-                         "Profesional: " + gridTurnos.SelectedRows[0].Cells[1].Value.ToString() + "\n" +
-                         "Fecha: " + gridTurnos.SelectedRows[0].Cells[3].Value.ToString() + "\n" +
-                         "Horario: " + gridTurnos.SelectedRows[0].Cells[5].Value.ToString();
-
-            if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del Turno",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!string.IsNullOrEmpty(textMotivo.Text))
             {
-                confirmarCancelacion();
-                cargarTurnos();
+                string turnoACancelar = "¿Desea cancelar el siguiente turno?" + "\n\n" +
+                             "Especialidad: " + gridTurnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
+                             "Profesional: " + gridTurnos.SelectedRows[0].Cells[1].Value.ToString() + "\n" +
+                             "Fecha: " + gridTurnos.SelectedRows[0].Cells[3].Value.ToString() + "\n" +
+                             "Horario: " + gridTurnos.SelectedRows[0].Cells[5].Value.ToString();
+
+                if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del Turno",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    confirmarCancelacion();
+                    cargarTurnos();
+                    textMotivo.Text = "";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, indique el motivo de la cancelación.", "No se ha indicado un motivo",
+                  MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

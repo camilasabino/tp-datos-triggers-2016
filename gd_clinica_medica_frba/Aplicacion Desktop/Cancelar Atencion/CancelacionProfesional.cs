@@ -21,8 +21,23 @@ namespace ClinicaFrba.Cancelar_Atencion
             InitializeComponent();
             cargarTurnos();
             cargarTiposCancelacion();
-            cargarFechasDesde();
-            cargarFechasHasta();
+
+            dateDesde.MinDate = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
+            dateDesde.Value = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
+            dateDesde.MaxDate = fechaHastaDeAtencion();
+            dateDesde.CustomFormat = "yyyy-MM-dd";
+            dateDesde.Format = DateTimePickerFormat.Custom;
+
+            dateHasta.MinDate = dateDesde.Value;
+            dateHasta.Value = dateDesde.Value;
+            dateHasta.MaxDate = fechaHastaDeAtencion();
+            dateHasta.CustomFormat = "yyyy-MM-dd";
+            dateHasta.Format = DateTimePickerFormat.Custom;
+
+            checkModoCancelacion.Checked = true;
+            gridTurnos.Enabled = true;
+            dateDesde.Enabled = false;
+            dateHasta.Enabled = false;
         }
 
         public class TipoCancelacion
@@ -79,51 +94,23 @@ namespace ClinicaFrba.Cancelar_Atencion
             return cancelaciones;
         }
 
-        public void cargarFechasDesde()
+        public DateTime fechaHastaDeAtencion()
         {
-            List<String> fechasDesde = new List<String>();
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.FechasDeAtencionProfesional", conexionBase);
-
-                comando.CommandType = CommandType.StoredProcedure;
+                SqlCommand comando = new SqlCommand("select MAX(disponible_hasta_fecha) "+
+		                                            "from LOS_TRIGGERS.Especialidad_Profesional "+
+		                                            "where profesional=@profesional", conexionBase);
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
                 SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    fechasDesde.Add(reader.GetString(0));
-                }
-                cFechaDesde.DataSource = fechasDesde;
-
+                reader.Read();
+                DateTime fechaHasta = reader.GetDateTime(0);
                 conexionBase.Close();
-            }
-        }
 
-        public void cargarFechasHasta()
-        {
-            List<String> fechasHasta = new List<String>();
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
-            {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.FechasDeAtencionProfesional", conexionBase);
-
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@fecha_desde", Convert.ToDateTime(cFechaDesde.SelectedValue));
-
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    fechasHasta.Add(reader.GetString(0));
-                }
-                cFechaHasta.DataSource = fechasHasta;
-
-                conexionBase.Close();
+                return fechaHasta;
             }
         }
 
@@ -144,8 +131,8 @@ namespace ClinicaFrba.Cancelar_Atencion
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
-                comando.Parameters.AddWithValue("@fecha", gridTurnos.SelectedRows[0].Cells[3].Value.ToString());
-                comando.Parameters.AddWithValue("@tipo_can", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
+                comando.Parameters.AddWithValue("@fecha", gridTurnos.SelectedRows[0].Cells[0].Value.ToString());
+                comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
@@ -161,12 +148,12 @@ namespace ClinicaFrba.Cancelar_Atencion
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnosProfesionalPeriodos", conexionBase);
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));    
-                comando.Parameters.AddWithValue("@desde", Convert.ToDateTime(gridTurnos.SelectedRows[0].Cells[3].Value.ToString()));
-                comando.Parameters.AddWithValue("@desde", Convert.ToDateTime(gridTurnos.SelectedRows[0].Cells[3].Value.ToString()));
+                comando.Parameters.AddWithValue("@desde", dateDesde.Value);
+                comando.Parameters.AddWithValue("@hasta", dateHasta.Value);
                 comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
                 comando.Parameters.AddWithValue("@motivo", textMotivo.Text);
                 comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
@@ -187,29 +174,30 @@ namespace ClinicaFrba.Cancelar_Atencion
             {
                 if (checkModoCancelacion.Checked) // Cancela un día particular
                 {
-                    string turnoACancelar = "¿Desea cancelar el siguiente turno?" + "\n\n" +
-                        "Especialidad: " + gridTurnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
-                        "Fecha: " + gridTurnos.SelectedRows[0].Cells[3].Value.ToString() + "\n" +
-                        "Horario: " + gridTurnos.SelectedRows[0].Cells[4].Value.ToString();
+                    string turnoACancelar = "¿Desea cancelar la siguiente fecha de atención?" + "\n\n" +
+                        "Fecha: " + gridTurnos.SelectedRows[0].Cells[0].Value.ToString() + "\n" +
+                        "Día: " + gridTurnos.SelectedRows[0].Cells[1].Value.ToString();
 
-                    if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del Turno",
+                    if (MessageBox.Show(turnoACancelar, "Confirmar cancelación del día de atención",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionDiaParticular();
                         cargarTurnos();
+                        textMotivo.Text = "";
                     }
                 }
                 else // Cancela un período
                 {
                     string periodoACancelar = "¿Desea cancelar el siguiente período de turnos?" + "\n\n" +
-                        "Desde Fecha: " + cFechaDesde.SelectedValue.ToString() + "\n" +
-                        "Hasta Fecha: " + cFechaHasta.SelectedValue.ToString() + "\n\n";
+                        "Desde Fecha: " + dateDesde.Value.ToString() + "\n" +
+                        "Hasta Fecha: " + dateHasta.Value.ToString() + "\n\n";
 
                     if (MessageBox.Show(periodoACancelar, "Confirmar cancelación del Período de Turnos",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionPeriodo();
                         cargarTurnos();
+                        textMotivo.Text = "";
                     }
                 }
             }
@@ -226,9 +214,18 @@ namespace ClinicaFrba.Cancelar_Atencion
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
-        private void cFechaDesde_SelectedIndexChanged(object sender, EventArgs e)
+        private void checkModoCancelacion_CheckedChanged(object sender, EventArgs e)
         {
-            cargarFechasHasta();
+            gridTurnos.Enabled = checkModoCancelacion.Checked;
+            dateDesde.Enabled = !checkModoCancelacion.Checked;
+            dateHasta.Enabled = !checkModoCancelacion.Checked;
+            gridTurnos.ClearSelection();
+        }
+
+        private void dateDesde_ValueChanged(object sender, EventArgs e)
+        {
+            dateHasta.MinDate = dateDesde.Value;
+            dateHasta.Value = dateDesde.Value;
         }
     }
 }

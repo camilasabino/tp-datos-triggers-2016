@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelacionProfesional));
             this.label1 = new System.Windows.Forms.Label();
             this.gridTurnos = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,17 +41,19 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cFechaDesde = new System.Windows.Forms.ComboBox();
-            this.cFechaHasta = new System.Windows.Forms.ComboBox();
             this.checkModoCancelacion = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dateDesde = new System.Windows.Forms.DateTimePicker();
+            this.dateHasta = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(225, 18);
+            this.label1.Location = new System.Drawing.Point(207, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(296, 24);
             this.label1.TabIndex = 0;
@@ -61,17 +64,17 @@
             this.gridTurnos.AllowUserToAddRows = false;
             this.gridTurnos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTurnos.Location = new System.Drawing.Point(40, 176);
+            this.gridTurnos.Location = new System.Drawing.Point(40, 201);
             this.gridTurnos.Name = "gridTurnos";
             this.gridTurnos.ReadOnly = true;
             this.gridTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridTurnos.Size = new System.Drawing.Size(665, 115);
+            this.gridTurnos.Size = new System.Drawing.Size(665, 130);
             this.gridTurnos.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 151);
+            this.label2.Location = new System.Drawing.Point(37, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 2;
@@ -79,7 +82,7 @@
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(630, 347);
+            this.buttonConfirmar.Location = new System.Drawing.Point(630, 389);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 3;
@@ -89,7 +92,7 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(630, 389);
+            this.buttonSalir.Location = new System.Drawing.Point(630, 431);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 4;
@@ -100,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 313);
+            this.label3.Location = new System.Drawing.Point(37, 352);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 13);
             this.label3.TabIndex = 5;
@@ -109,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 352);
+            this.label4.Location = new System.Drawing.Point(102, 389);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 6;
@@ -117,7 +120,7 @@
             // 
             // textMotivo
             // 
-            this.textMotivo.Location = new System.Drawing.Point(211, 349);
+            this.textMotivo.Location = new System.Drawing.Point(211, 391);
             this.textMotivo.Multiline = true;
             this.textMotivo.Name = "textMotivo";
             this.textMotivo.Size = new System.Drawing.Size(355, 63);
@@ -127,7 +130,7 @@
             // 
             this.cTipoCancelacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cTipoCancelacion.FormattingEnabled = true;
-            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 310);
+            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 349);
             this.cTipoCancelacion.Name = "cTipoCancelacion";
             this.cTipoCancelacion.Size = new System.Drawing.Size(355, 21);
             this.cTipoCancelacion.TabIndex = 8;
@@ -135,16 +138,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 77);
+            this.label5.Location = new System.Drawing.Point(446, 78);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(176, 13);
+            this.label5.Size = new System.Drawing.Size(182, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Indique perído que desea cancelar:";
+            this.label5.Text = "Indique período que desea cancelar:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(265, 77);
+            this.label6.Location = new System.Drawing.Point(446, 108);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 12;
@@ -153,47 +156,59 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(507, 77);
+            this.label7.Location = new System.Drawing.Point(449, 155);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Hasta";
             // 
-            // cFechaDesde
-            // 
-            this.cFechaDesde.FormattingEnabled = true;
-            this.cFechaDesde.Location = new System.Drawing.Point(314, 77);
-            this.cFechaDesde.Name = "cFechaDesde";
-            this.cFechaDesde.Size = new System.Drawing.Size(156, 21);
-            this.cFechaDesde.TabIndex = 14;
-            this.cFechaDesde.SelectedIndexChanged += new System.EventHandler(this.cFechaDesde_SelectedIndexChanged);
-            // 
-            // cFechaHasta
-            // 
-            this.cFechaHasta.FormattingEnabled = true;
-            this.cFechaHasta.Location = new System.Drawing.Point(548, 77);
-            this.cFechaHasta.Name = "cFechaHasta";
-            this.cFechaHasta.Size = new System.Drawing.Size(157, 21);
-            this.cFechaHasta.TabIndex = 15;
-            // 
             // checkModoCancelacion
             // 
             this.checkModoCancelacion.AutoSize = true;
-            this.checkModoCancelacion.Location = new System.Drawing.Point(40, 118);
+            this.checkModoCancelacion.Location = new System.Drawing.Point(40, 135);
             this.checkModoCancelacion.Name = "checkModoCancelacion";
             this.checkModoCancelacion.Size = new System.Drawing.Size(181, 17);
             this.checkModoCancelacion.TabIndex = 16;
             this.checkModoCancelacion.Text = "Deseo cancelar un día particular";
             this.checkModoCancelacion.UseVisualStyleBackColor = true;
+            this.checkModoCancelacion.CheckedChanged += new System.EventHandler(this.checkModoCancelacion_CheckedChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(281, 78);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(108, 104);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
+            // dateDesde
+            // 
+            this.dateDesde.Location = new System.Drawing.Point(498, 108);
+            this.dateDesde.Name = "dateDesde";
+            this.dateDesde.Size = new System.Drawing.Size(200, 20);
+            this.dateDesde.TabIndex = 18;
+            // 
+            // dateHasta
+            // 
+            this.dateHasta.Location = new System.Drawing.Point(498, 149);
+            this.dateHasta.Name = "dateHasta";
+            this.dateHasta.Size = new System.Drawing.Size(200, 20);
+            this.dateHasta.TabIndex = 19;
             // 
             // CancelacionProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 433);
+            this.ClientSize = new System.Drawing.Size(741, 480);
+            this.Controls.Add(this.dateHasta);
+            this.Controls.Add(this.dateDesde);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkModoCancelacion);
-            this.Controls.Add(this.cFechaHasta);
-            this.Controls.Add(this.cFechaDesde);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -209,6 +224,7 @@
             this.Name = "CancelacionProfesional";
             this.Text = "CancelacionAfiliado";
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,8 +244,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cFechaDesde;
-        private System.Windows.Forms.ComboBox cFechaHasta;
         private System.Windows.Forms.CheckBox checkModoCancelacion;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DateTimePicker dateDesde;
+        private System.Windows.Forms.DateTimePicker dateHasta;
     }
 }

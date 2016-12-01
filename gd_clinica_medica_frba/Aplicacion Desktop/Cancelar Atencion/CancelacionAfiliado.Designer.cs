@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelacionAfiliado));
             this.label1 = new System.Windows.Forms.Label();
             this.gridTurnos = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,14 +38,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textMotivo = new System.Windows.Forms.TextBox();
             this.cTipoCancelacion = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(237, 19);
+            this.label1.Location = new System.Drawing.Point(237, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(264, 24);
             this.label1.TabIndex = 0;
@@ -55,7 +58,7 @@
             this.gridTurnos.AllowUserToAddRows = false;
             this.gridTurnos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTurnos.Location = new System.Drawing.Point(40, 92);
+            this.gridTurnos.Location = new System.Drawing.Point(40, 142);
             this.gridTurnos.Name = "gridTurnos";
             this.gridTurnos.ReadOnly = true;
             this.gridTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -65,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 66);
+            this.label2.Location = new System.Drawing.Point(37, 112);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 2;
@@ -73,7 +76,7 @@
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(630, 291);
+            this.buttonConfirmar.Location = new System.Drawing.Point(630, 349);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 3;
@@ -83,7 +86,7 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(630, 333);
+            this.buttonSalir.Location = new System.Drawing.Point(630, 391);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 4;
@@ -94,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 259);
+            this.label3.Location = new System.Drawing.Point(37, 306);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 13);
             this.label3.TabIndex = 5;
@@ -103,7 +106,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 296);
+            this.label4.Location = new System.Drawing.Point(102, 349);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 6;
@@ -111,7 +114,7 @@
             // 
             // textMotivo
             // 
-            this.textMotivo.Location = new System.Drawing.Point(211, 293);
+            this.textMotivo.Location = new System.Drawing.Point(211, 351);
             this.textMotivo.Multiline = true;
             this.textMotivo.Name = "textMotivo";
             this.textMotivo.Size = new System.Drawing.Size(355, 63);
@@ -121,16 +124,30 @@
             // 
             this.cTipoCancelacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cTipoCancelacion.FormattingEnabled = true;
-            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 250);
+            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 306);
             this.cTipoCancelacion.Name = "cTipoCancelacion";
             this.cTipoCancelacion.Size = new System.Drawing.Size(355, 21);
             this.cTipoCancelacion.TabIndex = 8;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(550, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(105, 99);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // CancelacionAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 377);
+            this.ClientSize = new System.Drawing.Size(747, 432);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cTipoCancelacion);
             this.Controls.Add(this.textMotivo);
             this.Controls.Add(this.label4);
@@ -143,6 +160,7 @@
             this.Name = "CancelacionAfiliado";
             this.Text = "CancelacionAfiliado";
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,5 +177,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textMotivo;
         private System.Windows.Forms.ComboBox cTipoCancelacion;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

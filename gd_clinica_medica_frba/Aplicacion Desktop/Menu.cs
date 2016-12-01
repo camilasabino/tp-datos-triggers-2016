@@ -43,7 +43,7 @@ namespace ClinicaFrba
             usuario.rol = "";
 
             Login f1 = new Login();
-            this.Hide();
+            this.Close();
             f1.Show();
         }
 
