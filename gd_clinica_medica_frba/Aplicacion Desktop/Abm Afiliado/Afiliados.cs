@@ -40,5 +40,12 @@ namespace ClinicaFrba.Abm_Afiliado
             Abm_Afiliado.Baja baja = new Abm_Afiliado.Baja();
             baja.Show();
         }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+
+        }
     }
 }
