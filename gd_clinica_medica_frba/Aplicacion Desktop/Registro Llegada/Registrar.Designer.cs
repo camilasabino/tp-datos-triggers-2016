@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registrar));
             this.l_titulo = new System.Windows.Forms.Label();
             this.c_especialidad = new System.Windows.Forms.ComboBox();
             this.l_especialidad = new System.Windows.Forms.Label();
             this.c_profesional = new System.Windows.Forms.ComboBox();
             this.l_profesional = new System.Windows.Forms.Label();
-            this.b_elegir_prof = new System.Windows.Forms.Button();
             this.grilla_turnos = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.l_bonos = new System.Windows.Forms.Label();
@@ -43,22 +43,27 @@
             this.turno = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSalir = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelBonos = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // l_titulo
             // 
             this.l_titulo.AutoSize = true;
-            this.l_titulo.Location = new System.Drawing.Point(13, 51);
+            this.l_titulo.Location = new System.Drawing.Point(12, 70);
             this.l_titulo.Name = "l_titulo";
-            this.l_titulo.Size = new System.Drawing.Size(126, 13);
+            this.l_titulo.Size = new System.Drawing.Size(129, 13);
             this.l_titulo.TabIndex = 0;
-            this.l_titulo.Text = "Selección del Profesional";
+            this.l_titulo.Text = "Selección del Profesional:";
             // 
             // c_especialidad
             // 
+            this.c_especialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_especialidad.FormattingEnabled = true;
-            this.c_especialidad.Location = new System.Drawing.Point(128, 80);
+            this.c_especialidad.Location = new System.Drawing.Point(96, 95);
             this.c_especialidad.Name = "c_especialidad";
             this.c_especialidad.Size = new System.Drawing.Size(317, 21);
             this.c_especialidad.TabIndex = 1;
@@ -67,7 +72,7 @@
             // l_especialidad
             // 
             this.l_especialidad.AutoSize = true;
-            this.l_especialidad.Location = new System.Drawing.Point(13, 83);
+            this.l_especialidad.Location = new System.Drawing.Point(13, 98);
             this.l_especialidad.Name = "l_especialidad";
             this.l_especialidad.Size = new System.Drawing.Size(67, 13);
             this.l_especialidad.TabIndex = 2;
@@ -75,67 +80,66 @@
             // 
             // c_profesional
             // 
+            this.c_profesional.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_profesional.FormattingEnabled = true;
-            this.c_profesional.Location = new System.Drawing.Point(128, 119);
+            this.c_profesional.Location = new System.Drawing.Point(96, 139);
             this.c_profesional.Name = "c_profesional";
             this.c_profesional.Size = new System.Drawing.Size(317, 21);
             this.c_profesional.TabIndex = 3;
+            this.c_profesional.SelectedValueChanged += new System.EventHandler(this.c_profesional_SelectedValueChanged);
             // 
             // l_profesional
             // 
             this.l_profesional.AutoSize = true;
-            this.l_profesional.Location = new System.Drawing.Point(12, 122);
+            this.l_profesional.Location = new System.Drawing.Point(12, 142);
             this.l_profesional.Name = "l_profesional";
             this.l_profesional.Size = new System.Drawing.Size(59, 13);
             this.l_profesional.TabIndex = 4;
             this.l_profesional.Text = "Profesional";
             // 
-            // b_elegir_prof
-            // 
-            this.b_elegir_prof.Location = new System.Drawing.Point(487, 114);
-            this.b_elegir_prof.Name = "b_elegir_prof";
-            this.b_elegir_prof.Size = new System.Drawing.Size(132, 23);
-            this.b_elegir_prof.TabIndex = 5;
-            this.b_elegir_prof.Text = "Elegir Profesional";
-            this.b_elegir_prof.UseVisualStyleBackColor = true;
-            this.b_elegir_prof.Click += new System.EventHandler(this.b_elegir_prof_Click);
-            // 
             // grilla_turnos
             // 
             this.grilla_turnos.AllowUserToAddRows = false;
             this.grilla_turnos.AllowUserToDeleteRows = false;
+            this.grilla_turnos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grilla_turnos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grilla_turnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grilla_turnos.Location = new System.Drawing.Point(16, 184);
+            this.grilla_turnos.Location = new System.Drawing.Point(16, 205);
+            this.grilla_turnos.MultiSelect = false;
             this.grilla_turnos.Name = "grilla_turnos";
             this.grilla_turnos.ReadOnly = true;
-            this.grilla_turnos.Size = new System.Drawing.Size(449, 205);
+            this.grilla_turnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grilla_turnos.Size = new System.Drawing.Size(449, 184);
             this.grilla_turnos.TabIndex = 6;
-            this.grilla_turnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grilla_turnos_CellClick);
+            this.grilla_turnos.SelectionChanged += new System.EventHandler(this.grilla_turnos_SelectionChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 159);
+            this.label1.Location = new System.Drawing.Point(13, 184);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(195, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Turnos";
+            this.label1.Text = "Turnos del Profesional en el día de hoy:";
             // 
             // l_bonos
             // 
             this.l_bonos.AutoSize = true;
-            this.l_bonos.Location = new System.Drawing.Point(484, 159);
+            this.l_bonos.Location = new System.Drawing.Point(484, 184);
             this.l_bonos.Name = "l_bonos";
-            this.l_bonos.Size = new System.Drawing.Size(92, 13);
+            this.l_bonos.Size = new System.Drawing.Size(149, 13);
             this.l_bonos.TabIndex = 8;
-            this.l_bonos.Text = "Bonos disponibles";
+            this.l_bonos.Text = "Bonos disponibles del Afiliado:";
             // 
             // c_bonos
             // 
+            this.c_bonos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_bonos.FormattingEnabled = true;
-            this.c_bonos.Location = new System.Drawing.Point(487, 184);
+            this.c_bonos.Location = new System.Drawing.Point(487, 205);
             this.c_bonos.Name = "c_bonos";
-            this.c_bonos.Size = new System.Drawing.Size(186, 21);
+            this.c_bonos.Size = new System.Drawing.Size(177, 21);
             this.c_bonos.TabIndex = 9;
             // 
             // b_registrar
@@ -170,7 +174,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(179, 9);
+            this.label2.Location = new System.Drawing.Point(158, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(359, 24);
             this.label2.TabIndex = 13;
@@ -186,11 +190,46 @@
             this.buttonSalir.UseVisualStyleBackColor = true;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(523, 70);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(75, 70);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
+            // labelBonos
+            // 
+            this.labelBonos.AutoSize = true;
+            this.labelBonos.ForeColor = System.Drawing.Color.Crimson;
+            this.labelBonos.Location = new System.Drawing.Point(487, 243);
+            this.labelBonos.Name = "labelBonos";
+            this.labelBonos.Size = new System.Drawing.Size(106, 13);
+            this.labelBonos.TabIndex = 16;
+            this.labelBonos.Text = "<bonos_disponibles>";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(248, 184);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "(Selecciones Afiliado)";
+            // 
             // Registrar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 409);
+            this.ClientSize = new System.Drawing.Size(686, 409);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelBonos);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.turno);
@@ -200,7 +239,6 @@
             this.Controls.Add(this.l_bonos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grilla_turnos);
-            this.Controls.Add(this.b_elegir_prof);
             this.Controls.Add(this.l_profesional);
             this.Controls.Add(this.c_profesional);
             this.Controls.Add(this.l_especialidad);
@@ -209,6 +247,7 @@
             this.Name = "Registrar";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.grilla_turnos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,7 +260,6 @@
         private System.Windows.Forms.Label l_especialidad;
         private System.Windows.Forms.ComboBox c_profesional;
         private System.Windows.Forms.Label l_profesional;
-        private System.Windows.Forms.Button b_elegir_prof;
         private System.Windows.Forms.DataGridView grilla_turnos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label l_bonos;
@@ -231,5 +269,8 @@
         private System.Windows.Forms.Label turno;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonSalir;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelBonos;
+        private System.Windows.Forms.Label label3;
     }
 }

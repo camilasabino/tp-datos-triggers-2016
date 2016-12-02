@@ -17,7 +17,7 @@ namespace ClinicaFrba.Listados
         {
             InitializeComponent();
             textAnio.MaxLength = 4;
-            llenar_especialidades();
+            cargarEspecialidades();
             llenar_planes();
             c_opcion.SelectedIndex = 0;
             cSemestre.SelectedIndex = 0;
@@ -33,11 +33,11 @@ namespace ClinicaFrba.Listados
             }
         }
 
-        protected void llenar_especialidades()
+        protected void cargarEspecialidades()
         {
-            c_especialidad.DataSource = especialidades.listar().Tables[0];
+            c_especialidad.DataSource = Especialidad.obtenerEspecialidades();
+            c_especialidad.DisplayMember = "nombre";
             c_especialidad.ValueMember = "id";
-            c_especialidad.DisplayMember = "Nombre";
         }
 
         protected void llenar_planes()
