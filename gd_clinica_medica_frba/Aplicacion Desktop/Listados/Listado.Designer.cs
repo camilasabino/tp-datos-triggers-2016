@@ -52,6 +52,7 @@
             // 
             // gridListado
             // 
+            this.gridListado.AllowUserToAddRows = false;
             this.gridListado.AllowUserToDeleteRows = false;
             this.gridListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -59,8 +60,10 @@
             this.gridListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridListado.Location = new System.Drawing.Point(44, 282);
+            this.gridListado.MultiSelect = false;
             this.gridListado.Name = "gridListado";
             this.gridListado.ReadOnly = true;
+            this.gridListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridListado.Size = new System.Drawing.Size(699, 150);
             this.gridListado.TabIndex = 0;
             // 

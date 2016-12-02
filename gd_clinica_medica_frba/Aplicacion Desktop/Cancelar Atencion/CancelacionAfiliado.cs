@@ -20,6 +20,9 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             InitializeComponent();
             cargarTurnos();
+            cargarCancelaciones();
+            gridCancelaciones.DefaultCellStyle.SelectionBackColor = gridTurnos.DefaultCellStyle.BackColor;
+            gridCancelaciones.DefaultCellStyle.SelectionForeColor = gridTurnos.DefaultCellStyle.ForeColor;
             cargarTiposCancelacion();
         }
 
@@ -51,6 +54,27 @@ namespace ClinicaFrba.Cancelar_Atencion
 
                 adapter.Fill(turnos);
                 gridTurnos.DataSource = turnos;
+
+                conexionBase.Close();
+            }
+        }
+
+        protected void cargarCancelaciones()
+        {
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.TurnosCanceladosAfiliado", conexionBase);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
+
+                DataTable cancelaciones = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(comando);
+
+                adapter.Fill(cancelaciones);
+                gridCancelaciones.DataSource = cancelaciones;
 
                 conexionBase.Close();
             }

@@ -39,8 +39,11 @@
             this.textMotivo = new System.Windows.Forms.TextBox();
             this.cTipoCancelacion = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.gridCancelaciones = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCancelaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -58,17 +61,18 @@
             this.gridTurnos.AllowUserToAddRows = false;
             this.gridTurnos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTurnos.Location = new System.Drawing.Point(40, 142);
+            this.gridTurnos.Location = new System.Drawing.Point(31, 110);
+            this.gridTurnos.MultiSelect = false;
             this.gridTurnos.Name = "gridTurnos";
             this.gridTurnos.ReadOnly = true;
             this.gridTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridTurnos.Size = new System.Drawing.Size(665, 144);
+            this.gridTurnos.Size = new System.Drawing.Size(665, 130);
             this.gridTurnos.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 112);
+            this.label2.Location = new System.Drawing.Point(28, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(198, 13);
             this.label2.TabIndex = 2;
@@ -76,7 +80,7 @@
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(630, 349);
+            this.buttonConfirmar.Location = new System.Drawing.Point(630, 431);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 3;
@@ -86,7 +90,7 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(630, 391);
+            this.buttonSalir.Location = new System.Drawing.Point(630, 473);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 4;
@@ -97,7 +101,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 306);
+            this.label3.Location = new System.Drawing.Point(46, 392);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 13);
             this.label3.TabIndex = 5;
@@ -106,7 +110,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 349);
+            this.label4.Location = new System.Drawing.Point(111, 431);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 6;
@@ -114,7 +118,7 @@
             // 
             // textMotivo
             // 
-            this.textMotivo.Location = new System.Drawing.Point(211, 351);
+            this.textMotivo.Location = new System.Drawing.Point(211, 433);
             this.textMotivo.Multiline = true;
             this.textMotivo.Name = "textMotivo";
             this.textMotivo.Size = new System.Drawing.Size(355, 63);
@@ -124,7 +128,7 @@
             // 
             this.cTipoCancelacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cTipoCancelacion.FormattingEnabled = true;
-            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 306);
+            this.cTipoCancelacion.Location = new System.Drawing.Point(211, 392);
             this.cTipoCancelacion.Name = "cTipoCancelacion";
             this.cTipoCancelacion.Size = new System.Drawing.Size(355, 21);
             this.cTipoCancelacion.TabIndex = 8;
@@ -135,18 +139,46 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(550, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(599, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(105, 99);
+            this.pictureBox1.Size = new System.Drawing.Size(97, 92);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // gridCancelaciones
+            // 
+            this.gridCancelaciones.AllowUserToAddRows = false;
+            this.gridCancelaciones.AllowUserToDeleteRows = false;
+            this.gridCancelaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridCancelaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridCancelaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridCancelaciones.Location = new System.Drawing.Point(31, 271);
+            this.gridCancelaciones.MultiSelect = false;
+            this.gridCancelaciones.Name = "gridCancelaciones";
+            this.gridCancelaciones.ReadOnly = true;
+            this.gridCancelaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridCancelaciones.Size = new System.Drawing.Size(665, 102);
+            this.gridCancelaciones.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 255);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(252, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Futuros turnos cancelados por parte del Profesional:";
             // 
             // CancelacionAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 432);
+            this.ClientSize = new System.Drawing.Size(747, 511);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.gridCancelaciones);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cTipoCancelacion);
             this.Controls.Add(this.textMotivo);
@@ -161,6 +193,7 @@
             this.Text = "CancelacionAfiliado";
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCancelaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +211,7 @@
         private System.Windows.Forms.TextBox textMotivo;
         private System.Windows.Forms.ComboBox cTipoCancelacion;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridView gridCancelaciones;
+        private System.Windows.Forms.Label label5;
     }
 }
