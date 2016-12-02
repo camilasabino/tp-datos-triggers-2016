@@ -337,7 +337,7 @@
             this.errorPanel.AutoSize = true;
             this.errorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorPanel.ForeColor = System.Drawing.Color.Crimson;
-            this.errorPanel.Location = new System.Drawing.Point(101, 98);
+            this.errorPanel.Location = new System.Drawing.Point(32, 98);
             this.errorPanel.Name = "errorPanel";
             this.errorPanel.Size = new System.Drawing.Size(72, 13);
             this.errorPanel.TabIndex = 35;
@@ -349,9 +349,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(444, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(455, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(103, 106);
+            this.pictureBox1.Size = new System.Drawing.Size(101, 103);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 36;
             this.pictureBox1.TabStop = false;

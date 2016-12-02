@@ -89,7 +89,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
                 conexionBase.Close();
             }
-            if (!especialidades.Any()) errorPanel.Text = "El Profesional ya tiene una Agenda cargada para todas sus especialidades.";
+            if (!especialidades.Any())
+            {
+                errorPanel.Text = "El Profesional ya tiene una Agenda cargada para todas sus especialidades.";
+                buttonConfirmar.Enabled = false;
+            }
 
             return especialidades;
         }
