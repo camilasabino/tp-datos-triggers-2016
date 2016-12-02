@@ -26,6 +26,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
+                this.llenarComboRelacionConTitular(comboBox_afil_relacionConTitular);
                 this.llenarComboPLan(comboBox_afil_plan);
                 this.llenarComboEstadoCivil(comboBox_afil_estadoCivil);
                 this.llenarCantidadFamiliaresACargo(comboBox_afil_CantFamACargo);
@@ -58,6 +59,13 @@ namespace ClinicaFrba.Abm_Afiliado
             conn.Close();
         }
 
+        private void llenarComboRelacionConTitular(ComboBox relacion)
+        {
+            relacion.Items.Add("Titular");
+            relacion.Items.Add("Cónyuge");
+            relacion.Items.Add("Hijo/a");
+        }
+
         private void llenarComboEstadoCivil(ComboBox estado)
         {
             estado.Items.Add("Soltero/a");
@@ -75,6 +83,46 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+        private void limpiarCamposParaConyuge()
+        {            
+            //numeroDelTitular
+            conn.Open();
+            string consultaNumeroDelTitular = "select user_afiliado from LOS_TRIGGERS.Usuario where user_id =" + textBox_afil_usuario.Text;
+            SqlCommand command = new SqlCommand(consultaNumeroDelTitular, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            string numeroDelTitular = Convert.ToString(reader.GetDecimal(0));
+            reader.Close();
+            conn.Close();
+
+            textBox_afil_usuario.Text = "";
+            textBox_afil_titular.Text = numeroDelTitular;
+            textBox_afil_titular.Enabled = false;
+            comboBox_afil_plan.Enabled = false;
+            comboBox_afil_relacionConTitular.Text = "Cónyuge";
+            comboBox_afil_relacionConTitular.Enabled = false;
+            textBox_afil_dni.Text = "";
+            label3.Visible = false;
+            comboBox_afil_CantFamACargo.Visible = false;
+        }
+
+        private void limpiarCamposParaHijos()
+        {
+            textBox_afil_usuario.Text = "";
+            comboBox_afil_relacionConTitular.Text = "Hijo/a";
+            textBox_afil_dni.Text = "";
+            comboBox_afil_estadoCivil.Text = "";
+            label3.Visible = true;
+            comboBox_afil_CantFamACargo.Visible = true;
+            comboBox_afil_CantFamACargo.Text = "";
+
+        }
+
+        private void limpiarTODOSLosCampos()
+        { 
+        
+        }
+        
         private void button_confirmar_Click(object sender, EventArgs e)
         {
    
@@ -107,18 +155,30 @@ namespace ClinicaFrba.Abm_Afiliado
             cmd.Parameters.AddWithValue("@estadoCivil", SqlDbType.VarChar).Value = comboBox_afil_estadoCivil.Text;
             cmd.Parameters.AddWithValue("@plan", SqlDbType.Decimal).Value = comboBox_afil_plan.SelectedValue;
             cmd.Parameters.AddWithValue("@familiaresACargo", SqlDbType.Decimal).Value = comboBox_afil_CantFamACargo.Text;
-            cmd.Parameters.AddWithValue("@relacionConTitular", SqlDbType.VarChar).Value = textBox_afil_relacionConTitular.Text;
+            cmd.Parameters.AddWithValue("@relacionConTitular", SqlDbType.VarChar).Value = comboBox_afil_relacionConTitular.Text;
             cmd.ExecuteNonQuery();
             conn.Close();
 
+            MessageBox.Show("La Alta se ha realizado con éxito");
+            
+            if (comboBox_afil_relacionConTitular.Text.Equals("Titular") && (comboBox_afil_estadoCivil.Text.Equals("Casado/a") | comboBox_afil_estadoCivil.Text.Equals("Concubinato")))
+            {
+                if (MessageBox.Show("¿Desea asociar a su Cónyuge?", "Confirmar",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.limpiarCamposParaConyuge();
+                return;
+            }
 
-            this.Close();
+            if (MessageBox.Show("¿Desea asociar a su hijo/a?", "Confirmar",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.limpiarCamposParaHijos();
+
+            this.Close();            
         }
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
             Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
-            this.Close();
         }
     }
 }
