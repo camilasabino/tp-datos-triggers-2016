@@ -124,15 +124,11 @@
     <Compile Include="Cancelar Atencion\CancelacionAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\CancelacionAfiliado.Designer.cs">
-      <DependentUpon>CancelacionAfiliado.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Cancelar Atencion\CancelacionAfiliado.Designer.cs" />
     <Compile Include="Cancelar Atencion\CancelacionProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs">
-      <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs" />
     <Compile Include="Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,9 +176,7 @@
     <Compile Include="Registro Llegada\Registrar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Registrar.Designer.cs">
-      <DependentUpon>Registrar.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Registro Llegada\Registrar.Designer.cs" />
     <Compile Include="Registro Resultado\Registrar_resul.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,12 +201,8 @@
     <EmbeddedResource Include="AbmRol\Eliminar.resx">
       <DependentUpon>Eliminar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\CancelacionAfiliado.resx">
-      <DependentUpon>CancelacionAfiliado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx">
-      <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\CancelacionAfiliado.resx" />
+    <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx" />
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
@@ -258,9 +248,7 @@
     <EmbeddedResource Include="Registrar Agenta Medico\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\Registrar.resx">
-      <DependentUpon>Registrar.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Registrar.resx" />
     <EmbeddedResource Include="Registro Resultado\Registrar_resul.resx">
       <DependentUpon>Registrar_resul.cs</DependentUpon>
     </EmbeddedResource>

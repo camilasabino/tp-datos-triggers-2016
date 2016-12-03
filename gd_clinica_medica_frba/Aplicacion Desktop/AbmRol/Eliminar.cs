@@ -21,38 +21,57 @@ namespace ClinicaFrba.AbmRol
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            if (MessageBox.Show("¿Está seguro de que desea inhabilitar el rol: "+cRoles.Text+"?", "Inhabilitación de rol",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 darDeBaja();
-                this.Close();
             }
         }
 
         public void cargarRoles()
         {
-            cRoles.Items.Insert(0, "Administrador");
-            cRoles.Items.Insert(1, "Afiliado");
-            cRoles.Items.Insert(2, "Profesional");
-            cRoles.SelectedIndex = 0;
+            List<String> rolesHabilitados = new List<String>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 "+
+                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 "+
+                                                    "union select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1",
+                                                    conexionBase);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    rolesHabilitados.Add(reader.GetString(0));
+                }
+                conexionBase.Close();
+            }
+            cRoles.DataSource = rolesHabilitados;
         }
 
         private void darDeBaja()
         {
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            conn.Open();
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.InhabilitarRol", conexionBase);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@rol", cRoles.Text);
 
-            SqlCommand command = new SqlCommand("LOS_TRIGGERS.DarDeBajaRol", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Rol", cRoles.SelectedItem.ToString());
-            command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
-            command.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
 
-            conn.Close();
+                conexionBase.Close();
+            }
+            cargarRoles();
         }
 
         private void Cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
     }
 }
