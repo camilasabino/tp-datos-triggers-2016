@@ -73,7 +73,7 @@
             this.button_baja.Name = "button_baja";
             this.button_baja.Size = new System.Drawing.Size(196, 54);
             this.button_baja.TabIndex = 3;
-            this.button_baja.Text = "Dar de Baja un Afiliado";
+            this.button_baja.Text = "Habilitar/Deshabilitar un Afiliado";
             this.button_baja.UseVisualStyleBackColor = true;
             this.button_baja.Click += new System.EventHandler(this.button_baja_Click);
             // 

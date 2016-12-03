@@ -108,19 +108,25 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void limpiarCamposParaHijos()
         {
+            //numeroDelTitular
+            conn.Open();
+            string consultaNumeroDelTitular = "select user_afiliado from LOS_TRIGGERS.Usuario where user_id =" + textBox_afil_usuario.Text;
+            SqlCommand command = new SqlCommand(consultaNumeroDelTitular, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            string numeroDelTitular = Convert.ToString(reader.GetDecimal(0));
+            reader.Close();
+            conn.Close();
+
+            textBox_afil_titular.Text = numeroDelTitular;
+            textBox_afil_titular.Enabled = false;
             textBox_afil_usuario.Text = "";
             comboBox_afil_relacionConTitular.Text = "Hijo/a";
             textBox_afil_dni.Text = "";
             comboBox_afil_estadoCivil.Text = "";
-            label3.Visible = true;
-            comboBox_afil_CantFamACargo.Visible = true;
-            comboBox_afil_CantFamACargo.Text = "";
-
-        }
-
-        private void limpiarTODOSLosCampos()
-        {
-
+            comboBox_afil_plan.Enabled = false;
+            label3.Visible = false;
+            comboBox_afil_CantFamACargo.Visible = false;
         }
 
         private void button_confirmar_Click(object sender, EventArgs e)
@@ -161,16 +167,28 @@ namespace ClinicaFrba.Abm_Afiliado
 
             MessageBox.Show("La Alta se ha realizado con éxito");
 
+            //ofrece asociar al cónyuge si está casado o en concubinato, e hijos si tiene
+
             if (comboBox_afil_relacionConTitular.Text.Equals("Titular") && (comboBox_afil_estadoCivil.Text.Equals("Casado/a") | comboBox_afil_estadoCivil.Text.Equals("Concubinato")))
             {
                 if (MessageBox.Show("¿Desea asociar a su Cónyuge?", "Confirmar",
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.limpiarCamposParaConyuge();
-                return;
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    this.limpiarCamposParaConyuge();
+                    return;
+                }
             }
 
-            if (MessageBox.Show("¿Desea asociar a su hijo/a?", "Confirmar",
-               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.limpiarCamposParaHijos();
-
+            int cantHijos = Convert.ToInt16(comboBox_afil_CantFamACargo.Text);
+            for (int i = 0; i < cantHijos; i++)
+            {
+                if (MessageBox.Show("¿Desea asociar a su hijo/a?", "Confirmar",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    this.limpiarCamposParaHijos();
+                    return;
+                }
+            }
             this.Close();
         }
 
