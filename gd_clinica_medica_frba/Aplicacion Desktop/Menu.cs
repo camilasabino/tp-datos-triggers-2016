@@ -74,7 +74,9 @@ namespace ClinicaFrba
 
         private void b_compra_bono_Click(object sender, EventArgs e)
         {
-            (new Compra_Bono.CompraBono()).Show();
+            if (usuario.rol == "Afiliado") (new Compra_Bono.CompraBonoAfiliado()).Show();
+            else if (usuario.rol == "Administrador") (new Compra_Bono.CompraBonoAdministrador()).Show();
+
         }
 
         private void b_listados_Click(object sender, EventArgs e)

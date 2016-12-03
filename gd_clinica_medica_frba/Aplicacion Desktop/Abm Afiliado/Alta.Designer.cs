@@ -43,8 +43,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox_afil_CantFamACargo = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox_afil_relacionConTitular = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBox_afil_relacionConTitular = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button_cancelar
@@ -181,13 +181,6 @@
             this.label7.TabIndex = 33;
             this.label7.Text = "Número del titular";
             // 
-            // textBox_afil_relacionConTitular
-            // 
-            this.textBox_afil_relacionConTitular.Location = new System.Drawing.Point(147, 275);
-            this.textBox_afil_relacionConTitular.Name = "textBox_afil_relacionConTitular";
-            this.textBox_afil_relacionConTitular.Size = new System.Drawing.Size(155, 22);
-            this.textBox_afil_relacionConTitular.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -197,12 +190,20 @@
             this.label2.TabIndex = 41;
             this.label2.Text = "Relación con el Titular";
             // 
+            // comboBox_afil_relacionConTitular
+            // 
+            this.comboBox_afil_relacionConTitular.FormattingEnabled = true;
+            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(147, 277);
+            this.comboBox_afil_relacionConTitular.Name = "comboBox_afil_relacionConTitular";
+            this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(155, 24);
+            this.comboBox_afil_relacionConTitular.TabIndex = 3;
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 513);
-            this.Controls.Add(this.textBox_afil_relacionConTitular);
+            this.Controls.Add(this.comboBox_afil_relacionConTitular);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox_afil_CantFamACargo);
             this.Controls.Add(this.label3);
@@ -244,7 +245,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox_afil_CantFamACargo;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_afil_relacionConTitular;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox_afil_relacionConTitular;
     }
 }
