@@ -216,11 +216,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 184);
+            this.label3.Location = new System.Drawing.Point(359, 184);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.Size = new System.Drawing.Size(104, 13);
             this.label3.TabIndex = 17;
-            this.label3.Text = "(Selecciones Afiliado)";
+            this.label3.Text = "* Seleccione Afiliado";
             // 
             // Registrar
             // 

@@ -11,37 +11,54 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
-/**************************************************************************************************
-*                              CANCELACIÓN TURNO PROFESIONAL                                      *
-***************************************************************************************************/
+    /**************************************************************************************************
+    *                              CANCELACIÓN TURNO PROFESIONAL                                      *
+    ***************************************************************************************************/
     public partial class CancelacionProfesional : Form
     {
         public CancelacionProfesional()
         {
             InitializeComponent();
-            cargarFechasAtencion();
-            cargarTurnos();
-            gridTurnos.DefaultCellStyle.SelectionBackColor = gridTurnos.DefaultCellStyle.BackColor;
-            gridTurnos.DefaultCellStyle.SelectionForeColor = gridTurnos.DefaultCellStyle.ForeColor;
-            cargarTiposCancelacion();
-            gridFechas.ClearSelection();
 
-            dateDesde.MinDate = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
-            dateDesde.Value = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
-            dateDesde.MaxDate = fechaHastaDeAtencion();
-            dateDesde.CustomFormat = "yyyy-MM-dd";
-            dateDesde.Format = DateTimePickerFormat.Custom;
+            if (tieneAgendaRegistrada())
+            {
+                labelAgenda.Text = "";
+                cargarFechasAtencion();
+                cargarTurnos();
+                gridTurnos.DefaultCellStyle.SelectionBackColor = gridTurnos.DefaultCellStyle.BackColor;
+                gridTurnos.DefaultCellStyle.SelectionForeColor = gridTurnos.DefaultCellStyle.ForeColor;
+                cargarTiposCancelacion();
+                gridFechas.ClearSelection();
 
-            dateHasta.MinDate = dateDesde.Value;
-            dateHasta.Value = dateDesde.Value;
-            dateHasta.MaxDate = fechaHastaDeAtencion();
-            dateHasta.CustomFormat = "yyyy-MM-dd";
-            dateHasta.Format = DateTimePickerFormat.Custom;
+                dateDesde.MinDate = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
+                dateDesde.Value = DateTime.Parse(ClinicaFrba.fecha.fechaActual);
+                dateDesde.MaxDate = fechaHastaDeAtencion();
+                dateDesde.CustomFormat = "yyyy-MM-dd";
+                dateDesde.Format = DateTimePickerFormat.Custom;
 
-            checkModoCancelacion.Checked = true;
-            gridTurnos.Enabled = true;
-            dateDesde.Enabled = false;
-            dateHasta.Enabled = false;
+                dateHasta.MinDate = dateDesde.Value;
+                dateHasta.Value = dateDesde.Value;
+                dateHasta.MaxDate = fechaHastaDeAtencion();
+                dateHasta.CustomFormat = "yyyy-MM-dd";
+                dateHasta.Format = DateTimePickerFormat.Custom;
+
+                checkModoCancelacion.Checked = true;
+                gridTurnos.Enabled = true;
+                dateDesde.Enabled = false;
+                dateHasta.Enabled = false;
+            }
+            else
+            {
+                labelAgenda.Text = "NO DISPONIBLE: El Profesional aún no cuenta con una Agenda registrada.";
+                gridTurnos.Enabled = false;
+                gridFechas.Enabled = false;
+                dateDesde.Enabled = false;
+                dateHasta.Enabled = false;
+                checkModoCancelacion.Enabled = false;
+                buttonConfirmar.Enabled = false;
+                cTipoCancelacion.Enabled = false;
+                textMotivo.Enabled = false;
+            }
         }
 
         public class TipoCancelacion
@@ -54,6 +71,31 @@ namespace ClinicaFrba.Cancelar_Atencion
                 this.id = _id;
                 this.descripcion = _descripcion;
             }
+        }
+
+        protected Boolean tieneAgendaRegistrada()
+        {
+            List<decimal> diasDeAtencion = new List<decimal>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select dia_id from LOS_TRIGGERS.Dia_Atencion " +
+                                                    "where dia_especialidad_profesional IN (select espe_prof_id " +
+                                                    "from LOS_TRIGGERS.Especialidad_Profesional " +
+                                                    "where profesional = @profesional)", conexionBase);
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    diasDeAtencion.Add(reader.GetDecimal(0));
+                }
+
+                conexionBase.Close();
+            }
+            return diasDeAtencion.Any();
         }
 
         protected void cargarTurnos()
@@ -125,9 +167,9 @@ namespace ClinicaFrba.Cancelar_Atencion
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select MAX(disponible_hasta_fecha) "+
-		                                            "from LOS_TRIGGERS.Especialidad_Profesional "+
-		                                            "where profesional=@profesional", conexionBase);
+                SqlCommand comando = new SqlCommand("select MAX(disponible_hasta_fecha) " +
+                                                    "from LOS_TRIGGERS.Especialidad_Profesional " +
+                                                    "where profesional=@profesional", conexionBase);
                 comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -176,7 +218,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.CancelarTurnosProfesionalPeriodo", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));    
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
                 comando.Parameters.AddWithValue("@desde", dateDesde.Value);
                 comando.Parameters.AddWithValue("@hasta", dateHasta.Value);
                 comando.Parameters.AddWithValue("@tipo_canc", Convert.ToDecimal(((TipoCancelacion)cTipoCancelacion.SelectedItem).id));
@@ -189,9 +231,9 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
         }
 
-/**************************************************************************************************
-*                                   EVENTOS DEL FORM                                              *
-***************************************************************************************************/
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {

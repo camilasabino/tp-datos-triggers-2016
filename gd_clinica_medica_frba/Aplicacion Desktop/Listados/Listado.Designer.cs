@@ -46,6 +46,7 @@
             this.cSemestre = new System.Windows.Forms.ComboBox();
             this.textAnio = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelResultado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridListado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -95,7 +96,7 @@
             // 
             // b_mostrar
             // 
-            this.b_mostrar.Location = new System.Drawing.Point(354, 243);
+            this.b_mostrar.Location = new System.Drawing.Point(53, 242);
             this.b_mostrar.Name = "b_mostrar";
             this.b_mostrar.Size = new System.Drawing.Size(117, 23);
             this.b_mostrar.TabIndex = 3;
@@ -226,11 +227,22 @@
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
+            // labelResultado
+            // 
+            this.labelResultado.AutoSize = true;
+            this.labelResultado.ForeColor = System.Drawing.Color.Crimson;
+            this.labelResultado.Location = new System.Drawing.Point(215, 247);
+            this.labelResultado.Name = "labelResultado";
+            this.labelResultado.Size = new System.Drawing.Size(83, 13);
+            this.labelResultado.TabIndex = 18;
+            this.labelResultado.Text = "<listado_status>";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 494);
+            this.Controls.Add(this.labelResultado);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textAnio);
             this.Controls.Add(this.cSemestre);
@@ -276,5 +288,6 @@
         private System.Windows.Forms.ComboBox cSemestre;
         private System.Windows.Forms.TextBox textAnio;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelResultado;
     }
 }

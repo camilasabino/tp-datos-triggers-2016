@@ -25,6 +25,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         protected void actualizarFormulario()
         {
             errorPanel.Text = "";
+            cargarProfesionales();
             cargarEspecialidades();
             cargarDiasAtencionClinica();
 
@@ -54,16 +55,42 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             dateHasta.Format = DateTimePickerFormat.Custom;
         }
 
-        public class Especialidad
+        protected void permitirControles(Boolean valor)
         {
-            public decimal id { get; set; }
-            public string nombre { get; set; }
+            checkLun.Enabled = valor;
+            checkMar.Enabled = valor;
+            checkMier.Enabled = valor;
+            checkJue.Enabled = valor;
+            checkVier.Enabled = valor;
+            checkSab.Enabled = valor;
+            cEspecialidad.Enabled = valor;
+            dateDesde.Enabled = valor;
+            dateHasta.Enabled = valor;
+            buttonConfirmar.Enabled = valor;
+        }
 
-            public Especialidad(decimal _id, string _nombre)
+        protected List<Profesional> obtenerProfesionales()
+        {
+            List<Profesional> profesionales = new List<Profesional>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
             {
-                this.id = _id;
-                this.nombre = _nombre;
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select distinct(user_profesional) as profesional_id, "+
+                                                    "user_apellido+', '+user_nombre as apellido_y_nombre "+
+			                                        "from LOS_TRIGGERS.Usuario where user_profesional is not null order by 2",
+                                                    conexionBase);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    profesionales.Add(
+                        new Profesional(reader.GetDecimal(0), reader.GetString(1)));
+                }
+                conexionBase.Close();
             }
+            return profesionales;
         }
 
         public List<Especialidad> obtenerEspecialidades()
@@ -76,11 +103,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("select espe_codigo, espe_descripcion " +
                                                     "from LOS_TRIGGERS.Especialidad_Profesional, LOS_TRIGGERS.Especialidad " +
-                                                    "where profesional=" + Convert.ToDecimal(ClinicaFrba.usuario.id_rol) +
+                                                    "where profesional = @profesional" +
                                                     " AND NOT EXISTS (select * from LOS_TRIGGERS.Dia_Atencion " +
                                                     "where dia_especialidad_profesional=espe_prof_id) AND espe_codigo=especialidad",
                                                     conexionBase);
-
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
@@ -92,7 +119,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             if (!especialidades.Any())
             {
                 errorPanel.Text = "El Profesional ya tiene una Agenda cargada para todas sus especialidades.";
-                buttonConfirmar.Enabled = false;
+                permitirControles(false);
+            }
+            else
+            {
+                errorPanel.Text = "";
+                permitirControles(true);
             }
 
             return especialidades;
@@ -146,6 +178,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             cEspecialidad.ValueMember = "id";
         }
 
+        protected void cargarProfesionales()
+        {
+            cProfesional.DataSource = obtenerProfesionales();
+            cProfesional.DisplayMember = "nombreYApellido";
+            cProfesional.ValueMember = "id";
+        }
+
         protected void registrarDiaDeAtencion(String dia, String inicio, String fin)
         {
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
@@ -155,7 +194,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.RegistrarDiaAtencionProfesional", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@dia", dia);
                 comando.Parameters.AddWithValue("@inicio", inicio);
@@ -176,7 +215,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 SqlCommand comando = new SqlCommand("LOS_TRIGGERS.RegistrarAgendaProfesional", conexionBase);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
                 comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
                 comando.Parameters.AddWithValue("@desde", Convert.ToDateTime(dateDesde.Value));
                 comando.Parameters.AddWithValue("@hasta", Convert.ToDateTime(dateHasta.Value));
@@ -204,7 +243,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 conexionBase.Open();
                 SqlCommand comando = new SqlCommand("select prof_horas_laborales from LOS_TRIGGERS.Profesional " +
                                                     "where prof_id=@profesional", conexionBase);
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(ClinicaFrba.usuario.id_rol));
+                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
 
                 SqlDataReader reader = comando.ExecuteReader();
                 reader.Read();
@@ -361,6 +400,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
+        }
+
+        private void cProfesional_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cargarEspecialidades();
         }
     }
 }

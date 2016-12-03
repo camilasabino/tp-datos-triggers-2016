@@ -39,12 +39,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // t_usuario
             // 
-            this.t_usuario.Location = new System.Drawing.Point(99, 232);
+            this.t_usuario.Location = new System.Drawing.Point(99, 221);
             this.t_usuario.Name = "t_usuario";
             this.t_usuario.Size = new System.Drawing.Size(320, 20);
             this.t_usuario.TabIndex = 0;
@@ -52,7 +53,7 @@
             // l_usuario
             // 
             this.l_usuario.AutoSize = true;
-            this.l_usuario.Location = new System.Drawing.Point(98, 216);
+            this.l_usuario.Location = new System.Drawing.Point(96, 205);
             this.l_usuario.Name = "l_usuario";
             this.l_usuario.Size = new System.Drawing.Size(43, 13);
             this.l_usuario.TabIndex = 1;
@@ -61,7 +62,7 @@
             // l_contrasena
             // 
             this.l_contrasena.AutoSize = true;
-            this.l_contrasena.Location = new System.Drawing.Point(96, 284);
+            this.l_contrasena.Location = new System.Drawing.Point(96, 265);
             this.l_contrasena.Name = "l_contrasena";
             this.l_contrasena.Size = new System.Drawing.Size(61, 13);
             this.l_contrasena.TabIndex = 3;
@@ -69,7 +70,7 @@
             // 
             // t_contrasena
             // 
-            this.t_contrasena.Location = new System.Drawing.Point(99, 300);
+            this.t_contrasena.Location = new System.Drawing.Point(99, 281);
             this.t_contrasena.Name = "t_contrasena";
             this.t_contrasena.Size = new System.Drawing.Size(320, 20);
             this.t_contrasena.TabIndex = 2;
@@ -79,11 +80,7 @@
             // 
             this.c_rol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_rol.FormattingEnabled = true;
-            this.c_rol.Items.AddRange(new object[] {
-            "Administrador",
-            "Afiliado",
-            "Profesional"});
-            this.c_rol.Location = new System.Drawing.Point(101, 367);
+            this.c_rol.Location = new System.Drawing.Point(101, 339);
             this.c_rol.Name = "c_rol";
             this.c_rol.Size = new System.Drawing.Size(320, 21);
             this.c_rol.TabIndex = 4;
@@ -91,7 +88,7 @@
             // t_rol
             // 
             this.t_rol.AutoSize = true;
-            this.t_rol.Location = new System.Drawing.Point(98, 351);
+            this.t_rol.Location = new System.Drawing.Point(98, 323);
             this.t_rol.Name = "t_rol";
             this.t_rol.Size = new System.Drawing.Size(23, 13);
             this.t_rol.TabIndex = 5;
@@ -100,7 +97,7 @@
             // b_ingresar
             // 
             this.b_ingresar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.b_ingresar.Location = new System.Drawing.Point(221, 414);
+            this.b_ingresar.Location = new System.Drawing.Point(212, 402);
             this.b_ingresar.Name = "b_ingresar";
             this.b_ingresar.Size = new System.Drawing.Size(75, 23);
             this.b_ingresar.TabIndex = 6;
@@ -122,7 +119,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(202, 177);
+            this.label2.Location = new System.Drawing.Point(202, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 18);
             this.label2.TabIndex = 8;
@@ -134,18 +131,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(192, 64);
+            this.pictureBox1.Location = new System.Drawing.Point(192, 59);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(104, 98);
+            this.pictureBox1.Size = new System.Drawing.Size(95, 98);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(98, 363);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(189, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "* Se muestran solo los roles habilitados";
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 462);
+            this.ClientSize = new System.Drawing.Size(513, 443);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -177,6 +184,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

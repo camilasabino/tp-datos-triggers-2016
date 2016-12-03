@@ -47,8 +47,7 @@
             this.dateHasta = new System.Windows.Forms.DateTimePicker();
             this.gridFechas = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.labelAgenda = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridFechas)).BeginInit();
@@ -186,9 +185,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(280, 61);
+            this.pictureBox1.Location = new System.Drawing.Point(283, 80);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(106, 98);
+            this.pictureBox1.Size = new System.Drawing.Size(104, 94);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
@@ -233,31 +232,22 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "Fechas con turnos solicitados:";
             // 
-            // label9
+            // labelAgenda
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(40, 61);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "label9";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(40, 90);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 23;
-            this.label10.Text = "label10";
+            this.labelAgenda.AutoSize = true;
+            this.labelAgenda.ForeColor = System.Drawing.Color.Crimson;
+            this.labelAgenda.Location = new System.Drawing.Point(339, 30);
+            this.labelAgenda.Name = "labelAgenda";
+            this.labelAgenda.Size = new System.Drawing.Size(89, 13);
+            this.labelAgenda.TabIndex = 24;
+            this.labelAgenda.Text = "<agenda_status>";
             // 
             // CancelacionProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 494);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.labelAgenda);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.gridFechas);
             this.Controls.Add(this.dateHasta);
@@ -306,7 +296,6 @@
         private System.Windows.Forms.DateTimePicker dateHasta;
         private System.Windows.Forms.DataGridView gridFechas;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelAgenda;
     }
 }

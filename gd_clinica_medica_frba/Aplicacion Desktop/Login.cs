@@ -16,6 +16,30 @@ namespace ClinicaFrba
         public Login()
         {
             InitializeComponent();
+            cargarRoles();
+        }
+
+        public void cargarRoles()
+        {
+            List<String> rolesHabilitados = new List<String>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 " +
+                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 " +
+                                                    "union select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1",
+                                                    conexionBase);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    rolesHabilitados.Add(reader.GetString(0));
+                }
+                conexionBase.Close();
+            }
+            c_rol.DataSource = rolesHabilitados;
         }
 
         private void b_ingresar_Click(object sender, EventArgs e)

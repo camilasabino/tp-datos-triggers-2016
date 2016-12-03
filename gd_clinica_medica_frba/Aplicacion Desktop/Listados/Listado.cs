@@ -23,6 +23,7 @@ namespace ClinicaFrba.Listados
             cSemestre.SelectedIndex = 0;
             c_plan.Enabled = false;
             c_especialidad.Enabled = false;
+            labelResultado.Text = "";
 
             if (c_opcion.Text == "Profesionales más consultados por plan")
                 c_plan.Enabled = true;
@@ -91,6 +92,8 @@ namespace ClinicaFrba.Listados
                         gridListado.DataSource = listados.especialidades_bonos(anio, semestre).Tables[0];
                         break;
                 }
+                if (gridListado.Rows.Count != 0) labelResultado.Text = "";
+                else labelResultado.Text = "No se han encontrado resultados para la consulta.";
             }
             else
             {

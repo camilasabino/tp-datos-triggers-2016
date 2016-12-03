@@ -59,6 +59,9 @@
             this.hHastaSab = new System.Windows.Forms.ComboBox();
             this.errorPanel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cProfesional = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +69,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(157, 19);
+            this.label1.Location = new System.Drawing.Point(207, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(254, 24);
             this.label1.TabIndex = 0;
@@ -76,7 +79,7 @@
             // 
             this.cEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cEspecialidad.FormattingEnabled = true;
-            this.cEspecialidad.Location = new System.Drawing.Point(161, 65);
+            this.cEspecialidad.Location = new System.Drawing.Point(302, 105);
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(233, 21);
             this.cEspecialidad.TabIndex = 1;
@@ -84,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 65);
+            this.label2.Location = new System.Drawing.Point(299, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 2;
@@ -93,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 120);
+            this.label3.Location = new System.Drawing.Point(29, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 13);
             this.label3.TabIndex = 6;
@@ -101,7 +104,7 @@
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(184, 426);
+            this.buttonConfirmar.Location = new System.Drawing.Point(282, 423);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 10;
@@ -111,7 +114,7 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(328, 426);
+            this.buttonSalir.Location = new System.Drawing.Point(442, 423);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 11;
@@ -121,7 +124,7 @@
             // 
             // dateDesde
             // 
-            this.dateDesde.Location = new System.Drawing.Point(119, 383);
+            this.dateDesde.Location = new System.Drawing.Point(500, 208);
             this.dateDesde.Name = "dateDesde";
             this.dateDesde.Size = new System.Drawing.Size(163, 20);
             this.dateDesde.TabIndex = 13;
@@ -129,7 +132,7 @@
             // 
             // dateHasta
             // 
-            this.dateHasta.Location = new System.Drawing.Point(393, 383);
+            this.dateHasta.Location = new System.Drawing.Point(500, 276);
             this.dateHasta.Name = "dateHasta";
             this.dateHasta.Size = new System.Drawing.Size(163, 20);
             this.dateHasta.TabIndex = 14;
@@ -137,7 +140,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 383);
+            this.label4.Location = new System.Drawing.Point(497, 182);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 13);
             this.label4.TabIndex = 15;
@@ -146,7 +149,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(311, 383);
+            this.label5.Location = new System.Drawing.Point(497, 254);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 16;
@@ -155,7 +158,7 @@
             // checkLun
             // 
             this.checkLun.AutoSize = true;
-            this.checkLun.Location = new System.Drawing.Point(42, 151);
+            this.checkLun.Location = new System.Drawing.Point(35, 178);
             this.checkLun.Name = "checkLun";
             this.checkLun.Size = new System.Drawing.Size(55, 17);
             this.checkLun.TabIndex = 17;
@@ -166,7 +169,7 @@
             // checkMar
             // 
             this.checkMar.AutoSize = true;
-            this.checkMar.Location = new System.Drawing.Point(39, 190);
+            this.checkMar.Location = new System.Drawing.Point(35, 215);
             this.checkMar.Name = "checkMar";
             this.checkMar.Size = new System.Drawing.Size(58, 17);
             this.checkMar.TabIndex = 18;
@@ -177,7 +180,7 @@
             // checkMier
             // 
             this.checkMier.AutoSize = true;
-            this.checkMier.Location = new System.Drawing.Point(39, 228);
+            this.checkMier.Location = new System.Drawing.Point(37, 254);
             this.checkMier.Name = "checkMier";
             this.checkMier.Size = new System.Drawing.Size(71, 17);
             this.checkMier.TabIndex = 19;
@@ -188,7 +191,7 @@
             // checkJue
             // 
             this.checkJue.AutoSize = true;
-            this.checkJue.Location = new System.Drawing.Point(40, 266);
+            this.checkJue.Location = new System.Drawing.Point(37, 296);
             this.checkJue.Name = "checkJue";
             this.checkJue.Size = new System.Drawing.Size(60, 17);
             this.checkJue.TabIndex = 20;
@@ -199,7 +202,7 @@
             // checkVier
             // 
             this.checkVier.AutoSize = true;
-            this.checkVier.Location = new System.Drawing.Point(39, 305);
+            this.checkVier.Location = new System.Drawing.Point(37, 336);
             this.checkVier.Name = "checkVier";
             this.checkVier.Size = new System.Drawing.Size(61, 17);
             this.checkVier.TabIndex = 21;
@@ -210,7 +213,7 @@
             // checkSab
             // 
             this.checkSab.AutoSize = true;
-            this.checkSab.Location = new System.Drawing.Point(40, 343);
+            this.checkSab.Location = new System.Drawing.Point(37, 376);
             this.checkSab.Name = "checkSab";
             this.checkSab.Size = new System.Drawing.Size(63, 17);
             this.checkSab.TabIndex = 22;
@@ -222,7 +225,7 @@
             // 
             this.hDesdeLun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeLun.FormattingEnabled = true;
-            this.hDesdeLun.Location = new System.Drawing.Point(161, 146);
+            this.hDesdeLun.Location = new System.Drawing.Point(161, 174);
             this.hDesdeLun.Name = "hDesdeLun";
             this.hDesdeLun.Size = new System.Drawing.Size(121, 21);
             this.hDesdeLun.TabIndex = 23;
@@ -232,7 +235,7 @@
             // 
             this.hHastaLun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaLun.FormattingEnabled = true;
-            this.hHastaLun.Location = new System.Drawing.Point(340, 149);
+            this.hHastaLun.Location = new System.Drawing.Point(340, 174);
             this.hHastaLun.Name = "hHastaLun";
             this.hHastaLun.Size = new System.Drawing.Size(121, 21);
             this.hHastaLun.TabIndex = 24;
@@ -241,7 +244,7 @@
             // 
             this.hDesdeMar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeMar.FormattingEnabled = true;
-            this.hDesdeMar.Location = new System.Drawing.Point(161, 186);
+            this.hDesdeMar.Location = new System.Drawing.Point(161, 211);
             this.hDesdeMar.Name = "hDesdeMar";
             this.hDesdeMar.Size = new System.Drawing.Size(121, 21);
             this.hDesdeMar.TabIndex = 25;
@@ -251,7 +254,7 @@
             // 
             this.hHastaMar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaMar.FormattingEnabled = true;
-            this.hHastaMar.Location = new System.Drawing.Point(340, 188);
+            this.hHastaMar.Location = new System.Drawing.Point(340, 211);
             this.hHastaMar.Name = "hHastaMar";
             this.hHastaMar.Size = new System.Drawing.Size(121, 21);
             this.hHastaMar.TabIndex = 26;
@@ -260,7 +263,7 @@
             // 
             this.hDesdeMier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeMier.FormattingEnabled = true;
-            this.hDesdeMier.Location = new System.Drawing.Point(161, 224);
+            this.hDesdeMier.Location = new System.Drawing.Point(161, 250);
             this.hDesdeMier.Name = "hDesdeMier";
             this.hDesdeMier.Size = new System.Drawing.Size(121, 21);
             this.hDesdeMier.TabIndex = 27;
@@ -270,7 +273,7 @@
             // 
             this.hHastaMier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaMier.FormattingEnabled = true;
-            this.hHastaMier.Location = new System.Drawing.Point(340, 224);
+            this.hHastaMier.Location = new System.Drawing.Point(340, 250);
             this.hHastaMier.Name = "hHastaMier";
             this.hHastaMier.Size = new System.Drawing.Size(121, 21);
             this.hHastaMier.TabIndex = 28;
@@ -279,7 +282,7 @@
             // 
             this.hDesdeJue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeJue.FormattingEnabled = true;
-            this.hDesdeJue.Location = new System.Drawing.Point(161, 262);
+            this.hDesdeJue.Location = new System.Drawing.Point(161, 292);
             this.hDesdeJue.Name = "hDesdeJue";
             this.hDesdeJue.Size = new System.Drawing.Size(121, 21);
             this.hDesdeJue.TabIndex = 29;
@@ -289,7 +292,7 @@
             // 
             this.hHastaJue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaJue.FormattingEnabled = true;
-            this.hHastaJue.Location = new System.Drawing.Point(340, 262);
+            this.hHastaJue.Location = new System.Drawing.Point(340, 292);
             this.hHastaJue.Name = "hHastaJue";
             this.hHastaJue.Size = new System.Drawing.Size(121, 21);
             this.hHastaJue.TabIndex = 30;
@@ -298,7 +301,7 @@
             // 
             this.hDesdeVier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeVier.FormattingEnabled = true;
-            this.hDesdeVier.Location = new System.Drawing.Point(161, 301);
+            this.hDesdeVier.Location = new System.Drawing.Point(161, 332);
             this.hDesdeVier.Name = "hDesdeVier";
             this.hDesdeVier.Size = new System.Drawing.Size(121, 21);
             this.hDesdeVier.TabIndex = 31;
@@ -308,7 +311,7 @@
             // 
             this.hHastaVier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaVier.FormattingEnabled = true;
-            this.hHastaVier.Location = new System.Drawing.Point(340, 301);
+            this.hHastaVier.Location = new System.Drawing.Point(340, 332);
             this.hHastaVier.Name = "hHastaVier";
             this.hHastaVier.Size = new System.Drawing.Size(121, 21);
             this.hHastaVier.TabIndex = 32;
@@ -317,7 +320,7 @@
             // 
             this.hDesdeSab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hDesdeSab.FormattingEnabled = true;
-            this.hDesdeSab.Location = new System.Drawing.Point(161, 339);
+            this.hDesdeSab.Location = new System.Drawing.Point(161, 372);
             this.hDesdeSab.Name = "hDesdeSab";
             this.hDesdeSab.Size = new System.Drawing.Size(121, 21);
             this.hDesdeSab.TabIndex = 33;
@@ -327,7 +330,7 @@
             // 
             this.hHastaSab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.hHastaSab.FormattingEnabled = true;
-            this.hHastaSab.Location = new System.Drawing.Point(340, 339);
+            this.hHastaSab.Location = new System.Drawing.Point(340, 370);
             this.hHastaSab.Name = "hHastaSab";
             this.hHastaSab.Size = new System.Drawing.Size(121, 21);
             this.hHastaSab.TabIndex = 34;
@@ -337,7 +340,7 @@
             this.errorPanel.AutoSize = true;
             this.errorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorPanel.ForeColor = System.Drawing.Color.Crimson;
-            this.errorPanel.Location = new System.Drawing.Point(32, 98);
+            this.errorPanel.Location = new System.Drawing.Point(36, 60);
             this.errorPanel.Name = "errorPanel";
             this.errorPanel.Size = new System.Drawing.Size(72, 13);
             this.errorPanel.TabIndex = 35;
@@ -349,18 +352,49 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(455, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(565, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(101, 103);
+            this.pictureBox1.Size = new System.Drawing.Size(98, 103);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 36;
             this.pictureBox1.TabStop = false;
+            // 
+            // cProfesional
+            // 
+            this.cProfesional.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cProfesional.FormattingEnabled = true;
+            this.cProfesional.Location = new System.Drawing.Point(32, 105);
+            this.cProfesional.Name = "cProfesional";
+            this.cProfesional.Size = new System.Drawing.Size(233, 21);
+            this.cProfesional.TabIndex = 37;
+            this.cProfesional.SelectedValueChanged += new System.EventHandler(this.cProfesional_SelectedValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(34, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(118, 13);
+            this.label6.TabIndex = 38;
+            this.label6.Text = "Seleccione Profesional:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(497, 148);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(184, 13);
+            this.label7.TabIndex = 39;
+            this.label7.Text = "Indique rango de fechas de atención:";
             // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 461);
+            this.ClientSize = new System.Drawing.Size(694, 458);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cProfesional);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.errorPanel);
             this.Controls.Add(this.hHastaSab);
@@ -431,5 +465,8 @@
         private System.Windows.Forms.ComboBox hHastaSab;
         private System.Windows.Forms.Label errorPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox cProfesional;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
