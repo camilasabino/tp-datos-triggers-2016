@@ -178,8 +178,9 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
             Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
-            this.Close();
         }
 
     }

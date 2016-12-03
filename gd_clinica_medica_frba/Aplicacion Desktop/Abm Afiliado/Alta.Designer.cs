@@ -50,10 +50,10 @@
             // button_cancelar
             // 
             this.button_cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_cancelar.Location = new System.Drawing.Point(344, 305);
-            this.button_cancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_cancelar.Location = new System.Drawing.Point(459, 375);
+            this.button_cancelar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_cancelar.Name = "button_cancelar";
-            this.button_cancelar.Size = new System.Drawing.Size(92, 31);
+            this.button_cancelar.Size = new System.Drawing.Size(123, 38);
             this.button_cancelar.TabIndex = 9;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
@@ -61,10 +61,10 @@
             // 
             // button_confirmar
             // 
-            this.button_confirmar.Location = new System.Drawing.Point(121, 305);
-            this.button_confirmar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_confirmar.Location = new System.Drawing.Point(161, 375);
+            this.button_confirmar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_confirmar.Name = "button_confirmar";
-            this.button_confirmar.Size = new System.Drawing.Size(92, 31);
+            this.button_confirmar.Size = new System.Drawing.Size(123, 38);
             this.button_confirmar.TabIndex = 8;
             this.button_confirmar.Text = "Confirmar";
             this.button_confirmar.UseVisualStyleBackColor = true;
@@ -72,19 +72,18 @@
             // 
             // textBox_afil_usuario
             // 
-            this.textBox_afil_usuario.Location = new System.Drawing.Point(110, 106);
-            this.textBox_afil_usuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_afil_usuario.Location = new System.Drawing.Point(147, 130);
+            this.textBox_afil_usuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_afil_usuario.Name = "textBox_afil_usuario";
-            this.textBox_afil_usuario.Size = new System.Drawing.Size(117, 20);
+            this.textBox_afil_usuario.Size = new System.Drawing.Size(155, 22);
             this.textBox_afil_usuario.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(108, 90);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(144, 111);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.Size = new System.Drawing.Size(131, 17);
             this.label4.TabIndex = 25;
             this.label4.Text = "Número de Usuario";
             // 
@@ -93,10 +92,9 @@
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(162, 29);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(216, 36);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(239, 30);
+            this.linkLabel1.Size = new System.Drawing.Size(319, 37);
             this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Dar de Alta un Afiliado";
@@ -105,120 +103,115 @@
             // 
             // textBox_afil_dni
             // 
-            this.textBox_afil_dni.Location = new System.Drawing.Point(331, 86);
-            this.textBox_afil_dni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_afil_dni.Location = new System.Drawing.Point(441, 106);
+            this.textBox_afil_dni.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_afil_dni.Name = "textBox_afil_dni";
-            this.textBox_afil_dni.Size = new System.Drawing.Size(121, 20);
+            this.textBox_afil_dni.Size = new System.Drawing.Size(160, 22);
             this.textBox_afil_dni.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(328, 70);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(437, 86);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 13);
+            this.label1.Size = new System.Drawing.Size(144, 17);
             this.label1.TabIndex = 29;
             this.label1.Text = "Dni del nuevo afiliado";
             // 
             // comboBox_afil_estadoCivil
             // 
             this.comboBox_afil_estadoCivil.FormattingEnabled = true;
-            this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(331, 134);
-            this.comboBox_afil_estadoCivil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(441, 165);
+            this.comboBox_afil_estadoCivil.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_afil_estadoCivil.Name = "comboBox_afil_estadoCivil";
-            this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_afil_estadoCivil.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_estadoCivil.TabIndex = 5;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(328, 118);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(437, 145);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.Size = new System.Drawing.Size(79, 17);
             this.label6.TabIndex = 31;
             this.label6.Text = "Estado civil";
             // 
             // textBox_afil_titular
             // 
-            this.textBox_afil_titular.Location = new System.Drawing.Point(110, 164);
-            this.textBox_afil_titular.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_afil_titular.Location = new System.Drawing.Point(147, 202);
+            this.textBox_afil_titular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_afil_titular.Name = "textBox_afil_titular";
-            this.textBox_afil_titular.Size = new System.Drawing.Size(117, 20);
+            this.textBox_afil_titular.Size = new System.Drawing.Size(155, 22);
             this.textBox_afil_titular.TabIndex = 2;
             // 
             // comboBox_afil_plan
             // 
             this.comboBox_afil_plan.FormattingEnabled = true;
-            this.comboBox_afil_plan.Location = new System.Drawing.Point(331, 185);
-            this.comboBox_afil_plan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_afil_plan.Location = new System.Drawing.Point(441, 228);
+            this.comboBox_afil_plan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_afil_plan.Name = "comboBox_afil_plan";
-            this.comboBox_afil_plan.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_afil_plan.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_plan.TabIndex = 6;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(328, 167);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(437, 206);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 13);
+            this.label5.Size = new System.Drawing.Size(36, 17);
             this.label5.TabIndex = 36;
             this.label5.Text = "Plan";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(328, 228);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(437, 281);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 13);
+            this.label3.Size = new System.Drawing.Size(163, 17);
             this.label3.TabIndex = 38;
             this.label3.Text = "Cant. Familiares a Cargo";
             // 
             // comboBox_afil_CantFamACargo
             // 
             this.comboBox_afil_CantFamACargo.FormattingEnabled = true;
-            this.comboBox_afil_CantFamACargo.Location = new System.Drawing.Point(331, 244);
-            this.comboBox_afil_CantFamACargo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_afil_CantFamACargo.Location = new System.Drawing.Point(441, 300);
+            this.comboBox_afil_CantFamACargo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_afil_CantFamACargo.Name = "comboBox_afil_CantFamACargo";
-            this.comboBox_afil_CantFamACargo.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_afil_CantFamACargo.Size = new System.Drawing.Size(160, 24);
             this.comboBox_afil_CantFamACargo.TabIndex = 7;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(108, 146);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(144, 180);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 13);
+            this.label7.Size = new System.Drawing.Size(120, 17);
             this.label7.TabIndex = 33;
             this.label7.Text = "Número del titular";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(108, 206);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(144, 254);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.Size = new System.Drawing.Size(149, 17);
             this.label2.TabIndex = 41;
             this.label2.Text = "Relación con el Titular";
             // 
             // comboBox_afil_relacionConTitular
             // 
             this.comboBox_afil_relacionConTitular.FormattingEnabled = true;
-            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(111, 244);
+            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(147, 281);
+            this.comboBox_afil_relacionConTitular.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_afil_relacionConTitular.Name = "comboBox_afil_relacionConTitular";
-            this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_afil_relacionConTitular.TabIndex = 42;
+            this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(160, 24);
+            this.comboBox_afil_relacionConTitular.TabIndex = 3;
             // 
             // Alta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 417);
+            this.ClientSize = new System.Drawing.Size(781, 513);
             this.Controls.Add(this.comboBox_afil_relacionConTitular);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox_afil_CantFamACargo);
@@ -236,7 +229,7 @@
             this.Controls.Add(this.textBox_afil_usuario);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.linkLabel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Alta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.alta_Afiliado_Load);

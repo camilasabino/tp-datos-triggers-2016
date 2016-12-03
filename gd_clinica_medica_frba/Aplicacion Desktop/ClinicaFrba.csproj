@@ -61,11 +61,11 @@
     <Compile Include="Abm Afiliado\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Afiliado\Baja.cs">
+    <Compile Include="Abm Afiliado\Des-Habilitacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Afiliado\Baja.Designer.cs">
-      <DependentUpon>Baja.cs</DependentUpon>
+    <Compile Include="Abm Afiliado\Des-Habilitacion.Designer.cs">
+      <DependentUpon>Des-Habilitacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Afiliado\Modificacion.cs">
       <SubType>Form</SubType>
@@ -132,12 +132,6 @@
     </Compile>
     <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs">
       <DependentUpon>CancelacionProfesional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Compra Bono\CompraBono.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Compra Bono\CompraBono.Designer.cs">
-      <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra Bono\CompraBonoAdministrador.cs">
       <SubType>Form</SubType>
@@ -207,8 +201,8 @@
     <EmbeddedResource Include="Abm Afiliado\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Afiliado\Baja.resx">
-      <DependentUpon>Baja.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Afiliado\Des-Habilitacion.resx">
+      <DependentUpon>Des-Habilitacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
@@ -221,9 +215,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\CancelacionAfiliado.resx" />
     <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx" />
-    <EmbeddedResource Include="Compra Bono\CompraBono.resx">
-      <DependentUpon>CompraBono.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBonoAdministrador.resx" />
     <EmbeddedResource Include="Compra Bono\CompraBonoAfiliado.resx" />
     <EmbeddedResource Include="Listados\Listado.resx">

@@ -32,7 +32,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button_baja_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.Baja baja = new Abm_Afiliado.Baja();
+            Abm_Afiliado.HabilitacionDeshabilitacion baja = new Abm_Afiliado.HabilitacionDeshabilitacion();
             baja.Show();
         }
 
