@@ -124,11 +124,15 @@
     <Compile Include="Cancelar Atencion\CancelacionAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\CancelacionAfiliado.Designer.cs" />
+    <Compile Include="Cancelar Atencion\CancelacionAfiliado.Designer.cs">
+	      <DependentUpon>CancelacionAfiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Atencion\CancelacionProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs" />
+    <Compile Include="Cancelar Atencion\CancelacionProfesional.Designer.cs">
+		      <DependentUpon>CancelacionProfesional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,11 +142,15 @@
     <Compile Include="Compra Bono\CompraBonoAdministrador.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\CompraBonoAdministrador.Designer.cs" />
+    <Compile Include="Compra Bono\CompraBonoAdministrador.Designer.cs">
+	      <DependentUpon>CompraBonoAdministrador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra Bono\CompraBonoAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\CompraBonoAfiliado.Designer.cs" />
+    <Compile Include="Compra Bono\CompraBonoAfiliado.Designer.cs">
+		      <DependentUpon>CompraBonoAfiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,7 +192,9 @@
     <Compile Include="Registro Llegada\Registrar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Registrar.Designer.cs" />
+    <Compile Include="Registro Llegada\Registrar.Designer.cs">
+			      <DependentUpon>Registrar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Resultado\Registrar_resul.cs">
       <SubType>Form</SubType>
     </Compile>

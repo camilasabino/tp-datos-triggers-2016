@@ -79,13 +79,11 @@ namespace ClinicaFrba.Compra_Bono
                 comboBox_afil_CantBonos.SelectedItem = null;
 
             }
-
             conn.Close();
-
 
         }
         
-        private void button_cancelar_Click(object sender, EventArgs e)
+        private void button_cancelar_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
