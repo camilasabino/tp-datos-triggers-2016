@@ -22,15 +22,6 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Abm_Afiliado.Afiliado());
-            //Application.Run(new ClinicaFrba.Pedir_Turno.PedirTurno());
-            //Application.Run(new ClinicaFrba.Cancelar_Atencion.CancelacionAfiliado());
-            // Application.Run(new ClinicaFrba.Cancelar_Atencion.CancelacionProfesional());
-            //Application.Run(new ClinicaFrba.Registrar_Agenta_Medico.RegistrarAgenda());
-            //Application.Run(new ClinicaFrba.Compra_Bono.CompraBono());
-            //Application.Run(new ClinicaFrba.AbmRol.Editar());
-            //Application.Run(new ClinicaFrba.AbmRol.Form1());
-            //Application.Run(new ClinicaFrba.Listados.Form1());
             Application.Run(new ClinicaFrba.Login());
         }
     }
