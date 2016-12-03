@@ -11,13 +11,13 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Compra_Bono
 {
-    public partial class CompraBonoAdministrador : Form
+    public partial class CompraBono : Form
     {
-        public CompraBonoAdministrador()
+        public CompraBono()
         {
             InitializeComponent();
         }
-
+//        public int habilitado { get; set; }
         SqlConnection conn = new SqlConnection(conexion.cadena);
 
         private void compraBonos_Load(object sender, EventArgs e)
@@ -69,6 +69,7 @@ namespace ClinicaFrba.Compra_Bono
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             bool habilitacion = reader.GetBoolean(0);
+//            bool habilitado = System.Object.ReferenceEquals(Convert.ToInt32(habilitacion), 0);
             reader.Close();
 
             if (!habilitacion)
