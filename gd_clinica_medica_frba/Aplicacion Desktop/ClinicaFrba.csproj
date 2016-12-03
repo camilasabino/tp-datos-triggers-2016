@@ -91,18 +91,6 @@
     <Compile Include="Abm Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Profesional\FormEditar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Profesional\FormEditar.Designer.cs">
-      <DependentUpon>FormEditar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Profesional\FormProfesional.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Profesional\FormProfesional.Designer.cs">
-      <DependentUpon>FormProfesional.cs</DependentUpon>
-    </Compile>
     <Compile Include="AbmRol\Editar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,12 +225,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Profesional\FormEditar.resx">
-      <DependentUpon>FormEditar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Profesional\FormProfesional.resx">
-      <DependentUpon>FormProfesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
