@@ -41,7 +41,7 @@
             this.button_alta.AccessibleName = "";
             this.button_alta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button_alta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_alta.Location = new System.Drawing.Point(438, 216);
+            this.button_alta.Location = new System.Drawing.Point(438, 125);
             this.button_alta.Name = "button_alta";
             this.button_alta.Size = new System.Drawing.Size(196, 54);
             this.button_alta.TabIndex = 1;
@@ -55,7 +55,7 @@
             this.button_modificar.AccessibleName = "";
             this.button_modificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button_modificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_modificar.Location = new System.Drawing.Point(438, 322);
+            this.button_modificar.Location = new System.Drawing.Point(438, 231);
             this.button_modificar.Name = "button_modificar";
             this.button_modificar.Size = new System.Drawing.Size(196, 54);
             this.button_modificar.TabIndex = 2;
@@ -69,7 +69,7 @@
             this.button_baja.AccessibleName = "";
             this.button_baja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button_baja.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_baja.Location = new System.Drawing.Point(438, 429);
+            this.button_baja.Location = new System.Drawing.Point(438, 338);
             this.button_baja.Name = "button_baja";
             this.button_baja.Size = new System.Drawing.Size(196, 54);
             this.button_baja.TabIndex = 3;
@@ -80,7 +80,7 @@
             // buttonSalir
             // 
             this.buttonSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSalir.Location = new System.Drawing.Point(468, 538);
+            this.buttonSalir.Location = new System.Drawing.Point(468, 447);
             this.buttonSalir.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(139, 45);
@@ -94,7 +94,7 @@
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(366, 126);
+            this.linkLabel1.Location = new System.Drawing.Point(366, 35);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(319, 37);
             this.linkLabel1.TabIndex = 5;
@@ -108,7 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1083, 733);
+            this.ClientSize = new System.Drawing.Size(1083, 551);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.button_baja);
@@ -117,7 +117,6 @@
             this.Name = "Afiliado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Afiliados";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

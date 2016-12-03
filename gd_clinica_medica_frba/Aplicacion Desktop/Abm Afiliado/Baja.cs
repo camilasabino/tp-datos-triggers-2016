@@ -50,6 +50,6 @@ namespace ClinicaFrba.Abm_Afiliado
             Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
             this.Close();
         }
-   
+
     }
 }

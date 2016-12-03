@@ -11,10 +11,8 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
-
-
-    public partial class 
-        Modificacion : Form
+    public partial class
+            Modificacion : Form
     {
 
         public Modificacion()

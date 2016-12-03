@@ -17,11 +17,6 @@ namespace ClinicaFrba.Abm_Afiliado
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_alta_Click(object sender, EventArgs e)
         {
             Abm_Afiliado.Alta alta = new Abm_Afiliado.Alta();

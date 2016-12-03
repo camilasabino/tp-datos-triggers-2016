@@ -135,6 +135,14 @@
     <Compile Include="Compra Bono\CompraBono.Designer.cs">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra Bono\CompraBonoAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\CompraBonoAdministrador.Designer.cs" />
+    <Compile Include="Compra Bono\CompraBonoAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\CompraBonoAfiliado.Designer.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +214,8 @@
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\CompraBonoAdministrador.resx" />
+    <EmbeddedResource Include="Compra Bono\CompraBonoAfiliado.resx" />
     <EmbeddedResource Include="Listados\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>

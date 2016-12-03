@@ -29,56 +29,62 @@ namespace ClinicaFrba.Pedir_Turno
 
         protected void cargarFechas()
         {
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
+            if (!string.IsNullOrEmpty(cProfesional.Text))
             {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboFechasDisponiblesTurno", conexionBase);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
-                comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
+                SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+                using (conexionBase)
+                {
+                    conexionBase.Open();
+                    SqlCommand comando = new SqlCommand("LOS_TRIGGERS.ComboFechasDisponiblesTurno", conexionBase);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
+                    comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
+                    comando.Parameters.AddWithValue("@fecha_sistema", Convert.ToDateTime(ClinicaFrba.fecha.fechaActual));
 
-                DataTable fechas = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
+                    DataTable fechas = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(comando);
 
-                adapter.Fill(fechas);
-                gridFechas.DataSource = fechas;
+                    adapter.Fill(fechas);
+                    gridFechas.DataSource = fechas;
 
-                conexionBase.Close();
+                    conexionBase.Close();
+                }
             }
         }
 
         protected void cargarHorarios()
         {
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
+            if (!string.IsNullOrEmpty(cProfesional.Text))
             {
-                conexionBase.Open();
-
-                string fechaSeleccionada = "2100/01/01";
-                try
+                SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+                using (conexionBase)
                 {
-                    fechaSeleccionada = gridFechas.SelectedRows[0].Cells[0].Value.ToString();
+                    conexionBase.Open();
+
+                    string fechaSeleccionada = "2100/01/01";
+                    try
+                    {
+                        fechaSeleccionada = gridFechas.SelectedRows[0].Cells[0].Value.ToString();
+                    }
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+
+                    SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HorariosDisponiblesTurno", conexionBase);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
+                    comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
+                    comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(fechaSeleccionada));
+
+                    DataTable horarios = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(comando);
+
+                    adapter.Fill(horarios);
+                    gridHorarios.DataSource = horarios;
+
+                    conexionBase.Close();
                 }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HorariosDisponiblesTurno", conexionBase);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@profesional", Convert.ToDecimal(((Profesional)cProfesional.SelectedItem).id));
-                comando.Parameters.AddWithValue("@especialidad", Convert.ToDecimal(((Especialidad)cEspecialidad.SelectedItem).id));
-                comando.Parameters.AddWithValue("@fecha", Convert.ToDateTime(fechaSeleccionada));
-
-                DataTable horarios = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
-
-                adapter.Fill(horarios);
-                gridHorarios.DataSource = horarios;
-
-                conexionBase.Close();
             }
         }
 
@@ -160,4 +166,3 @@ namespace ClinicaFrba.Pedir_Turno
         }
     }
 }
-                                     
