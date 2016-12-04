@@ -13,15 +13,18 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class Editar : Form
     {
-        public Editar()
+        public Editar(Menu m)
         {
             InitializeComponent();
+            this.menu = m;
             cargarRoles();
             cargarNombre();
             cargarFuncionalidadesParaAgregar();
             cargarFuncionalidades();
             obtenerHabilitacion();
         }
+
+        Menu menu;
 
         String nombre_rol = "";
 
@@ -246,7 +249,8 @@ namespace ClinicaFrba.AbmRol
                     conexionBase.Close();
                 }
                 cargarFuncionalidadesParaAgregar();
-                cargarFuncionalidades();                
+                cargarFuncionalidades();
+                this.menu.cargarFuncionalidadesRol();
             }
         }
 
@@ -270,6 +274,7 @@ namespace ClinicaFrba.AbmRol
                 }
                 cargarFuncionalidadesParaAgregar();
                 cargarFuncionalidades();
+                this.menu.cargarFuncionalidadesRol();
             }
         }
 

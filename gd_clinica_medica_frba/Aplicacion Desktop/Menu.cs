@@ -15,8 +15,12 @@ namespace ClinicaFrba
         public Menu()
         {
             InitializeComponent();
-
             labelNombreUsuario.Text = usuario.nombre_usuario;
+            cargarFuncionalidadesRol();
+        }
+
+        public void cargarFuncionalidadesRol()
+        {
             b_abm_afiliado.Visible = usuario.permiso("Abm de Afiliado", usuario.rol);
             b_abm_profesional.Visible = usuario.permiso("Abm de Profesional", usuario.rol);
             b_abm_espcialidades.Visible = usuario.permiso("Abm de Especialidad Médica", usuario.rol);
@@ -63,7 +67,7 @@ namespace ClinicaFrba
 
         private void b_abm_rol_Click(object sender, EventArgs e)
         {
-            (new AbmRol.Form1()).Show();
+            (new AbmRol.Form1(this)).Show();
         }
 
         private void b_cancelar_atencion_Click(object sender, EventArgs e)

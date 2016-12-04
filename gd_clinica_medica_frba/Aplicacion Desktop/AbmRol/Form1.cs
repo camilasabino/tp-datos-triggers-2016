@@ -12,10 +12,13 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public Form1(Menu m)
         {
             InitializeComponent();
+            this.menu = m;
         }
+
+        Menu menu;
 
         private void Añadir_Click(object sender, EventArgs e)
         {
@@ -31,7 +34,7 @@ namespace ClinicaFrba.AbmRol
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            AbmRol.Editar editar = new AbmRol.Editar();
+            AbmRol.Editar editar = new AbmRol.Editar(this.menu);
             editar.Show();
         }
 
