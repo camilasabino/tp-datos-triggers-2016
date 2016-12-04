@@ -88,22 +88,24 @@
             // 
             // buttonConfirmar
             // 
+            this.buttonConfirmar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonConfirmar.Location = new System.Drawing.Point(623, 410);
             this.buttonConfirmar.Name = "buttonConfirmar";
-            this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirmar.Size = new System.Drawing.Size(82, 23);
             this.buttonConfirmar.TabIndex = 3;
             this.buttonConfirmar.Text = "Confirmar";
-            this.buttonConfirmar.UseVisualStyleBackColor = true;
+            this.buttonConfirmar.UseVisualStyleBackColor = false;
             this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
             // buttonSalir
             // 
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSalir.Location = new System.Drawing.Point(623, 455);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(82, 23);
             this.buttonSalir.TabIndex = 4;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // label3

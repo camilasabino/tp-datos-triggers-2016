@@ -96,12 +96,13 @@
             // 
             // b_mostrar
             // 
+            this.b_mostrar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_mostrar.Location = new System.Drawing.Point(53, 242);
             this.b_mostrar.Name = "b_mostrar";
             this.b_mostrar.Size = new System.Drawing.Size(117, 23);
             this.b_mostrar.TabIndex = 3;
             this.b_mostrar.Text = "Mostrar Listado";
-            this.b_mostrar.UseVisualStyleBackColor = true;
+            this.b_mostrar.UseVisualStyleBackColor = false;
             this.b_mostrar.Click += new System.EventHandler(this.b_mostrar_Click);
             // 
             // c_plan
@@ -142,12 +143,13 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(371, 450);
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonSalir.Location = new System.Drawing.Point(354, 448);
             this.buttonSalir.Name = "buttonSalir";
-            this.buttonSalir.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalir.Size = new System.Drawing.Size(83, 23);
             this.buttonSalir.TabIndex = 8;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // label1

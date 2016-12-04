@@ -164,7 +164,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
                 if (updatePlan) modificarPlan();
 
-                MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " ha sido modificado exitosamente.",
+                MessageBox.Show("El afiliado Nº " + textBox_afil_numero.Text + " ha sido modificado exitosamente.",
                     "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 richTextBox_afil_motivo.Text = "";
                 traerDatosAfiliado();

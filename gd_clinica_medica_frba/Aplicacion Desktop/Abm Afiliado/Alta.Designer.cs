@@ -33,8 +33,6 @@
             this.button_confirmar = new System.Windows.Forms.Button();
             this.textBox_afil_usuario = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox_afil_dni = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.comboBox_afil_estadoCivil = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox_afil_titular = new System.Windows.Forms.TextBox();
@@ -47,6 +45,8 @@
             this.comboBox_afil_relacionConTitular = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonVerificar = new System.Windows.Forms.Button();
+            this.labelStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +77,7 @@
             // 
             // textBox_afil_usuario
             // 
-            this.textBox_afil_usuario.Location = new System.Drawing.Point(92, 121);
+            this.textBox_afil_usuario.Location = new System.Drawing.Point(42, 91);
             this.textBox_afil_usuario.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_afil_usuario.Name = "textBox_afil_usuario";
             this.textBox_afil_usuario.Size = new System.Drawing.Size(117, 20);
@@ -86,33 +86,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(89, 106);
+            this.label4.Location = new System.Drawing.Point(39, 76);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(98, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "Número de Usuario";
             // 
-            // textBox_afil_dni
-            // 
-            this.textBox_afil_dni.Location = new System.Drawing.Point(91, 174);
-            this.textBox_afil_dni.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_afil_dni.Name = "textBox_afil_dni";
-            this.textBox_afil_dni.Size = new System.Drawing.Size(121, 20);
-            this.textBox_afil_dni.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 160);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Nro. de Dni";
-            // 
             // comboBox_afil_estadoCivil
             // 
+            this.comboBox_afil_estadoCivil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_afil_estadoCivil.FormattingEnabled = true;
             this.comboBox_afil_estadoCivil.Location = new System.Drawing.Point(271, 174);
             this.comboBox_afil_estadoCivil.Margin = new System.Windows.Forms.Padding(2);
@@ -132,7 +115,7 @@
             // 
             // textBox_afil_titular
             // 
-            this.textBox_afil_titular.Location = new System.Drawing.Point(88, 224);
+            this.textBox_afil_titular.Location = new System.Drawing.Point(47, 191);
             this.textBox_afil_titular.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_afil_titular.Name = "textBox_afil_titular";
             this.textBox_afil_titular.Size = new System.Drawing.Size(121, 20);
@@ -140,6 +123,7 @@
             // 
             // comboBox_afil_plan
             // 
+            this.comboBox_afil_plan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_afil_plan.FormattingEnabled = true;
             this.comboBox_afil_plan.Location = new System.Drawing.Point(271, 224);
             this.comboBox_afil_plan.Margin = new System.Windows.Forms.Padding(2);
@@ -169,6 +153,7 @@
             // 
             // comboBox_afil_CantFamACargo
             // 
+            this.comboBox_afil_CantFamACargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_afil_CantFamACargo.FormattingEnabled = true;
             this.comboBox_afil_CantFamACargo.Location = new System.Drawing.Point(271, 275);
             this.comboBox_afil_CantFamACargo.Margin = new System.Windows.Forms.Padding(2);
@@ -179,7 +164,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(85, 209);
+            this.label7.Location = new System.Drawing.Point(44, 174);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
@@ -189,7 +174,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(88, 259);
+            this.label2.Location = new System.Drawing.Point(46, 232);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
@@ -198,8 +183,9 @@
             // 
             // comboBox_afil_relacionConTitular
             // 
+            this.comboBox_afil_relacionConTitular.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_afil_relacionConTitular.FormattingEnabled = true;
-            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(88, 275);
+            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(47, 251);
             this.comboBox_afil_relacionConTitular.Name = "comboBox_afil_relacionConTitular";
             this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(121, 21);
             this.comboBox_afil_relacionConTitular.TabIndex = 3;
@@ -217,18 +203,41 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(353, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(352, 23);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(99, 92);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 43;
             this.pictureBox1.TabStop = false;
             // 
+            // buttonVerificar
+            // 
+            this.buttonVerificar.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.buttonVerificar.Location = new System.Drawing.Point(176, 91);
+            this.buttonVerificar.Name = "buttonVerificar";
+            this.buttonVerificar.Size = new System.Drawing.Size(94, 23);
+            this.buttonVerificar.TabIndex = 44;
+            this.buttonVerificar.Text = "Verificar Usuario";
+            this.buttonVerificar.UseVisualStyleBackColor = false;
+            this.buttonVerificar.Click += new System.EventHandler(this.buttonVerificar_Click);
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.ForeColor = System.Drawing.Color.Crimson;
+            this.labelStatus.Location = new System.Drawing.Point(30, 131);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(87, 13);
+            this.labelStatus.TabIndex = 45;
+            this.labelStatus.Text = "<usuario_status>";
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 374);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.buttonVerificar);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboBox_afil_relacionConTitular);
@@ -241,8 +250,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBox_afil_estadoCivil);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox_afil_dni);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.button_cancelar);
             this.Controls.Add(this.button_confirmar);
             this.Controls.Add(this.textBox_afil_usuario);
@@ -250,7 +257,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Alta";
             this.Text = "Alta";
-            this.Load += new System.EventHandler(this.alta_Afiliado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -263,8 +269,6 @@
         private System.Windows.Forms.Button button_confirmar;
         private System.Windows.Forms.TextBox textBox_afil_usuario;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox_afil_dni;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_afil_estadoCivil;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox_afil_titular;
@@ -277,5 +281,7 @@
         private System.Windows.Forms.ComboBox comboBox_afil_relacionConTitular;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonVerificar;
+        private System.Windows.Forms.Label labelStatus;
     }
 }

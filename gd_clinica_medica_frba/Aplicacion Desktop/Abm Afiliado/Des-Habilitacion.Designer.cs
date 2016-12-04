@@ -58,6 +58,7 @@
             // 
             // button_cancelar
             // 
+            this.button_cancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button_cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_cancelar.Location = new System.Drawing.Point(348, 209);
             this.button_cancelar.Margin = new System.Windows.Forms.Padding(2);
@@ -65,7 +66,7 @@
             this.button_cancelar.Size = new System.Drawing.Size(88, 28);
             this.button_cancelar.TabIndex = 23;
             this.button_cancelar.Text = "Salir";
-            this.button_cancelar.UseVisualStyleBackColor = true;
+            this.button_cancelar.UseVisualStyleBackColor = false;
             this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
             // 
             // button_habilitar
