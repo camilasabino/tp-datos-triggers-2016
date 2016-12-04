@@ -39,27 +39,27 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(119, 36);
+            this.label1.Location = new System.Drawing.Point(119, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 24);
+            this.label1.Size = new System.Drawing.Size(144, 24);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Abm de Afiliado";
+            this.label1.Text = "ABM de Afiliado";
             // 
             // buttonBaja
             // 
-            this.buttonBaja.Location = new System.Drawing.Point(142, 165);
+            this.buttonBaja.Location = new System.Drawing.Point(125, 166);
             this.buttonBaja.Name = "buttonBaja";
-            this.buttonBaja.Size = new System.Drawing.Size(85, 36);
+            this.buttonBaja.Size = new System.Drawing.Size(115, 36);
             this.buttonBaja.TabIndex = 7;
-            this.buttonBaja.Text = "Dar de Baja";
+            this.buttonBaja.Text = "Habilitar/Deshabilitar";
             this.buttonBaja.UseVisualStyleBackColor = true;
             this.buttonBaja.Click += new System.EventHandler(this.buttonBaja_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(142, 228);
+            this.button2.Location = new System.Drawing.Point(123, 226);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 36);
+            this.button2.Size = new System.Drawing.Size(117, 36);
             this.button2.TabIndex = 8;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             // 
             // buttonAlta
             // 
-            this.buttonAlta.Location = new System.Drawing.Point(142, 102);
+            this.buttonAlta.Location = new System.Drawing.Point(125, 104);
             this.buttonAlta.Name = "buttonAlta";
-            this.buttonAlta.Size = new System.Drawing.Size(87, 36);
+            this.buttonAlta.Size = new System.Drawing.Size(117, 36);
             this.buttonAlta.TabIndex = 9;
             this.buttonAlta.Text = "Dar de Alta";
             this.buttonAlta.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
             // buttonSalir
             // 
             this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonSalir.Location = new System.Drawing.Point(152, 306);
+            this.buttonSalir.Location = new System.Drawing.Point(140, 305);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 10;
@@ -89,9 +89,8 @@
             // Afiliado
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(396, 361);
+            this.ClientSize = new System.Drawing.Size(390, 361);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonAlta);
             this.Controls.Add(this.button2);

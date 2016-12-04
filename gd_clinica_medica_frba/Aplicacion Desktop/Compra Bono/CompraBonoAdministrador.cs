@@ -169,7 +169,7 @@ namespace ClinicaFrba.Compra_Bono
                 }
                 else
                 {
-                    labelStatus.Text = "El afiliado Nº" + textBox_afil_numero.Text + " no pertenece al sistema.";
+                    labelStatus.Text = "El afiliado Nº " + textBox_afil_numero.Text + " no pertenece al sistema.";
                     habilitarControles(false);
                 }
             }
