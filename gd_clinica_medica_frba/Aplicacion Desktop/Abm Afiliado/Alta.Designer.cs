@@ -47,6 +47,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonVerificar = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.textDni = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,21 +79,21 @@
             // 
             // textBox_afil_usuario
             // 
-            this.textBox_afil_usuario.Location = new System.Drawing.Point(42, 91);
+            this.textBox_afil_usuario.Location = new System.Drawing.Point(42, 82);
             this.textBox_afil_usuario.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_afil_usuario.Name = "textBox_afil_usuario";
-            this.textBox_afil_usuario.Size = new System.Drawing.Size(117, 20);
+            this.textBox_afil_usuario.Size = new System.Drawing.Size(134, 20);
             this.textBox_afil_usuario.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 76);
+            this.label4.Location = new System.Drawing.Point(39, 67);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 25;
-            this.label4.Text = "Número de Usuario";
+            this.label4.Text = "Username";
             // 
             // comboBox_afil_estadoCivil
             // 
@@ -115,10 +117,10 @@
             // 
             // textBox_afil_titular
             // 
-            this.textBox_afil_titular.Location = new System.Drawing.Point(47, 191);
+            this.textBox_afil_titular.Location = new System.Drawing.Point(47, 224);
             this.textBox_afil_titular.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_afil_titular.Name = "textBox_afil_titular";
-            this.textBox_afil_titular.Size = new System.Drawing.Size(121, 20);
+            this.textBox_afil_titular.Size = new System.Drawing.Size(129, 20);
             this.textBox_afil_titular.TabIndex = 2;
             // 
             // comboBox_afil_plan
@@ -164,7 +166,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(44, 174);
+            this.label7.Location = new System.Drawing.Point(46, 209);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
@@ -174,7 +176,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 232);
+            this.label2.Location = new System.Drawing.Point(46, 259);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
@@ -185,9 +187,9 @@
             // 
             this.comboBox_afil_relacionConTitular.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_afil_relacionConTitular.FormattingEnabled = true;
-            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(47, 251);
+            this.comboBox_afil_relacionConTitular.Location = new System.Drawing.Point(47, 275);
             this.comboBox_afil_relacionConTitular.Name = "comboBox_afil_relacionConTitular";
-            this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_afil_relacionConTitular.Size = new System.Drawing.Size(129, 21);
             this.comboBox_afil_relacionConTitular.TabIndex = 3;
             // 
             // label8
@@ -213,7 +215,7 @@
             // buttonVerificar
             // 
             this.buttonVerificar.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.buttonVerificar.Location = new System.Drawing.Point(176, 91);
+            this.buttonVerificar.Location = new System.Drawing.Point(192, 80);
             this.buttonVerificar.Name = "buttonVerificar";
             this.buttonVerificar.Size = new System.Drawing.Size(94, 23);
             this.buttonVerificar.TabIndex = 44;
@@ -225,17 +227,35 @@
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.ForeColor = System.Drawing.Color.Crimson;
-            this.labelStatus.Location = new System.Drawing.Point(30, 131);
+            this.labelStatus.Location = new System.Drawing.Point(25, 123);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(87, 13);
             this.labelStatus.TabIndex = 45;
             this.labelStatus.Text = "<usuario_status>";
+            // 
+            // textDni
+            // 
+            this.textDni.Location = new System.Drawing.Point(47, 174);
+            this.textDni.Name = "textDni";
+            this.textDni.Size = new System.Drawing.Size(129, 20);
+            this.textDni.TabIndex = 46;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(49, 159);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Nº DNI";
             // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 374);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textDni);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.buttonVerificar);
             this.Controls.Add(this.pictureBox1);
@@ -283,5 +303,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonVerificar;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.TextBox textDni;
+        private System.Windows.Forms.Label label1;
     }
 }
