@@ -80,12 +80,13 @@
             // 
             // buttonSalir
             // 
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSalir.Location = new System.Drawing.Point(140, 316);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 26);
             this.buttonSalir.TabIndex = 11;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // Form1

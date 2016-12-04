@@ -50,24 +50,26 @@
             // 
             // Aceptar
             // 
+            this.Aceptar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.Aceptar.Location = new System.Drawing.Point(43, 179);
             this.Aceptar.Margin = new System.Windows.Forms.Padding(2);
             this.Aceptar.Name = "Aceptar";
             this.Aceptar.Size = new System.Drawing.Size(77, 30);
             this.Aceptar.TabIndex = 2;
             this.Aceptar.Text = "Inhabilitar";
-            this.Aceptar.UseVisualStyleBackColor = true;
+            this.Aceptar.UseVisualStyleBackColor = false;
             this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
             // Cancelar
             // 
+            this.Cancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Cancelar.Location = new System.Drawing.Point(243, 179);
             this.Cancelar.Margin = new System.Windows.Forms.Padding(2);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(77, 30);
             this.Cancelar.TabIndex = 3;
             this.Cancelar.Text = "Salir";
-            this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.UseVisualStyleBackColor = false;
             this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
             // label2

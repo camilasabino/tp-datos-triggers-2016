@@ -79,46 +79,50 @@
             // 
             // buttonAgregar
             // 
+            this.buttonAgregar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonAgregar.Location = new System.Drawing.Point(380, 278);
             this.buttonAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregar.Name = "buttonAgregar";
             this.buttonAgregar.Size = new System.Drawing.Size(127, 22);
             this.buttonAgregar.TabIndex = 5;
             this.buttonAgregar.Text = "Agregar Funcionalidad";
-            this.buttonAgregar.UseVisualStyleBackColor = true;
+            this.buttonAgregar.UseVisualStyleBackColor = false;
             this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
             // 
             // buttonEliminar
             // 
+            this.buttonEliminar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonEliminar.Location = new System.Drawing.Point(380, 363);
             this.buttonEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(127, 21);
             this.buttonEliminar.TabIndex = 7;
             this.buttonEliminar.Text = "Eliminar Funcionalidad";
-            this.buttonEliminar.UseVisualStyleBackColor = true;
+            this.buttonEliminar.UseVisualStyleBackColor = false;
             this.buttonEliminar.Click += new System.EventHandler(this.buttonEliminar_Click);
             // 
             // buttonAceptar
             // 
+            this.buttonAceptar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonAceptar.Location = new System.Drawing.Point(289, 172);
             this.buttonAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(93, 24);
             this.buttonAceptar.TabIndex = 8;
             this.buttonAceptar.Text = "Cambiar";
-            this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.UseVisualStyleBackColor = false;
             this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
             // buttonCancelar
             // 
+            this.buttonCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonCancelar.Location = new System.Drawing.Point(251, 432);
             this.buttonCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(93, 24);
             this.buttonCancelar.TabIndex = 9;
             this.buttonCancelar.Text = "Salir";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
+            this.buttonCancelar.UseVisualStyleBackColor = false;
             this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             // 
             // gridFuncionalidades
@@ -176,12 +180,13 @@
             // 
             // buttonHabilitar
             // 
+            this.buttonHabilitar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonHabilitar.Location = new System.Drawing.Point(307, 87);
             this.buttonHabilitar.Name = "buttonHabilitar";
             this.buttonHabilitar.Size = new System.Drawing.Size(75, 23);
             this.buttonHabilitar.TabIndex = 15;
             this.buttonHabilitar.Text = "Habilitar";
-            this.buttonHabilitar.UseVisualStyleBackColor = true;
+            this.buttonHabilitar.UseVisualStyleBackColor = false;
             this.buttonHabilitar.Click += new System.EventHandler(this.buttonHabilitar_Click);
             // 
             // labelStatus

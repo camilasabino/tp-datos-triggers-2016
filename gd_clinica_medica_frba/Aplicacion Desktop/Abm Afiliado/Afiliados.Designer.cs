@@ -39,7 +39,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(124, 26);
+            this.label1.Location = new System.Drawing.Point(119, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 24);
             this.label1.TabIndex = 6;
@@ -77,12 +77,13 @@
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(142, 308);
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonSalir.Location = new System.Drawing.Point(152, 306);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 10;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click_1);
             // 
             // Afiliado
@@ -90,7 +91,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(407, 361);
+            this.ClientSize = new System.Drawing.Size(396, 361);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.buttonAlta);
             this.Controls.Add(this.button2);
