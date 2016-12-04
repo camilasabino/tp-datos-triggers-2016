@@ -43,6 +43,7 @@
             // 
             // button_cancelar
             // 
+            this.button_cancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button_cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_cancelar.Location = new System.Drawing.Point(280, 218);
             this.button_cancelar.Margin = new System.Windows.Forms.Padding(2);
@@ -50,18 +51,19 @@
             this.button_cancelar.Size = new System.Drawing.Size(86, 25);
             this.button_cancelar.TabIndex = 4;
             this.button_cancelar.Text = "Salir";
-            this.button_cancelar.UseVisualStyleBackColor = true;
+            this.button_cancelar.UseVisualStyleBackColor = false;
             this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
             // 
             // button_confirmar
             // 
+            this.button_confirmar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.button_confirmar.Location = new System.Drawing.Point(151, 218);
             this.button_confirmar.Margin = new System.Windows.Forms.Padding(2);
             this.button_confirmar.Name = "button_confirmar";
             this.button_confirmar.Size = new System.Drawing.Size(87, 25);
             this.button_confirmar.TabIndex = 3;
             this.button_confirmar.Text = "Confirmar";
-            this.button_confirmar.UseVisualStyleBackColor = true;
+            this.button_confirmar.UseVisualStyleBackColor = false;
             this.button_confirmar.Click += new System.EventHandler(this.button_confirmar_Click);
             // 
             // label6
@@ -94,12 +96,13 @@
             // 
             // buttonMonto
             // 
+            this.buttonMonto.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonMonto.Location = new System.Drawing.Point(375, 114);
             this.buttonMonto.Name = "buttonMonto";
             this.buttonMonto.Size = new System.Drawing.Size(92, 23);
             this.buttonMonto.TabIndex = 32;
             this.buttonMonto.Text = "Consultar Monto";
-            this.buttonMonto.UseVisualStyleBackColor = true;
+            this.buttonMonto.UseVisualStyleBackColor = false;
             this.buttonMonto.Click += new System.EventHandler(this.buttonMonto_Click);
             // 
             // label1

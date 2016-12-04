@@ -140,12 +140,13 @@
             // 
             // buttonMonto
             // 
+            this.buttonMonto.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonMonto.Location = new System.Drawing.Point(342, 141);
             this.buttonMonto.Name = "buttonMonto";
             this.buttonMonto.Size = new System.Drawing.Size(92, 23);
             this.buttonMonto.TabIndex = 24;
             this.buttonMonto.Text = "Consultar Monto";
-            this.buttonMonto.UseVisualStyleBackColor = true;
+            this.buttonMonto.UseVisualStyleBackColor = false;
             this.buttonMonto.Click += new System.EventHandler(this.buttonMonto_Click);
             // 
             // labelMonto
@@ -170,12 +171,13 @@
             // 
             // buttonHabilitacion
             // 
+            this.buttonHabilitacion.BackColor = System.Drawing.Color.MediumAquamarine;
             this.buttonHabilitacion.Location = new System.Drawing.Point(358, 77);
             this.buttonHabilitacion.Name = "buttonHabilitacion";
             this.buttonHabilitacion.Size = new System.Drawing.Size(121, 23);
             this.buttonHabilitacion.TabIndex = 27;
             this.buttonHabilitacion.Text = "Consultar Habilitación";
-            this.buttonHabilitacion.UseVisualStyleBackColor = true;
+            this.buttonHabilitacion.UseVisualStyleBackColor = false;
             this.buttonHabilitacion.Click += new System.EventHandler(this.buttonHabilitacion_Click);
             // 
             // CompraBonoAdministrador

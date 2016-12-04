@@ -144,12 +144,13 @@
             // 
             // b_registrar
             // 
+            this.b_registrar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_registrar.Location = new System.Drawing.Point(534, 326);
             this.b_registrar.Name = "b_registrar";
             this.b_registrar.Size = new System.Drawing.Size(103, 24);
             this.b_registrar.TabIndex = 10;
             this.b_registrar.Text = "Registrar Llegada";
-            this.b_registrar.UseVisualStyleBackColor = true;
+            this.b_registrar.UseVisualStyleBackColor = false;
             this.b_registrar.Click += new System.EventHandler(this.b_registrar_Click);
             // 
             // afiliado
@@ -182,12 +183,13 @@
             // 
             // buttonSalir
             // 
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSalir.Location = new System.Drawing.Point(562, 366);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(75, 23);
             this.buttonSalir.TabIndex = 14;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // pictureBox1

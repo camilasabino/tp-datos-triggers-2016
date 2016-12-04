@@ -93,12 +93,13 @@
             // 
             // b_filtrarConsultas
             // 
+            this.b_filtrarConsultas.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_filtrarConsultas.Location = new System.Drawing.Point(232, 154);
             this.b_filtrarConsultas.Name = "b_filtrarConsultas";
             this.b_filtrarConsultas.Size = new System.Drawing.Size(99, 23);
             this.b_filtrarConsultas.TabIndex = 16;
             this.b_filtrarConsultas.Text = "Buscar Consultas";
-            this.b_filtrarConsultas.UseVisualStyleBackColor = true;
+            this.b_filtrarConsultas.UseVisualStyleBackColor = false;
             this.b_filtrarConsultas.Click += new System.EventHandler(this.b_filtrar_Click);
             // 
             // t_sintomas
@@ -137,12 +138,13 @@
             // 
             // b_registrar
             // 
+            this.b_registrar.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_registrar.Location = new System.Drawing.Point(252, 426);
             this.b_registrar.Name = "b_registrar";
             this.b_registrar.Size = new System.Drawing.Size(110, 27);
             this.b_registrar.TabIndex = 21;
             this.b_registrar.Text = "Registrar Resultado";
-            this.b_registrar.UseVisualStyleBackColor = true;
+            this.b_registrar.UseVisualStyleBackColor = false;
             this.b_registrar.Click += new System.EventHandler(this.b_registrar_Click);
             // 
             // label3
@@ -157,12 +159,13 @@
             // 
             // buttonSalir
             // 
+            this.buttonSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSalir.Location = new System.Drawing.Point(437, 426);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(81, 27);
             this.buttonSalir.TabIndex = 26;
             this.buttonSalir.Text = "Salir";
-            this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.UseVisualStyleBackColor = false;
             this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // pictureBox1
