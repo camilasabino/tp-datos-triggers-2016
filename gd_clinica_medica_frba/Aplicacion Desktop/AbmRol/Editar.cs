@@ -208,7 +208,7 @@ namespace ClinicaFrba.AbmRol
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.InhabilitarRol", conexionBase);
+                SqlCommand comando = new SqlCommand("LOS_TRIGGERS.HabilitarRol", conexionBase);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@rol", cRoles.Text);
 
@@ -246,7 +246,7 @@ namespace ClinicaFrba.AbmRol
                     conexionBase.Close();
                 }
                 cargarFuncionalidadesParaAgregar();
-                cargarFuncionalidades();
+                cargarFuncionalidades();                
             }
         }
 

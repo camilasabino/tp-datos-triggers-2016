@@ -211,7 +211,7 @@ namespace ClinicaFrba.Abm_Afiliado
             using (conn)
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
+                SqlCommand command = new SqlCommand("select isnull(user_apellido,'') +', '+ isnull(user_nombre,'') as nombre_y_apellido " +
                                                     "from LOS_TRIGGERS.Usuario where user_name = cast(@usuario as varchar)", conn);
                 command.Parameters.AddWithValue("@usuario", textBox_afil_usuario.Text);
                 SqlDataReader reader = command.ExecuteReader();
