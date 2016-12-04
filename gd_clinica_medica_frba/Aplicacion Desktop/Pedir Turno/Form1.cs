@@ -154,6 +154,9 @@ namespace ClinicaFrba.Pedir_Turno
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 confirmarTurno();
+                MessageBox.Show("La solicitud del Turno se ha completado satisfactoriamente. "+
+                "Puede ver sus Turnos asignados en la sección de cancelaciones.",
+                "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cargarFechas();
                 cargarHorarios();
             }

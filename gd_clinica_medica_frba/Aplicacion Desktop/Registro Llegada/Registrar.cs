@@ -133,7 +133,8 @@ namespace ClinicaFrba.Registro_Llegada
 
                     llenar_grilla_turnos();
                     grilla_turnos.ClearSelection();
-                    MessageBox.Show("El registro de la Llegada se ha completado satisfactoriamente.");
+                    MessageBox.Show("El registro de la Consulta Médica se ha completado satisfactoriamente.",
+                        "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
         }
 

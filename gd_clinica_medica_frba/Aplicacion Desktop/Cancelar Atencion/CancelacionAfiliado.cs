@@ -147,6 +147,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     confirmarCancelacion();
+                    MessageBox.Show("La Cancelación del Turno se ha completado satisfactoriamente.",
+                        "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     cargarTurnos();
                     textMotivo.Text = "";
                 }

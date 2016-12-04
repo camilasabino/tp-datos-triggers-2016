@@ -249,6 +249,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionDiaParticular();
+                        MessageBox.Show("La Cancelación de la Atención en la fecha indicada se ha completado satisfactoriamente.",
+                            "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarFechasAtencion();
                         cargarTurnos();
                         textMotivo.Text = "";
@@ -264,6 +266,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         confirmarCancelacionPeriodo();
+                        MessageBox.Show("Las Cancelación de la Atención en el período indicado se ha completado satisfactoriamente.",
+                            "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarFechasAtencion();
                         cargarTurnos();
                         textMotivo.Text = "";

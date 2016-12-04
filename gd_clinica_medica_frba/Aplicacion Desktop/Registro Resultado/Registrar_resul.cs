@@ -116,7 +116,8 @@ namespace ClinicaFrba.Registro_Resultado
                     command.ExecuteNonQuery();
                     conn.Close();
                 }
-                MessageBox.Show("El registro del Diagnóstico se ha completado satisfactoriamente.");
+                MessageBox.Show("El registro del Diagnóstico se ha completado satisfactoriamente.",
+                    "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

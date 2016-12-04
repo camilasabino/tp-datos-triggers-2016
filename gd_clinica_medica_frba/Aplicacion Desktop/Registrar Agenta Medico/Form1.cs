@@ -315,6 +315,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                         registrarDiaDeAtencion("Sábado", hDesdeSab.SelectedValue.ToString(), hHastaSab.SelectedValue.ToString());
                     }
                     registrarAgenda();
+                    MessageBox.Show("El registro de la Agenda del Profesional se ha completado satisfactoriamente.",
+                        "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cargarEspecialidades();
                 }
             }
             else
