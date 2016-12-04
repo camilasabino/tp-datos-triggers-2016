@@ -261,7 +261,22 @@ namespace ClinicaFrba.Abm_Afiliado
                     if (verificarSiTieneRolAfiliado() == 0)
                     {
                         labelStatus.Text = "Se le asignará el rol Afiliado al usuario " + nombreUsuario + ".";
-                        permitirControles(true);
+                        if (string.IsNullOrEmpty(comboBox_afil_relacionConTitular.Text))
+                            permitirControles(true);
+                        else if (comboBox_afil_relacionConTitular.Text.Equals("Cónyuge"))
+                        {
+                            textBox_afil_titular.Enabled = false;
+                            comboBox_afil_plan.Enabled = false;
+                            comboBox_afil_relacionConTitular.Enabled = false;
+                            comboBox_afil_estadoCivil.Enabled = false;
+                        }
+                        else if (comboBox_afil_relacionConTitular.Text.Equals("Hijo/a"))
+                        {
+                            textBox_afil_titular.Enabled = false;
+                            comboBox_afil_plan.Enabled = false;
+                            comboBox_afil_relacionConTitular.Enabled = false;
+                            comboBox_afil_estadoCivil.Enabled = true;
+                        }
                         button_confirmar.Enabled = true;
                     }
                     else
