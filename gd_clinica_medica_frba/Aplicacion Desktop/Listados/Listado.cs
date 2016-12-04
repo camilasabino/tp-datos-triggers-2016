@@ -43,28 +43,9 @@ namespace ClinicaFrba.Listados
 
         protected void llenar_planes()
         {
-            c_plan.DataSource = listar_planes().Tables[0];
+            c_plan.DataSource = Plan.traerPlanesMedicos();
+            c_plan.DisplayMember = "descripcion";
             c_plan.ValueMember = "id";
-            c_plan.DisplayMember = "Nombre";
-        }
-
-        public static DataSet listar_planes()
-        {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena))
-            {
-                conn.Open();
-                string cadena = "SELECT plan_id as 'id',plan_med_descripcion as 'Nombre' FROM LOS_TRIGGERS.Plan_Medico " +
-                                "GROUP BY plan_id, plan_med_descripcion " +
-                                "ORDER BY plan_med_descripcion";
-
-                SqlCommand comando = new SqlCommand(cadena, conn);
-                SqlDataAdapter da = new SqlDataAdapter(comando);
-                DataSet ds = new DataSet();
-
-                da.Fill(ds);
-                conn.Close();
-                return ds;
-            }
         }
 
         protected void llenarGrid()
@@ -77,19 +58,19 @@ namespace ClinicaFrba.Listados
                 switch (c_opcion.Text)
                 {
                     case "Especialidades con más cancelaciones de atención médica":
-                        gridListado.DataSource = listados.especialidades_cancelaciones(anio, semestre).Tables[0];
+                        gridListado.DataSource = especialidades_cancelaciones(anio, semestre).Tables[0];
                         break;
                     case "Profesionales más consultados por plan":
-                        gridListado.DataSource = listados.profesionales_consultados(anio, semestre, decimal.Parse(c_plan.SelectedValue.ToString())).Tables[0];
+                        gridListado.DataSource = profesionales_consultados(anio, semestre, decimal.Parse(c_plan.SelectedValue.ToString())).Tables[0];
                         break;
                     case "Profesionales con menos horas trabajadas":
-                        gridListado.DataSource = listados.profesionales_horas(anio, semestre, decimal.Parse(c_plan.SelectedValue.ToString()), decimal.Parse(c_especialidad.SelectedValue.ToString())).Tables[0];
+                        gridListado.DataSource = profesionales_horas(anio, semestre, decimal.Parse(c_plan.SelectedValue.ToString()), decimal.Parse(c_especialidad.SelectedValue.ToString())).Tables[0];
                         break;
                     case "Afiliados con mayor cantidad de bonos comprados":
-                        gridListado.DataSource = listados.afiliados_bonos(anio, semestre).Tables[0];
+                        gridListado.DataSource = afiliados_bonos(anio, semestre).Tables[0];
                         break;
                     case "Especialidades médicas con más bonos de consulta utilizados":
-                        gridListado.DataSource = listados.especialidades_bonos(anio, semestre).Tables[0];
+                        gridListado.DataSource = especialidades_bonos(anio, semestre).Tables[0];
                         break;
                 }
                 if (gridListado.Rows.Count != 0) labelResultado.Text = "";
@@ -107,9 +88,7 @@ namespace ClinicaFrba.Listados
             llenarGrid();
         }
 
-        public class listados
-        {
-            public static DataSet afiliados_bonos(int anio, int semestre)
+            protected DataSet afiliados_bonos(int anio, int semestre)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
@@ -128,7 +107,7 @@ namespace ClinicaFrba.Listados
                 }
             }
 
-            public static DataSet profesionales_horas(int anio, int semestre, decimal plan, decimal especialidad)
+            protected DataSet profesionales_horas(int anio, int semestre, decimal plan, decimal especialidad)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
@@ -149,7 +128,7 @@ namespace ClinicaFrba.Listados
                 }
             }
 
-            public static DataSet profesionales_consultados(int anio, int semestre, decimal plan)
+            protected DataSet profesionales_consultados(int anio, int semestre, decimal plan)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
@@ -169,7 +148,7 @@ namespace ClinicaFrba.Listados
                 }
             }
 
-            public static DataSet especialidades_cancelaciones(int anio, int semestre)
+            protected DataSet especialidades_cancelaciones(int anio, int semestre)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
@@ -188,7 +167,7 @@ namespace ClinicaFrba.Listados
                 }
             }
 
-            public static DataSet especialidades_bonos(int anio, int semestre)
+            protected DataSet especialidades_bonos(int anio, int semestre)
             {
                 using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
@@ -206,7 +185,6 @@ namespace ClinicaFrba.Listados
                     return ds;
                 }
             }
-        }
 
         private void buttonSalir_Click(object sender, EventArgs e)
         {

@@ -8,30 +8,7 @@ using System.Data;
 
 namespace ClinicaFrba
 {
-    public class login
-    {
-        public static int validar(string usuario, string contrasena, string rol)
-        {
-            using (SqlConnection conn = new SqlConnection(conexion.cadena))
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@user_name", usuario);
-                command.Parameters.AddWithValue("@user_password", contrasena);
-                command.Parameters.AddWithValue("@rol", rol);
-
-                SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Int);
-                paramRetorno.Direction = ParameterDirection.Output;
-                command.Parameters.Add(paramRetorno);
-
-                command.ExecuteNonQuery();
-                int resultado = Convert.ToInt32(command.Parameters["@resultado"].Value);
-                conn.Close();
-                return resultado;
-            }
-        }
-    }
+    /** En este archivo se incluyen todas las abstracciones y métodos de uso común para los formularios. */
 
     public class usuario
     {
@@ -79,6 +56,29 @@ namespace ClinicaFrba
                 conn.Close();
                 return resultado;
             }
+        }
+
+        public static List<String> traerRolesHabilitados()
+        {
+            List<String> rolesHabilitados = new List<String>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1 "+
+                                                    "union select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 "+                                
+                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 "+
+                                                    "order by nombre_rol", conexionBase);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    rolesHabilitados.Add(reader.GetString(0));
+                }
+                conexionBase.Close();
+            }
+            return rolesHabilitados;
         }
     }
 
@@ -151,4 +151,98 @@ namespace ClinicaFrba
             return profesionales;
         }
     }
+
+            public class AfiliadoRol
+        {
+            public string estadoCivil { get; set; }
+            public decimal plan { get; set; }
+            public string mail { get; set; }
+            public string direccion { get; set; }
+            public decimal telefono { get; set; }
+
+            public AfiliadoRol(string e, decimal p, string m, string d, decimal t)
+            {
+                this.estadoCivil = e;
+                this.plan = p;
+                this.mail = m;
+                this.direccion = d;
+                this.telefono = t;
+            }
+
+
+            public static AfiliadoRol nuevoAfiliado()
+            {
+                return new AfiliadoRol(null, 0, null, null, 0);
+            }
+
+            public static String verificarQueExistaElAfiliado(String afilNumero)
+            {
+                String nombreAfiliado = "";
+                SqlConnection conn = new SqlConnection(conexion.cadena);
+                using (conn)
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
+                                                        "from LOS_TRIGGERS.Usuario where user_afiliado = " + afilNumero, conn);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    if (reader.HasRows) nombreAfiliado = reader.GetString(0);
+
+                    reader.Close();
+                    conn.Close();
+
+                    return nombreAfiliado;
+                }
+            }
+
+            public static Boolean validarHabilitacion(String afilNumero)
+            {
+                SqlConnection conn = new SqlConnection(conexion.cadena);
+                using (conn)
+                {
+                    conn.Open();
+                    string afil_habilitacion = "select afil_habilitacion from LOS_TRIGGERS.Afiliado where afil_numero = " + afilNumero;
+                    SqlCommand command = new SqlCommand(afil_habilitacion, conn);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    bool habilitacion = reader.GetBoolean(0);
+                    reader.Close();
+                    conn.Close();
+
+                    return habilitacion;
+                }
+            }
+        }
+
+            public class Plan
+            {
+                public decimal id { get; set; }
+                public string descripcion { get; set; }
+
+                public Plan(decimal _id, string _descripcion)
+                {
+                    this.id = _id;
+                    this.descripcion = _descripcion;
+                }
+
+                public static List<Plan> traerPlanesMedicos()
+                {
+                    List<Plan> planes = new List<Plan>();
+                    SqlConnection conn = new SqlConnection(conexion.cadena);
+                    using (conn)
+                    {
+                        conn.Open();
+
+                        String query = "select plan_id, plan_med_descripcion from LOS_TRIGGERS.Plan_Medico";
+                        SqlCommand command = new SqlCommand(query, conn);
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            planes.Add(new Plan(reader.GetDecimal(0), reader.GetString(1)));
+                        }
+                        conn.Close();
+                        return planes;
+                    }
+                }
+            }
 }

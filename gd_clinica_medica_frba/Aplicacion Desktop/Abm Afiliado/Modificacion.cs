@@ -21,7 +21,7 @@ namespace ClinicaFrba.Abm_Afiliado
             labelStatus.Text = "";
         }
 
-        Afiliado afiliado = nuevoAfiliado();
+        AfiliadoRol afiliado = AfiliadoRol.nuevoAfiliado();
 
         protected void permitirControles(Boolean valor)
         {
@@ -32,41 +32,6 @@ namespace ClinicaFrba.Abm_Afiliado
             textBox_afil_mail.Enabled = valor;
             textBox_afil_telefono.Enabled = valor;
             button_confirmar.Enabled = valor;
-        }
-
-        public class Afiliado
-        {
-            public string estadoCivil { get; set; }
-            public decimal plan { get; set; }
-            public string mail { get; set; }
-            public string direccion { get; set; }
-            public decimal telefono { get; set; }
-
-            public Afiliado(string e, decimal p, string m, string d, decimal t)
-            {
-                this.estadoCivil = e;
-                this.plan = p;
-                this.mail = m;
-                this.direccion = d;
-                this.telefono = t;
-            }
-        }
-
-        protected static Afiliado nuevoAfiliado()
-        {
-            return new Afiliado(null, 0, null, null, 0);
-        }
-
-        public class Plan
-        {
-            public decimal id { get; set; }
-            public string descripcion { get; set; }
-
-            public Plan(decimal _id, string _descripcion)
-            {
-                this.id = _id;
-                this.descripcion = _descripcion;
-            }
         }
 
         protected void traerDatosAfiliado()
@@ -81,39 +46,20 @@ namespace ClinicaFrba.Abm_Afiliado
 
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                afiliado = new Afiliado(reader.GetString(0), reader.GetDecimal(1), reader.GetString(2),
+                afiliado = new AfiliadoRol(reader.GetString(0), reader.GetDecimal(1), reader.GetString(2),
                     reader.GetString(3), reader.GetDecimal(4));
                 reader.Close();
                 conn.Close();
             }
         }
 
-        private void llenarComboPLan()
+        protected void llenarComboPlan()
         {
-            List<Plan> planes = new List<Plan>();
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
+            comboBox_afil_plan.DataSource = Plan.traerPlanesMedicos();
+            comboBox_afil_plan.DisplayMember = "descripcion";
+            comboBox_afil_plan.ValueMember = "id";
 
-                String query = "select plan_id, plan_med_descripcion from LOS_TRIGGERS.Plan_Medico";
-                SqlCommand command = new SqlCommand(query, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                if (comboBox_afil_plan.Items.Count <= 0)
-                {
-                    while (reader.Read())
-                    {
-                        planes.Add(new Plan(reader.GetDecimal(0), reader.GetString(1)));
-                    }
-
-                    comboBox_afil_plan.DataSource = planes;
-                    comboBox_afil_plan.DisplayMember = "descripcion";
-                    comboBox_afil_plan.ValueMember = "id";
-
-                    comboBox_afil_plan.SelectedItem = comboBox_afil_plan.Items.Cast<Plan>().Where(p => p.id == afiliado.plan).First();
-                }
-                conn.Close();
-            }
+            comboBox_afil_plan.SelectedItem = comboBox_afil_plan.Items.Cast<Plan>().Where(p => p.id == afiliado.plan).First();
         }
 
         private void llenarComboEstadoCivil()
@@ -154,20 +100,24 @@ namespace ClinicaFrba.Abm_Afiliado
                 "Plan Médico: " + comboBox_afil_plan.Text,
                 "Confirmación de la Operación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!string.IsNullOrEmpty(textBox_afil_Direccion.Text)) modificarDireccion();
+                if (textBox_afil_Direccion.Text != afiliado.direccion &&
+                    !string.IsNullOrEmpty(textBox_afil_Direccion.Text)) modificarDireccion();
 
-                if (!string.IsNullOrEmpty(comboBox_afil_estadoCivil.Text)) modificarEstadoCivil();
+                if (comboBox_afil_estadoCivil.Text != afiliado.estadoCivil && 
+                    !string.IsNullOrEmpty(comboBox_afil_estadoCivil.Text)) modificarEstadoCivil();
 
-                if (!string.IsNullOrEmpty(textBox_afil_telefono.Text)) modificarTelefono();
+                if (textBox_afil_telefono.Text != afiliado.telefono.ToString() && 
+                    !string.IsNullOrEmpty(textBox_afil_telefono.Text)) modificarTelefono();
 
-                if (!string.IsNullOrEmpty(textBox_afil_mail.Text)) modificarMail();
+                if (textBox_afil_mail.Text != afiliado.mail &&
+                    !string.IsNullOrEmpty(textBox_afil_mail.Text)) modificarMail();
 
                 if (updatePlan) modificarPlan();
 
                 MessageBox.Show("El afiliado Nº " + textBox_afil_numero.Text + " ha sido modificado exitosamente.",
                     "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 richTextBox_afil_motivo.Text = "";
-                traerDatosAfiliado();
+                permitirControles(false);
             }
         }
 
@@ -248,26 +198,6 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-        protected String verificarQueExistaElAfiliado()
-        {
-            String nombreAfiliado = "";
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
-                                                    "from LOS_TRIGGERS.Usuario where user_afiliado = " + textBox_afil_numero.Text, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                if (reader.HasRows) nombreAfiliado = reader.GetString(0);
-
-                reader.Close();
-                conn.Close();
-
-                return nombreAfiliado;
-            }
-        }
-
         private void button_cancelar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
@@ -284,13 +214,13 @@ namespace ClinicaFrba.Abm_Afiliado
             }
             else
             {
-                String nombreAfiliado = verificarQueExistaElAfiliado();
+                String nombreAfiliado = AfiliadoRol.verificarQueExistaElAfiliado(textBox_afil_numero.Text);
                 if (nombreAfiliado != "")
                 {
                     labelStatus.Text = "";
                     permitirControles(true);
                     traerDatosAfiliado();
-                    llenarComboPLan();
+                    llenarComboPlan();
                     llenarComboEstadoCivil();
                     textBox_afil_telefono.Text = afiliado.telefono.ToString();
                     textBox_afil_mail.Text = afiliado.mail;

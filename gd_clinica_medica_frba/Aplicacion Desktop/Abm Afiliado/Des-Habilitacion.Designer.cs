@@ -89,7 +89,7 @@
             this.button_deshabilitar.Name = "button_deshabilitar";
             this.button_deshabilitar.Size = new System.Drawing.Size(89, 28);
             this.button_deshabilitar.TabIndex = 24;
-            this.button_deshabilitar.Text = "Deshabilitar";
+            this.button_deshabilitar.Text = "Inshabilitar";
             this.button_deshabilitar.UseVisualStyleBackColor = true;
             this.button_deshabilitar.Click += new System.EventHandler(this.button_deshabilitar_Click);
             // 
@@ -99,9 +99,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(121, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(359, 24);
+            this.label1.Size = new System.Drawing.Size(346, 24);
             this.label1.TabIndex = 25;
-            this.label1.Text = "Habilitación/Deshabilitación de un Afiliado";
+            this.label1.Text = "Habilitación/ Inhabilitación de un Afiliado";
             // 
             // buttonVerificar
             // 

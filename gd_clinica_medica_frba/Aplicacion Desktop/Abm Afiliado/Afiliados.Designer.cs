@@ -51,7 +51,7 @@
             this.buttonBaja.Name = "buttonBaja";
             this.buttonBaja.Size = new System.Drawing.Size(115, 36);
             this.buttonBaja.TabIndex = 7;
-            this.buttonBaja.Text = "Habilitar/Deshabilitar";
+            this.buttonBaja.Text = "Habilitar/ Inhabilitar";
             this.buttonBaja.UseVisualStyleBackColor = true;
             this.buttonBaja.Click += new System.EventHandler(this.buttonBaja_Click);
             // 

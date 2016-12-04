@@ -43,7 +43,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
                     command.ExecuteNonQuery();
 
-                    MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " ha sido habilitado",
+                    MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " ha sido habilitado.",
                         "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     conn.Close();
                 }
@@ -66,7 +66,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     command.Parameters.AddWithValue("@fecha_sistema", SqlDbType.DateTime).Value = ClinicaFrba.fecha.fechaActual;
                     command.ExecuteNonQuery();
 
-                    MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " ha sido inhabilitado",
+                    MessageBox.Show("El afiliado " + textBox_afil_numero.Text + " ha sido inhabilitado.",
                         "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     conn.Close();
                 }
@@ -74,48 +74,10 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-        private Boolean validarHabilitacion()
-        {
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                string afil_habilitacion = "select afil_habilitacion from LOS_TRIGGERS.Afiliado where afil_numero = " + textBox_afil_numero.Text;
-                SqlCommand command = new SqlCommand(afil_habilitacion, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                bool habilitacion = reader.GetBoolean(0);
-                reader.Close();
-                conn.Close();
-
-                return habilitacion;
-            }
-        }
-
         private void button_cancelar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-        }
-
-        protected String verificarQueExistaElAfiliado()
-        {
-            String nombreAfiliado = "";
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
-                                                    "from LOS_TRIGGERS.Usuario where user_afiliado = " + textBox_afil_numero.Text, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                if (reader.HasRows) nombreAfiliado = reader.GetString(0);
-
-                reader.Close();
-                conn.Close();
-
-                return nombreAfiliado;
-            }
         }
 
         private void buttonVerificar_Click(object sender, EventArgs e)
@@ -127,10 +89,10 @@ namespace ClinicaFrba.Abm_Afiliado
             }
             else
             {
-                String nombreAfiliado = verificarQueExistaElAfiliado();
+                String nombreAfiliado = AfiliadoRol.verificarQueExistaElAfiliado(textBox_afil_numero.Text);
                 if (nombreAfiliado != "")
                 {
-                    if (validarHabilitacion())
+                    if (AfiliadoRol.validarHabilitacion(textBox_afil_numero.Text))
                     {
                         labelStatus.Text = "El afiliado " + nombreAfiliado + " se encuentra actualmente habilitado.";
                         button_habilitar.Enabled = false;

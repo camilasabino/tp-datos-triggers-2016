@@ -16,30 +16,34 @@ namespace ClinicaFrba
         public Login()
         {
             InitializeComponent();
-            cargarRoles();
+            cargarRolesHabilitados();
         }
 
-        public void cargarRoles()
-        {
-            List<String> rolesHabilitados = new List<String>();
-
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
+            protected int validar(string usuario, string contrasena, string rol)
             {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 " +
-                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 " +
-                                                    "union select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1",
-                                                    conexionBase);
-
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection conn = new SqlConnection(conexion.cadena))
                 {
-                    rolesHabilitados.Add(reader.GetString(0));
+                    conn.Open();
+                    SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@user_name", usuario);
+                    command.Parameters.AddWithValue("@user_password", contrasena);
+                    command.Parameters.AddWithValue("@rol", rol);
+
+                    SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Int);
+                    paramRetorno.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(paramRetorno);
+
+                    command.ExecuteNonQuery();
+                    int resultado = Convert.ToInt32(command.Parameters["@resultado"].Value);
+                    conn.Close();
+                    return resultado;
                 }
-                conexionBase.Close();
             }
-            c_rol.DataSource = rolesHabilitados;
+
+        protected void cargarRolesHabilitados()
+        {
+            c_rol.DataSource = usuario.traerRolesHabilitados();
         }
 
         private void b_ingresar_Click(object sender, EventArgs e)
@@ -47,7 +51,7 @@ namespace ClinicaFrba
             if (!string.IsNullOrEmpty(t_usuario.Text) && !string.IsNullOrEmpty(t_contrasena.Text)
                 && !string.IsNullOrEmpty(c_rol.Text))
             {
-                int resultado = login.validar(t_usuario.Text, t_contrasena.Text, c_rol.Text);
+                int resultado = validar(t_usuario.Text, t_contrasena.Text, c_rol.Text);
 
                 if (resultado == 4)
                 {

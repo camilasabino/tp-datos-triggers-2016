@@ -16,7 +16,7 @@ namespace ClinicaFrba.AbmRol
         public Eliminar()
         {
             InitializeComponent();
-            cargarRoles();
+            cargarRolesHabilitados();
         }
 
         private void Aceptar_Click(object sender, EventArgs e)
@@ -28,27 +28,9 @@ namespace ClinicaFrba.AbmRol
             }
         }
 
-        public void cargarRoles()
+        public void cargarRolesHabilitados()
         {
-            List<String> rolesHabilitados = new List<String>();
-
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
-            {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 "+
-                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 "+
-                                                    "union select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1",
-                                                    conexionBase);
-
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    rolesHabilitados.Add(reader.GetString(0));
-                }
-                conexionBase.Close();
-            }
-            cRoles.DataSource = rolesHabilitados;
+            cRoles.DataSource = usuario.traerRolesHabilitados();
         }
 
         private void darDeBaja()
@@ -65,7 +47,7 @@ namespace ClinicaFrba.AbmRol
 
                 conexionBase.Close();
             }
-            cargarRoles();
+            cargarRolesHabilitados();
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

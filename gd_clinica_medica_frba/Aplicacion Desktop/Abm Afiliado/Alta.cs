@@ -37,8 +37,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
         protected void limpiarFormulario()
         {
+            // limpia todo menos el username
             labelStatus.Text = "";
-            textBox_afil_usuario.Text = "";
             textBox_afil_titular.Text = "";
             comboBox_afil_relacionConTitular.SelectedIndex = -1;
             comboBox_afil_CantFamACargo.SelectedIndex = -1;
@@ -50,31 +50,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void llenarComboPLan()
         {
-            List<Modificacion.Plan> planes = new List<Modificacion.Plan>();
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
+            comboBox_afil_plan.DataSource = Plan.traerPlanesMedicos();
+            comboBox_afil_plan.DisplayMember = "descripcion";
+            comboBox_afil_plan.ValueMember = "id";
 
-                String query = "select plan_id, plan_med_descripcion from LOS_TRIGGERS.Plan_Medico";
-                SqlCommand command = new SqlCommand(query, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                if (comboBox_afil_plan.Items.Count <= 0)
-                {
-                    while (reader.Read())
-                    {
-                        planes.Add(new Modificacion.Plan(reader.GetDecimal(0), reader.GetString(1)));
-                    }
-
-                    comboBox_afil_plan.DataSource = planes;
-                    comboBox_afil_plan.DisplayMember = "descripcion";
-                    comboBox_afil_plan.ValueMember = "id";
-
-                    comboBox_afil_plan.SelectedItem = null;
-
-                }
-                conn.Close();
-            }
+            comboBox_afil_plan.SelectedIndex = -1; ;
         }
 
         private void llenarComboRelacionConTitular()
@@ -96,22 +76,6 @@ namespace ClinicaFrba.Abm_Afiliado
         private void llenarCantidadFamiliaresACargo()
         {
             for (int i = 0; i <= 10; i++) comboBox_afil_CantFamACargo.Items.Add(i);
-        }
-
-        protected void traerNumeroDelTitular()
-        {
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                string consultaNumeroDelTitular = "select user_afiliado from LOS_TRIGGERS.Usuario where user_id =" + textBox_afil_usuario.Text;
-                SqlCommand command = new SqlCommand(consultaNumeroDelTitular, conn);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                string numeroDelTitular = Convert.ToString(reader.GetDecimal(0));
-                reader.Close();
-                conn.Close();
-            }
         }
 
         private void limpiarCamposParaConyuge(String numeroTitular)
@@ -150,7 +114,6 @@ namespace ClinicaFrba.Abm_Afiliado
                 {
                     limpiarCamposParaConyuge(numeroTitular);
                 }
-                else limpiarFormulario();
             }
 
             int cantHijos = Convert.ToInt32(comboBox_afil_CantFamACargo.Text);
@@ -161,7 +124,6 @@ namespace ClinicaFrba.Abm_Afiliado
                 {
                     limpiarCamposParaHijos(numeroTitular);
                 }
-                else limpiarFormulario();
             }
         }
 
@@ -169,33 +131,34 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             if (!string.IsNullOrEmpty(textBox_afil_titular.Text))
             {
-            //seteamos valores a la base de datos
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.DarDeAltaUnAfiliado", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@usuario", SqlDbType.Decimal).Value = textBox_afil_usuario.Text;
-                if (textBox_afil_titular.Text.Equals("")) { cmd.Parameters.AddWithValue("@titularNumero", DBNull.Value); }
-                else { cmd.Parameters.AddWithValue("@titularNumero", SqlDbType.Decimal).Value = textBox_afil_titular.Text; }
-                cmd.Parameters.AddWithValue("@estadoCivil", SqlDbType.VarChar).Value = comboBox_afil_estadoCivil.Text;
-                cmd.Parameters.AddWithValue("@plan", SqlDbType.Decimal).Value = comboBox_afil_plan.SelectedValue;
-                cmd.Parameters.AddWithValue("@familiaresACargo", SqlDbType.Decimal).Value = comboBox_afil_CantFamACargo.Text;
-                cmd.Parameters.AddWithValue("@relacionConTitular", SqlDbType.VarChar).Value = comboBox_afil_relacionConTitular.Text;
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
+                //seteamos valores a la base de datos
+                SqlConnection conn = new SqlConnection(conexion.cadena);
+                using (conn)
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("LOS_TRIGGERS.DarDeAltaUnAfiliado", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@usuario", SqlDbType.Decimal).Value = textBox_afil_usuario.Text;
+                    if (textBox_afil_titular.Text.Equals("")) { cmd.Parameters.AddWithValue("@titularNumero", DBNull.Value); }
+                    else { cmd.Parameters.AddWithValue("@titularNumero", SqlDbType.Decimal).Value = textBox_afil_titular.Text; }
+                    cmd.Parameters.AddWithValue("@estadoCivil", SqlDbType.VarChar).Value = comboBox_afil_estadoCivil.Text;
+                    cmd.Parameters.AddWithValue("@plan", SqlDbType.Decimal).Value = comboBox_afil_plan.SelectedValue;
+                    cmd.Parameters.AddWithValue("@familiaresACargo", SqlDbType.Decimal).Value = comboBox_afil_CantFamACargo.Text;
+                    cmd.Parameters.AddWithValue("@relacionConTitular", SqlDbType.VarChar).Value = comboBox_afil_relacionConTitular.Text;
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
 
-            MessageBox.Show("La asiganción del rol Afiliado al usuario Nº " + textBox_afil_usuario.Text + " ha sido exitosa.",
-                "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("La asiganción del rol Afiliado al usuario Nº " + textBox_afil_usuario.Text + " ha sido exitosa.",
+                    "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //ofrece asociar al cónyuge si está casado o en concubinato, e hijos si tiene
-            ofrecerAsignacionAFamiliares(textBox_afil_usuario.Text+"01");
+                //ofrece asociar al cónyuge si está casado o en concubinato, e hijos si tiene
+                limpiarFormulario();
+                ofrecerAsignacionAFamiliares(textBox_afil_usuario.Text + "01");
             }
             else
             {
-                MessageBox.Show("Debe ingresar el número del Afiliado titular. Si se está registrando a un titular, ingresar "+
+                MessageBox.Show("Debe ingresar el número del Afiliado titular. Si se está registrando a un titular, ingresar " +
                     "'Nº de Usuario' +'01'.", "Hay campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -234,7 +197,7 @@ namespace ClinicaFrba.Abm_Afiliado
             using (conn)
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand("select ISNULL(user_afiliado, 0) from LOS_TRIGGERS.Usuario "+
+                SqlCommand command = new SqlCommand("select ISNULL(user_afiliado, 0) from LOS_TRIGGERS.Usuario " +
                     "where user_name = cast(@usuario as varchar)", conn);
                 command.Parameters.AddWithValue("@usuario", textBox_afil_usuario.Text);
                 SqlDataReader reader = command.ExecuteReader();
@@ -268,7 +231,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     else
                     {
-                        labelStatus.Text = "El usuario " +nombreUsuario +" ya tiene asignado el rol Afiliado.";
+                        labelStatus.Text = "El usuario " + nombreUsuario + " ya tiene asignado el rol Afiliado.";
                         permitirControles(false);
                         button_confirmar.Enabled = false;
                     }
