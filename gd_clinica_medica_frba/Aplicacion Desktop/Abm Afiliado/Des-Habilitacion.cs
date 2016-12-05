@@ -28,6 +28,10 @@ namespace ClinicaFrba.Abm_Afiliado
             labelStatus.Text = "";
         }
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void button_habilitar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Está seguro de habilitar al Afiliado indicado?", "Confirmación de la Operación",

@@ -19,27 +19,27 @@ namespace ClinicaFrba
             cargarRolesHabilitados();
         }
 
-            protected int validar(string usuario, string contrasena, string rol)
+        protected int validar(string usuario, string contrasena, string rol)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
             {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@user_name", usuario);
-                    command.Parameters.AddWithValue("@user_password", contrasena);
-                    command.Parameters.AddWithValue("@rol", rol);
+                conn.Open();
+                SqlCommand command = new SqlCommand("LOS_TRIGGERS.usuario_login", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@user_name", usuario);
+                command.Parameters.AddWithValue("@user_password", contrasena);
+                command.Parameters.AddWithValue("@rol", rol);
 
-                    SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Int);
-                    paramRetorno.Direction = ParameterDirection.Output;
-                    command.Parameters.Add(paramRetorno);
+                SqlParameter paramRetorno = new SqlParameter("@resultado", SqlDbType.Int);
+                paramRetorno.Direction = ParameterDirection.Output;
+                command.Parameters.Add(paramRetorno);
 
-                    command.ExecuteNonQuery();
-                    int resultado = Convert.ToInt32(command.Parameters["@resultado"].Value);
-                    conn.Close();
-                    return resultado;
-                }
+                command.ExecuteNonQuery();
+                int resultado = Convert.ToInt32(command.Parameters["@resultado"].Value);
+                conn.Close();
+                return resultado;
             }
+        }
 
         protected void cargarRolesHabilitados()
         {
@@ -63,7 +63,7 @@ namespace ClinicaFrba
                     MessageBox.Show("El usuario: " + t_usuario.Text + " no tiene asignado el rol " + c_rol.Text + ".",
                         "Login incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                else if (resultado == 0) // Login OK
+                else if (resultado == 0)
                 {
                     usuario.nombre_usuario = t_usuario.Text;
                     usuario.rol = c_rol.Text;
@@ -96,11 +96,8 @@ namespace ClinicaFrba
                     "Login incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else // Hay campos incompletos
-            {
-                MessageBox.Show("Por favor, complete todos los campos requeridos para el Login.", "No se han completado todos los campos",
+            else MessageBox.Show("Por favor, complete todos los campos requeridos para el Login.", "No se han completado todos los campos",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

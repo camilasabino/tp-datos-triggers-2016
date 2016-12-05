@@ -19,15 +19,6 @@ namespace ClinicaFrba.AbmRol
             cargarRolesHabilitados();
         }
 
-        private void Aceptar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Está seguro de que desea inhabilitar el rol: "+cRoles.Text+"?", "Inhabilitación de rol",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                darDeBaja();
-            }
-        }
-
         public void cargarRolesHabilitados()
         {
             cRoles.DataSource = usuario.traerRolesHabilitados();
@@ -48,6 +39,19 @@ namespace ClinicaFrba.AbmRol
                 conexionBase.Close();
             }
             cargarRolesHabilitados();
+        }
+
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
+        private void Aceptar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro de que desea inhabilitar el rol: " + cRoles.Text + "?", "Inhabilitación de rol",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                darDeBaja();
+            }
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

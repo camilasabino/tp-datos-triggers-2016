@@ -20,6 +20,39 @@ namespace ClinicaFrba.Compra_Bono
             labelMonto.Text = "$ -";
         }
 
+        protected void calcularMontoAPagar()
+        {
+            SqlConnection conn = new SqlConnection(conexion.cadena);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("select plan_precio_bono_consulta from LOS_TRIGGERS.Plan_Medico " +
+                                                     "where plan_id = (select afil_plan_medico from LOS_TRIGGERS.Afiliado " +
+                                                     "where afil_numero = @afiliado)", conn);
+                command.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(usuario.id_rol));
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                decimal precio = reader.GetDecimal(0);
+                decimal totalAPagar = precio * Convert.ToDecimal(textBox_afil_CantBonos.Text);
+                labelMonto.Text = "$ " + totalAPagar.ToString();
+                conn.Close();
+            }
+        }
+
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
+        private void buttonMonto_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_afil_CantBonos.Text))
+            {
+                MessageBox.Show("Por favor, indique la cantidad de Bonos a comprar.", "No se ha indicado una cantidad",
+                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else calcularMontoAPagar();
+        }
+
         private void button_confirmar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox_afil_CantBonos.Text))
@@ -55,35 +88,6 @@ namespace ClinicaFrba.Compra_Bono
                     }
                 }
             }
-        }
-
-        protected void calcularMontoAPagar()
-        {
-            SqlConnection conn = new SqlConnection(conexion.cadena);
-            using (conn)
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand("select plan_precio_bono_consulta from LOS_TRIGGERS.Plan_Medico " +
-                                                     "where plan_id = (select afil_plan_medico from LOS_TRIGGERS.Afiliado " +
-                                                     "where afil_numero = @afiliado)", conn);
-                command.Parameters.AddWithValue("@afiliado", Convert.ToDecimal(usuario.id_rol));
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                decimal precio = reader.GetDecimal(0);
-                decimal totalAPagar = precio * Convert.ToDecimal(textBox_afil_CantBonos.Text);
-                labelMonto.Text = "$ " + totalAPagar.ToString();
-                conn.Close();
-            }
-        }
-
-        private void buttonMonto_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(textBox_afil_CantBonos.Text))
-            {
-                MessageBox.Show("Por favor, indique la cantidad de Bonos a comprar.", "No se ha indicado una cantidad",
-                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else calcularMontoAPagar();
         }
 
         private void button_cancelar_Click(object sender, EventArgs e)

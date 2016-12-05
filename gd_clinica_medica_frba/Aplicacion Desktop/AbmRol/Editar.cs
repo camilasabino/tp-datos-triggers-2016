@@ -25,7 +25,6 @@ namespace ClinicaFrba.AbmRol
         }
 
         Menu menu;
-
         String nombre_rol = "";
 
         public void obtenerHabilitacion()
@@ -191,19 +190,6 @@ namespace ClinicaFrba.AbmRol
             cRoles.SelectedIndex = 0;
         }
 
-        private void cRoles_SelectedValueChanged(object sender, EventArgs e)
-        {
-            cargarNombre();
-            cargarFuncionalidadesParaAgregar();
-            cargarFuncionalidades();
-            obtenerHabilitacion();
-        }
-
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
-               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-        }
 
         private void habilitarRol()
         {
@@ -220,6 +206,24 @@ namespace ClinicaFrba.AbmRol
                 conexionBase.Close();
             }
             obtenerHabilitacion();
+        }
+
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
+        private void cRoles_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cargarNombre();
+            cargarFuncionalidadesParaAgregar();
+            cargarFuncionalidades();
+            obtenerHabilitacion();
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
         private void buttonHabilitar_Click(object sender, EventArgs e)

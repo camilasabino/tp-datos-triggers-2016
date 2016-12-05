@@ -83,108 +83,113 @@ namespace ClinicaFrba.Listados
             }
         }
 
+        protected DataSet afiliados_bonos(int anio, int semestre)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[AfiliadosConMasBonosComprados]", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@anio", anio);
+                command.Parameters.AddWithValue("@semestre", semestre);
+
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                conn.Close();
+                return ds;
+            }
+        }
+
+        protected DataSet profesionales_horas(int anio, int semestre, decimal plan, decimal especialidad)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[ProfesionalesConMenosHorasTrabajadas]", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@anio", anio);
+                command.Parameters.AddWithValue("@semestre", semestre);
+                command.Parameters.AddWithValue("@plan", plan);
+                command.Parameters.AddWithValue("@especialidad", especialidad);
+
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                conn.Close();
+                return ds;
+            }
+        }
+
+        protected DataSet profesionales_consultados(int anio, int semestre, decimal plan)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[ProfesionalesMasConsultadosPorPlan]", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@anio", anio);
+                command.Parameters.AddWithValue("@semestre", semestre);
+                command.Parameters.AddWithValue("@plan", plan);
+
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                conn.Close();
+                return ds;
+            }
+        }
+
+        protected DataSet especialidades_cancelaciones(int anio, int semestre)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[EspecialidadesConMasCancelaciones]", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@anio", anio);
+                command.Parameters.AddWithValue("@semestre", semestre);
+
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                conn.Close();
+                return ds;
+            }
+        }
+
+        protected DataSet especialidades_bonos(int anio, int semestre)
+        {
+            using (SqlConnection conn = new SqlConnection(conexion.cadena))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[EspecialidadesConMasBonosUtilizados]", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@anio", anio);
+                command.Parameters.AddWithValue("@semestre", semestre);
+
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                conn.Close();
+                return ds;
+            }
+        }
+
+
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void b_mostrar_Click(object sender, EventArgs e)
         {
             llenarGrid();
         }
-
-            protected DataSet afiliados_bonos(int anio, int semestre)
-            {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[AfiliadosConMasBonosComprados]", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@anio", anio);
-                    command.Parameters.AddWithValue("@semestre", semestre);
-
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds);
-                    conn.Close();
-                    return ds;
-                }
-            }
-
-            protected DataSet profesionales_horas(int anio, int semestre, decimal plan, decimal especialidad)
-            {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[ProfesionalesConMenosHorasTrabajadas]", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@anio", anio);
-                    command.Parameters.AddWithValue("@semestre", semestre);
-                    command.Parameters.AddWithValue("@plan", plan);
-                    command.Parameters.AddWithValue("@especialidad", especialidad);
-
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds);
-                    conn.Close();
-                    return ds;
-                }
-            }
-
-            protected DataSet profesionales_consultados(int anio, int semestre, decimal plan)
-            {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[ProfesionalesMasConsultadosPorPlan]", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@anio", anio);
-                    command.Parameters.AddWithValue("@semestre", semestre);
-                    command.Parameters.AddWithValue("@plan", plan);
-
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds);
-                    conn.Close();
-                    return ds;
-                }
-            }
-
-            protected DataSet especialidades_cancelaciones(int anio, int semestre)
-            {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[EspecialidadesConMasCancelaciones]", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@anio", anio);
-                    command.Parameters.AddWithValue("@semestre", semestre);
-
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds);
-                    conn.Close();
-                    return ds;
-                }
-            }
-
-            protected DataSet especialidades_bonos(int anio, int semestre)
-            {
-                using (SqlConnection conn = new SqlConnection(conexion.cadena))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("[LOS_TRIGGERS].[EspecialidadesConMasBonosUtilizados]", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@anio", anio);
-                    command.Parameters.AddWithValue("@semestre", semestre);
-
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds);
-                    conn.Close();
-                    return ds;
-                }
-            }
 
         private void buttonSalir_Click(object sender, EventArgs e)
         {

@@ -13,9 +13,6 @@ using System.Configuration;
 
 namespace ClinicaFrba.Pedir_Turno
 {
-    /***************************************************************************************************
-     *                                   PEDIDO DE TURNOS                                              *
-     ***************************************************************************************************/
     public partial class PedirTurno : Form
     {
         public PedirTurno()

@@ -17,6 +17,10 @@ namespace ClinicaFrba.Abm_Afiliado
             InitializeComponent();
         }
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void buttonSalir_Click_1(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",

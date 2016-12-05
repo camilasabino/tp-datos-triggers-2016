@@ -61,18 +61,6 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
         }
 
-        public class TipoCancelacion
-        {
-            public decimal id { get; set; }
-            public string descripcion { get; set; }
-
-            public TipoCancelacion(decimal _id, string _descripcion)
-            {
-                this.id = _id;
-                this.descripcion = _descripcion;
-            }
-        }
-
         protected Boolean tieneAgendaRegistrada()
         {
             List<decimal> diasDeAtencion = new List<decimal>();
@@ -140,27 +128,6 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
         }
 
-        public List<TipoCancelacion> obtenerTiposCancelacion()
-        {
-            List<TipoCancelacion> cancelaciones = new List<TipoCancelacion>();
-
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
-            {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select * from LOS_TRIGGERS.Tipo_Cancelacion", conexionBase);
-
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    cancelaciones.Add(
-                        new TipoCancelacion(reader.GetDecimal(0), reader.GetString(1)));
-                }
-                conexionBase.Close();
-            }
-            return cancelaciones;
-        }
-
         public DateTime fechaHastaDeAtencion()
         {
             SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
@@ -183,7 +150,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         protected void cargarTiposCancelacion()
         {
-            cTipoCancelacion.DataSource = obtenerTiposCancelacion();
+            cTipoCancelacion.DataSource = TipoCancelacion.obtenerTiposCancelacion();
             cTipoCancelacion.DisplayMember = "descripcion";
             cTipoCancelacion.ValueMember = "id";
         }
@@ -274,11 +241,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                     }
                 }
             }
-            else
-            {
-                MessageBox.Show("Por favor, indique el motivo de la cancelación.", "No se ha indicado un motivo",
+            else MessageBox.Show("Por favor, indique el motivo de la cancelación.", "No se ha indicado un motivo",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void buttonSalir_Click(object sender, EventArgs e)

@@ -20,9 +20,14 @@ namespace ClinicaFrba.AbmRol
 
         Menu menu;
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void Añadir_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("El Alta de un Rol no ha sido implementado, ya que para ello primero debe crearse su tabla correspondiente en la Base de Datos.",
+            MessageBox.Show("El Alta de un Rol no ha sido implementado, ya que ello implicaría primero "+
+                "crear una tabla correspondiente en la Base de Datos. (Ver Documento 'Estrategia')",
                 "Funcionalidad no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

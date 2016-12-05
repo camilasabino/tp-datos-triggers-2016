@@ -116,26 +116,30 @@ namespace ClinicaFrba.Registro_Llegada
             }
         }
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void b_registrar_Click(object sender, EventArgs e)
         {
-                string consultaARegistrar = "¿Desea registrar la siguiente Consulta Médica?" + "\n\n" +
-                    "Nº Turno: " + grilla_turnos.SelectedRows[0].Cells[0].Value.ToString() + "\n" +
-                    "Horario: " + grilla_turnos.SelectedRows[0].Cells[1].Value.ToString() + "\n" +
-                    "Profesional: " + c_profesional.SelectedValue.ToString() + "\n" +
-                    "Especialidad: " + c_especialidad.SelectedValue.ToString() + "\n" +
-                    "Afiliado: " + grilla_turnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
-                    "Bono Consulta: " + c_bonos.Text;
+            string consultaARegistrar = "¿Desea registrar la siguiente Consulta Médica?" + "\n\n" +
+                "Nº Turno: " + grilla_turnos.SelectedRows[0].Cells[0].Value.ToString() + "\n" +
+                "Horario: " + grilla_turnos.SelectedRows[0].Cells[1].Value.ToString() + "\n" +
+                "Profesional: " + c_profesional.SelectedValue.ToString() + "\n" +
+                "Especialidad: " + c_especialidad.SelectedValue.ToString() + "\n" +
+                "Afiliado: " + grilla_turnos.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
+                "Bono Consulta: " + c_bonos.Text;
 
-                if (MessageBox.Show(consultaARegistrar, "Confirmar registro de la Consulta Médica",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    registrarLlegada();
+            if (MessageBox.Show(consultaARegistrar, "Confirmar registro de la Consulta Médica",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                registrarLlegada();
 
-                    llenar_grilla_turnos();
-                    grilla_turnos.ClearSelection();
-                    MessageBox.Show("El registro de la Consulta Médica se ha completado satisfactoriamente.",
-                        "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                llenar_grilla_turnos();
+                grilla_turnos.ClearSelection();
+                MessageBox.Show("El registro de la Consulta Médica se ha completado satisfactoriamente.",
+                    "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void c_especialidad_SelectedValueChanged(object sender, EventArgs e)

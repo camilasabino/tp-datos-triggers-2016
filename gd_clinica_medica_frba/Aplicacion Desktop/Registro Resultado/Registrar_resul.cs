@@ -19,18 +19,6 @@ namespace ClinicaFrba.Registro_Resultado
             cargarEspecialidades();
         }
 
-        public class Especialidad
-        {
-            public decimal id { get; set; }
-            public string nombre { get; set; }
-
-            public Especialidad(decimal _id, string _nombre)
-            {
-                this.id = _id;
-                this.nombre = _nombre;
-            }
-        }
-
         protected void cargarEspecialidades()
         {
             cEspecialidad.DataSource = obtenerEspecialidades();
@@ -86,6 +74,10 @@ namespace ClinicaFrba.Registro_Resultado
             }
         }
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
         private void b_filtrar_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(t_afiliado.Text))
@@ -119,11 +111,8 @@ namespace ClinicaFrba.Registro_Resultado
                 MessageBox.Show("El registro del Diagnóstico se ha completado satisfactoriamente.",
                     "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                MessageBox.Show("Por favor, complete todos los datos correspondientes al Diagnóstico.", "No se han completado todos los campos",
+            else MessageBox.Show("Por favor, complete todos los datos correspondientes al Diagnóstico.", "No se han completado todos los campos",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void buttonSalir_Click(object sender, EventArgs e)

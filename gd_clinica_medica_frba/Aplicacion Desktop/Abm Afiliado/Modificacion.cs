@@ -74,22 +74,6 @@ namespace ClinicaFrba.Abm_Afiliado
             else comboBox_afil_estadoCivil.SelectedItem = comboBox_afil_estadoCivil.Items.Cast<String>().Where(e => e == afiliado.estadoCivil).First();
         }
 
-        private void button_confirmar_Click(object sender, EventArgs e)
-        {
-                if (((Plan)comboBox_afil_plan.SelectedItem).id != afiliado.plan
-                    && !string.IsNullOrEmpty(comboBox_afil_plan.Text))
-                {
-                    if (string.IsNullOrEmpty(richTextBox_afil_motivo.Text))
-                        MessageBox.Show("Debe ingresar un motivo que justifique el cambio de Plan Médico.",
-                            "Hay campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    else
-                    {
-                        continuarModificacion(true);
-                    }
-                }
-                else continuarModificacion(false);
-        }
-
         protected void continuarModificacion(Boolean updatePlan)
         {
             if (MessageBox.Show("¿Está seguro de modificar al Afiliado con los siguientes datos?" + "\n\n" +
@@ -103,10 +87,10 @@ namespace ClinicaFrba.Abm_Afiliado
                 if (textBox_afil_Direccion.Text != afiliado.direccion &&
                     !string.IsNullOrEmpty(textBox_afil_Direccion.Text)) modificarDireccion();
 
-                if (comboBox_afil_estadoCivil.Text != afiliado.estadoCivil && 
+                if (comboBox_afil_estadoCivil.Text != afiliado.estadoCivil &&
                     !string.IsNullOrEmpty(comboBox_afil_estadoCivil.Text)) modificarEstadoCivil();
 
-                if (textBox_afil_telefono.Text != afiliado.telefono.ToString() && 
+                if (textBox_afil_telefono.Text != afiliado.telefono.ToString() &&
                     !string.IsNullOrEmpty(textBox_afil_telefono.Text)) modificarTelefono();
 
                 if (textBox_afil_mail.Text != afiliado.mail &&
@@ -198,11 +182,30 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+        /**************************************************************************************************
+        *                                   EVENTOS DEL FORM                                              *
+        ***************************************************************************************************/
+
+        private void button_confirmar_Click(object sender, EventArgs e)
+        {
+            if (((Plan)comboBox_afil_plan.SelectedItem).id != afiliado.plan
+                && !string.IsNullOrEmpty(comboBox_afil_plan.Text))
+            {
+                if (string.IsNullOrEmpty(richTextBox_afil_motivo.Text))
+                    MessageBox.Show("Debe ingresar un motivo que justifique el cambio de Plan Médico.",
+                        "Hay campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    continuarModificacion(true);
+                }
+            }
+            else continuarModificacion(false);
+        }
+
         private void button_cancelar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Desea salir de esta funcionalidad ahora?", "Confirmar Salida",
-               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
-            Abm_Afiliado.Afiliado afiliado = new Abm_Afiliado.Afiliado();
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Hide();
         }
 
         private void buttonDatos_Click(object sender, EventArgs e)

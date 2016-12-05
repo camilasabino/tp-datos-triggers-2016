@@ -11,9 +11,6 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
-    /***************************************************************************************************
-    *                            REGISTRO DE AGENDA PROFESIONAL                                        *
-    ***************************************************************************************************/
     public partial class RegistrarAgenda : Form
     {
         public RegistrarAgenda()
@@ -77,9 +74,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select distinct(user_profesional) as profesional_id, "+
-                                                    "user_apellido+', '+user_nombre as apellido_y_nombre "+
-			                                        "from LOS_TRIGGERS.Usuario where user_profesional is not null order by 2",
+                SqlCommand comando = new SqlCommand("select distinct(user_profesional) as profesional_id, " +
+                                                    "user_apellido+', '+user_nombre as apellido_y_nombre " +
+                                                    "from LOS_TRIGGERS.Usuario where user_profesional is not null order by 2",
                                                     conexionBase);
 
                 SqlDataReader reader = comando.ExecuteReader();

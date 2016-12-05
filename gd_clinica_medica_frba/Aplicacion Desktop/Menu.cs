@@ -35,11 +35,6 @@ namespace ClinicaFrba
             b_registrar_resultado.Visible = usuario.permiso("Registro de Diagnóstico Médico", usuario.rol);
         }
 
-        private void b_abm_afiliado_Click(object sender, EventArgs e)
-        {
-            (new Abm_Afiliado.Afiliado()).Show();
-        }
-
         private void b_cerrar_sesion_Click(object sender, EventArgs e)
         {
             usuario.id_rol = 0;
@@ -51,9 +46,14 @@ namespace ClinicaFrba
             f1.Show();
         }
 
-       /***************************************************************************************************
-        *                                FUNCIONALIDADES DEL SISTEMA                                      *
-        ***************************************************************************************************/
+        /***************************************************************************************************
+         *                                FUNCIONALIDADES DEL SISTEMA                                      *
+         ***************************************************************************************************/
+
+        private void b_abm_afiliado_Click(object sender, EventArgs e)
+        {
+            (new Abm_Afiliado.Afiliado()).Show();
+        }
 
         private void b_registrar_llegada_Click(object sender, EventArgs e)
         {
@@ -97,9 +97,9 @@ namespace ClinicaFrba
             (new Registrar_Agenta_Medico.RegistrarAgenda()).Show();
         }
 
-       /***************************************************************************************************
-        *                             FUNCIONALIDADES NO IMPLEMENTADAS                                    *
-        ***************************************************************************************************/
+        /***************************************************************************************************
+         *                             FUNCIONALIDADES NO IMPLEMENTADAS                                    *
+         ***************************************************************************************************/
 
         private void mostrarAltertaDeNoImplementacion()
         {
@@ -120,11 +120,6 @@ namespace ClinicaFrba
         private void b_abm_profesional_Click(object sender, EventArgs e)
         {
             mostrarAltertaDeNoImplementacion();
-        }
-
-        private void Menu_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

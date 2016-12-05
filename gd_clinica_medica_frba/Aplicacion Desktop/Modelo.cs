@@ -66,9 +66,9 @@ namespace ClinicaFrba
             using (conexionBase)
             {
                 conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1 "+
-                                                    "union select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 "+                                
-                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 "+
+                SqlCommand comando = new SqlCommand("select nombre_rol from LOS_TRIGGERS.Administrador where admi_habilitacion = 1 " +
+                                                    "union select nombre_rol from LOS_TRIGGERS.Afiliado where afil_habilitacion = 1 " +
+                                                    "union select nombre_rol from LOS_TRIGGERS.Profesional where prof_habilitacion = 1 " +
                                                     "order by nombre_rol", conexionBase);
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -152,97 +152,130 @@ namespace ClinicaFrba
         }
     }
 
-            public class AfiliadoRol
+    public class AfiliadoRol
+    {
+        public string estadoCivil { get; set; }
+        public decimal plan { get; set; }
+        public string mail { get; set; }
+        public string direccion { get; set; }
+        public decimal telefono { get; set; }
+
+        public AfiliadoRol(string e, decimal p, string m, string d, decimal t)
         {
-            public string estadoCivil { get; set; }
-            public decimal plan { get; set; }
-            public string mail { get; set; }
-            public string direccion { get; set; }
-            public decimal telefono { get; set; }
+            this.estadoCivil = e;
+            this.plan = p;
+            this.mail = m;
+            this.direccion = d;
+            this.telefono = t;
+        }
 
-            public AfiliadoRol(string e, decimal p, string m, string d, decimal t)
+
+        public static AfiliadoRol nuevoAfiliado()
+        {
+            return new AfiliadoRol(null, 0, null, null, 0);
+        }
+
+        public static String verificarQueExistaElAfiliado(String afilNumero)
+        {
+            String nombreAfiliado = "";
+            SqlConnection conn = new SqlConnection(conexion.cadena);
+            using (conn)
             {
-                this.estadoCivil = e;
-                this.plan = p;
-                this.mail = m;
-                this.direccion = d;
-                this.telefono = t;
-            }
+                conn.Open();
+                SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
+                                                    "from LOS_TRIGGERS.Usuario where user_afiliado = " + afilNumero, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                if (reader.HasRows) nombreAfiliado = reader.GetString(0);
 
+                reader.Close();
+                conn.Close();
 
-            public static AfiliadoRol nuevoAfiliado()
-            {
-                return new AfiliadoRol(null, 0, null, null, 0);
-            }
-
-            public static String verificarQueExistaElAfiliado(String afilNumero)
-            {
-                String nombreAfiliado = "";
-                SqlConnection conn = new SqlConnection(conexion.cadena);
-                using (conn)
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("select user_apellido +', '+ user_nombre as nombre_y_apellido " +
-                                                        "from LOS_TRIGGERS.Usuario where user_afiliado = " + afilNumero, conn);
-                    SqlDataReader reader = command.ExecuteReader();
-                    reader.Read();
-                    if (reader.HasRows) nombreAfiliado = reader.GetString(0);
-
-                    reader.Close();
-                    conn.Close();
-
-                    return nombreAfiliado;
-                }
-            }
-
-            public static Boolean validarHabilitacion(String afilNumero)
-            {
-                SqlConnection conn = new SqlConnection(conexion.cadena);
-                using (conn)
-                {
-                    conn.Open();
-                    string afil_habilitacion = "select afil_habilitacion from LOS_TRIGGERS.Afiliado where afil_numero = " + afilNumero;
-                    SqlCommand command = new SqlCommand(afil_habilitacion, conn);
-                    SqlDataReader reader = command.ExecuteReader();
-                    reader.Read();
-                    bool habilitacion = reader.GetBoolean(0);
-                    reader.Close();
-                    conn.Close();
-
-                    return habilitacion;
-                }
+                return nombreAfiliado;
             }
         }
 
-            public class Plan
+        public static Boolean validarHabilitacion(String afilNumero)
+        {
+            SqlConnection conn = new SqlConnection(conexion.cadena);
+            using (conn)
             {
-                public decimal id { get; set; }
-                public string descripcion { get; set; }
+                conn.Open();
+                string afil_habilitacion = "select afil_habilitacion from LOS_TRIGGERS.Afiliado where afil_numero = " + afilNumero;
+                SqlCommand command = new SqlCommand(afil_habilitacion, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                bool habilitacion = reader.GetBoolean(0);
+                reader.Close();
+                conn.Close();
 
-                public Plan(decimal _id, string _descripcion)
-                {
-                    this.id = _id;
-                    this.descripcion = _descripcion;
-                }
-
-                public static List<Plan> traerPlanesMedicos()
-                {
-                    List<Plan> planes = new List<Plan>();
-                    SqlConnection conn = new SqlConnection(conexion.cadena);
-                    using (conn)
-                    {
-                        conn.Open();
-
-                        String query = "select plan_id, plan_med_descripcion from LOS_TRIGGERS.Plan_Medico";
-                        SqlCommand command = new SqlCommand(query, conn);
-                        SqlDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            planes.Add(new Plan(reader.GetDecimal(0), reader.GetString(1)));
-                        }
-                        conn.Close();
-                        return planes;
-                    }
-                }
+                return habilitacion;
             }
+        }
+    }
+
+    public class Plan
+    {
+        public decimal id { get; set; }
+        public string descripcion { get; set; }
+
+        public Plan(decimal _id, string _descripcion)
+        {
+            this.id = _id;
+            this.descripcion = _descripcion;
+        }
+
+        public static List<Plan> traerPlanesMedicos()
+        {
+            List<Plan> planes = new List<Plan>();
+            SqlConnection conn = new SqlConnection(conexion.cadena);
+            using (conn)
+            {
+                conn.Open();
+
+                String query = "select plan_id, plan_med_descripcion from LOS_TRIGGERS.Plan_Medico";
+                SqlCommand command = new SqlCommand(query, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    planes.Add(new Plan(reader.GetDecimal(0), reader.GetString(1)));
+                }
+                conn.Close();
+                return planes;
+            }
+        }
+    }
+
+    public class TipoCancelacion
+    {
+        public decimal id { get; set; }
+        public string descripcion { get; set; }
+
+        public TipoCancelacion(decimal _id, string _descripcion)
+        {
+            this.id = _id;
+            this.descripcion = _descripcion;
+        }
+
+        public static List<TipoCancelacion> obtenerTiposCancelacion()
+        {
+            List<TipoCancelacion> cancelaciones = new List<TipoCancelacion>();
+
+            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
+            using (conexionBase)
+            {
+                conexionBase.Open();
+                SqlCommand comando = new SqlCommand("select * from LOS_TRIGGERS.Tipo_Cancelacion", conexionBase);
+
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    cancelaciones.Add(
+                        new TipoCancelacion(reader.GetDecimal(0), reader.GetString(1)));
+                }
+                conexionBase.Close();
+            }
+            return cancelaciones;
+        }
+    }
 }

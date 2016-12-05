@@ -11,9 +11,6 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
-    /**************************************************************************************************
-    *                             CANCELACIÓN TURNO AFILIADO                                          *
-    ***************************************************************************************************/
     public partial class CancelacionAfiliado : Form
     {
         public CancelacionAfiliado()
@@ -24,18 +21,6 @@ namespace ClinicaFrba.Cancelar_Atencion
             gridCancelaciones.DefaultCellStyle.SelectionBackColor = gridTurnos.DefaultCellStyle.BackColor;
             gridCancelaciones.DefaultCellStyle.SelectionForeColor = gridTurnos.DefaultCellStyle.ForeColor;
             cargarTiposCancelacion();
-        }
-
-        public class TipoCancelacion
-        {
-            public decimal id { get; set; }
-            public string descripcion { get; set; }
-
-            public TipoCancelacion(decimal _id, string _descripcion)
-            {
-                this.id = _id;
-                this.descripcion = _descripcion;
-            }
         }
 
         protected void cargarTurnos()
@@ -80,30 +65,9 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
         }
 
-        public List<TipoCancelacion> obtenerTiposCancelacion()
-        {
-            List<TipoCancelacion> cancelaciones = new List<TipoCancelacion>();
-
-            SqlConnection conexionBase = new SqlConnection(ClinicaFrba.conexion.cadena);
-            using (conexionBase)
-            {
-                conexionBase.Open();
-                SqlCommand comando = new SqlCommand("select * from LOS_TRIGGERS.Tipo_Cancelacion", conexionBase);
-
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
-                {
-                    cancelaciones.Add(
-                        new TipoCancelacion(reader.GetDecimal(0), reader.GetString(1)));
-                }
-                conexionBase.Close();
-            }
-            return cancelaciones;
-        }
-
         protected void cargarTiposCancelacion()
         {
-            cTipoCancelacion.DataSource = obtenerTiposCancelacion();
+            cTipoCancelacion.DataSource = TipoCancelacion.obtenerTiposCancelacion();
             cTipoCancelacion.DisplayMember = "descripcion";
             cTipoCancelacion.ValueMember = "id";
         }
