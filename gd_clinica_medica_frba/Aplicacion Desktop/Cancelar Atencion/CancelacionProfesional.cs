@@ -11,9 +11,6 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Cancelar_Atencion
 {
-    /**************************************************************************************************
-    *                              CANCELACIÓN TURNO PROFESIONAL                                      *
-    ***************************************************************************************************/
     public partial class CancelacionProfesional : Form
     {
         public CancelacionProfesional()

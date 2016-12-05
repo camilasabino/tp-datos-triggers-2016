@@ -45,6 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cEspecialidad = new System.Windows.Forms.ComboBox();
+            this.labelConsultas = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grilla_consultas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +53,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 201);
+            this.label1.Location = new System.Drawing.Point(30, 204);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 13);
             this.label1.TabIndex = 9;
@@ -67,7 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grilla_consultas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grilla_consultas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grilla_consultas.Location = new System.Drawing.Point(28, 222);
+            this.grilla_consultas.Location = new System.Drawing.Point(28, 230);
             this.grilla_consultas.MultiSelect = false;
             this.grilla_consultas.Name = "grilla_consultas";
             this.grilla_consultas.ReadOnly = true;
@@ -77,7 +78,7 @@
             // 
             // t_afiliado
             // 
-            this.t_afiliado.Location = new System.Drawing.Point(28, 156);
+            this.t_afiliado.Location = new System.Drawing.Point(160, 131);
             this.t_afiliado.Name = "t_afiliado";
             this.t_afiliado.Size = new System.Drawing.Size(189, 20);
             this.t_afiliado.TabIndex = 11;
@@ -85,7 +86,7 @@
             // l_afiliado
             // 
             this.l_afiliado.AutoSize = true;
-            this.l_afiliado.Location = new System.Drawing.Point(25, 131);
+            this.l_afiliado.Location = new System.Drawing.Point(30, 133);
             this.l_afiliado.Name = "l_afiliado";
             this.l_afiliado.Size = new System.Drawing.Size(96, 13);
             this.l_afiliado.TabIndex = 13;
@@ -94,7 +95,7 @@
             // b_filtrarConsultas
             // 
             this.b_filtrarConsultas.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_filtrarConsultas.Location = new System.Drawing.Point(232, 154);
+            this.b_filtrarConsultas.Location = new System.Drawing.Point(366, 133);
             this.b_filtrarConsultas.Name = "b_filtrarConsultas";
             this.b_filtrarConsultas.Size = new System.Drawing.Size(99, 23);
             this.b_filtrarConsultas.TabIndex = 16;
@@ -193,7 +194,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 88);
+            this.label4.Location = new System.Drawing.Point(30, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 13);
             this.label4.TabIndex = 29;
@@ -203,16 +204,27 @@
             // 
             this.cEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cEspecialidad.FormattingEnabled = true;
-            this.cEspecialidad.Location = new System.Drawing.Point(160, 88);
+            this.cEspecialidad.Location = new System.Drawing.Point(160, 83);
             this.cEspecialidad.Name = "cEspecialidad";
             this.cEspecialidad.Size = new System.Drawing.Size(266, 21);
             this.cEspecialidad.TabIndex = 30;
+            // 
+            // labelConsultas
+            // 
+            this.labelConsultas.AutoSize = true;
+            this.labelConsultas.ForeColor = System.Drawing.Color.Crimson;
+            this.labelConsultas.Location = new System.Drawing.Point(33, 172);
+            this.labelConsultas.Name = "labelConsultas";
+            this.labelConsultas.Size = new System.Drawing.Size(98, 13);
+            this.labelConsultas.TabIndex = 31;
+            this.labelConsultas.Text = "<consultas_status>";
             // 
             // Registrar_resul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 470);
+            this.Controls.Add(this.labelConsultas);
             this.Controls.Add(this.cEspecialidad);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -256,5 +268,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cEspecialidad;
+        private System.Windows.Forms.Label labelConsultas;
     }
 }

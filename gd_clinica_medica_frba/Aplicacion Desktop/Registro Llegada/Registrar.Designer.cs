@@ -129,9 +129,9 @@
             this.l_bonos.AutoSize = true;
             this.l_bonos.Location = new System.Drawing.Point(484, 184);
             this.l_bonos.Name = "l_bonos";
-            this.l_bonos.Size = new System.Drawing.Size(149, 13);
+            this.l_bonos.Size = new System.Drawing.Size(164, 13);
             this.l_bonos.TabIndex = 8;
-            this.l_bonos.Text = "Bonos disponibles del Afiliado:";
+            this.l_bonos.Text = "Nº Bonos disponibles del Afiliado:";
             // 
             // c_bonos
             // 

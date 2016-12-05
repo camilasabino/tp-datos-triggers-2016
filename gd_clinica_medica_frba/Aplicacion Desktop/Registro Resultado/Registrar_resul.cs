@@ -17,6 +17,7 @@ namespace ClinicaFrba.Registro_Resultado
         {
             InitializeComponent();
             cargarEspecialidades();
+            labelConsultas.Text = "";
         }
 
         protected void cargarEspecialidades()
@@ -68,6 +69,9 @@ namespace ClinicaFrba.Registro_Resultado
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
 
                 adapter.Fill(consultas);
+                if (consultas.Rows.Count == 0) labelConsultas.Text = "No se encontraron Consultas pendientes en el día de hoy para el Afiliado indicado.";
+                else labelConsultas.Text = "";
+                
                 grilla_consultas.DataSource = consultas;
 
                 conexionBase.Close();
@@ -110,6 +114,7 @@ namespace ClinicaFrba.Registro_Resultado
                 }
                 MessageBox.Show("El registro del Diagnóstico se ha completado satisfactoriamente.",
                     "Resultado de la Operación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                labelConsultas.Text = "";
             }
             else MessageBox.Show("Por favor, complete todos los datos correspondientes al Diagnóstico.", "No se han completado todos los campos",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
